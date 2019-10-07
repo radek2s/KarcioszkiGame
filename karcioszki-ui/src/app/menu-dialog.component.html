@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Create a new game</h1>
+<div mat-dialog-content class="flex column">
+    <mat-form-field>
+        <input matInput placeholder="Nazwa gracza" [(ngModel)]="data.playerName" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Id gry" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Wybierz zestaw kart:</mat-label>
+      <mat-select [(ngModel)]="data.selectedPackage">
+        <mat-option *ngFor="let package of cardPackages" [value]="package">
+          {{package.packageName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anuluj</button>
+  <button mat-button [mat-dialog-close]="data">Utwórz!</button>
+</div>

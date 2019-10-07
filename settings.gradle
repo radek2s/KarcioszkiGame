@@ -1,0 +1,8 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'karcioszki'
+include ':karcioszki-ui'
+project(':karcioszki-ui').projectDir = new File('./karcioszki-ui/');

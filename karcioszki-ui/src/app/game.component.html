@@ -1,0 +1,18 @@
+<mat-toolbar>
+    <span>Pokój numer: {{gameSession.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+</mat-toolbar>
+<section *ngIf="!gameSession.started">
+    <mat-list>
+        <mat-list-item>Lista graczy | drużyna | lider</mat-list-item>
+        <mat-list-item *ngFor="let player of gameSession.players">
+            {{player.name}} | {{player.team}} | {{player.leader}}
+        </mat-list-item>
+    </mat-list>
+    <button mat-raised-button color="primary" (click)="onClickStart()">Start</button>
+</section>
+<section *ngIf="gameSession.started">
+    <p>GameStarted!</p>
+</section>
+

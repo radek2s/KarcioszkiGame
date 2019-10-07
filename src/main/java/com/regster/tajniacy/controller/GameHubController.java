@@ -1,0 +1,147 @@
+package com.regster.tajniacy.controller;
+
+import com.regster.tajniacy.model.ActiveTeam;
+import com.regster.tajniacy.model.GameCardPackage;
+import com.regster.tajniacy.model.GameSession;
+import com.regster.tajniacy.model.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+
+/**
+ * Game Hub Controller Class
+ * @author Radek Jajko
+ *
+ * Main class to handle the game events. Handle user requests for API and
+ * WebSocket messages.  This class holds every created gameSession, it also provide
+ * a methotds to create a new sessions and to setup the game.
+ */
+@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(path = "/api/game")
+public class GameHubController {
+
+    private ArrayList<GameSession> gameSessions;
+    private SimpMessagingTemplate template;
+
+    @Autowired
+    public GameHubController(SimpMessagingTemplate template) {
+        this.template = template;
+    }
+
+    /**
+     * Show Games
+     *
+     * While opening the main view, handle this request to return
+     * currently created gameSessionIds.
+     * @return gameSessionIds
+     */
+    @RequestMapping(value = "/hub")
+    @MessageMapping("/game/hub")
+    @SendTo("/topic/hub")
+    public ResponseEntity<ArrayList<Integer>> showGames() {
+        return new ResponseEntity<>(getGameSessionIds(), HttpStatus.OK);
+    }
+
+    /**
+     * OpenGame
+     *
+     * Join or create a new gameSession if it do not exist. Then send a message
+     * about created game to WebSocket topic. And for API request return this gameSession
+     * @param id id of the game
+     * @return GameSession
+     */
+    @RequestMapping(value = "/hub/{id}")
+    public ResponseEntity<GameSession> openGame(@PathVariable("id") int id) {
+        GameSession currentGameSession = new GameSession(id);
+        if (this.gameSessions == null) {
+            this.gameSessions = new ArrayList<>();
+            this.gameSessions.add(currentGameSession);
+            this.template.convertAndSend("/topic/hub", getGameSessionIds());
+        } else {
+            if(getGameSessionById(id) == null) {
+                this.gameSessions.add(currentGameSession);
+                this.template.convertAndSend("/topic/hub", getGameSessionIds());
+            } else if(getGameSessionById(id).isStarted()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
+    }
+
+    @MessageMapping("/game/hub/{id}/player/add")
+    @SendTo("/topic/hub/{id}")
+    public GameSession addPlayer(@DestinationVariable int id, Player player) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.addPlayer(player);
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/player/update")
+    @SendTo("/topic/hub/{id}")
+    public GameSession updatePlayer(@DestinationVariable int id, Player player) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.updatePlayer(player);
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/card-package")
+    @SendTo("/topic/hub/{id}")
+    public GameSession selectGameCardPackage(@DestinationVariable int id, GameCardPackage selectedGameCardPackage) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.setGameCardPackage(selectedGameCardPackage);
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/start")
+    @SendTo("/topic/hub/{id}")
+    public GameSession selectGameCardPackage(@DestinationVariable int id) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.setStarted(true);
+        gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
+        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards());
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/turn")
+    @SendTo("/topic/hub/{id}")
+    public GameSession gameUpdated(@DestinationVariable int id, GameSession gameSession) {
+
+        if(gameSession.getGameState() == ActiveTeam.TEAM_A.ordinal()) {
+            gameSession.setGameState(ActiveTeam.TEAM_B.ordinal());
+        } else {
+            gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
+        }
+        return gameSession;
+    }
+
+    private GameSession getGameSessionById(int id) {
+        if (this.gameSessions != null) {
+            for (GameSession gs : this.gameSessions) {
+                if (gs.getId() == id) {
+                    return gs;
+                }
+            }
+        }
+        return null;
+    }
+
+    private ArrayList<Integer> getGameSessionIds() {
+        ArrayList<Integer> gameIds = new ArrayList<>();
+        if(this.gameSessions != null) {
+            for (GameSession gameSession: this.gameSessions) {
+                gameIds.add(gameSession.getId());
+            }
+        }
+        return gameIds;
+    }
+
+}
