@@ -7,12 +7,25 @@
     <mat-list>
         <mat-list-item>Lista graczy | drużyna | lider</mat-list-item>
         <mat-list-item *ngFor="let player of gameSession.players">
-            {{player.name}} | {{player.team}} | {{player.leader}}
+            {{player.name}} 
+            <button mat-raised-button color="primary" [ngStyle]="{'background-color':player.team === 'red' ? 'red' : 'blue'}" (click)="changeTeam(player)">Color</button>
+            <mat-checkbox (click)="changeLeaderStatus(player)" [(ngModel)]="player.leader">Lider</mat-checkbox>
+      
+            <br>
+            | {{player.team}} | {{player.leader}}
         </mat-list-item>
     </mat-list>
-    <button mat-raised-button color="primary" (click)="onClickStart()">Start</button>
+    <button mat-raised-button color="primary" (click)="startGameSession()" >Start</button>
+    <!-- (click)="startGame()" -->
 </section>
 <section *ngIf="gameSession.started">
     <p>GameStarted!</p>
+    <mat-list>
+        <mat-list-item>Lista kart</mat-list-item>
+        <mat-list-item *ngFor="let card of gameSession.gameCardPackage.cards">
+            
+            <!-- tu ma być sprawdzane czy obecny jest liderem i jak tak to kolorować na kolor kart -->
+            <button mat-raised-button color="primary" [ngStyle]="{'background-color':false === true ? 'red' : 'gray'}"> {{card}} </button>
+        </mat-list-item>
+    </mat-list>
 </section>
-

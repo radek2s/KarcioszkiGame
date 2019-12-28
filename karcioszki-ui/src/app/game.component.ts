@@ -85,6 +85,40 @@ export class GameComponent implements OnInit, OnDestroy {
   //TODO: Create selectable player update only for activePlayer (activePlayer can change only his properties)
 
   //TODO: GameLogic :D (when the start button starts a game!)
+  
+  /**
+   * cokolwiek
+   */
+  changeTeam(player):void {
+    let team = this.gameSession.players.find(p => p.name === player.name).team;
+    if (team === 'red') {
+      team = 'blue';
+    } else {
+      team = 'red';
+    }
+    player.team = team;
+    console.log(player);
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
+
+  }
+
+  changeLeaderStatus(player):void {
+    let team = this.gameSession.players.find(p => p.name === player.name).leader;
+    if (team) {
+      team = false;
+    } else {
+      team = true;
+    }
+    player.leader = team;
+    console.log(player);
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
+
+  }
+
+  startGameSession(): void {
+    console.log(this.gameSession);
+    this.gameSession.started = true;
+  }
 
   ngOnDestroy(): void {
     this.webSocket._disconnect();
