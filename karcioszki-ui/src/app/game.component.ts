@@ -23,15 +23,15 @@ export class GameComponent implements OnInit, OnDestroy {
   gameSession: GameSession;
   webSocket: WebSocket;
   activePlayer: Player = new Player();
-  
+
   /**
    * Create a new Game Component
    * 
    * @param route - Currently opened Route (address in url)
    * @param gameService - REST methods to fetch data from remote server
    */
-  constructor(private route: ActivatedRoute, private gameService: GameService){ }
-  
+  constructor(private route: ActivatedRoute, private gameService: GameService) { }
+
   /**
    * Method invoked when component is created
    * 
@@ -46,21 +46,21 @@ export class GameComponent implements OnInit, OnDestroy {
       //When data has been received from server - save them to gameSession variable
       this.gameSession = data;
       this.getDataFromRouter().then((routerData: any) => {
-        if(routerData !== undefined) {
+        if (routerData !== undefined) {
           this.activePlayer.name = routerData.player;
           setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
         }
       });
-    })  
+    })
   }
 
   /**
    * Get Data from Active Route
    * Load player name and packageCard
    */
-  getDataFromRouter(): Promise<Object>{
+  getDataFromRouter(): Promise<Object> {
     return new Promise((resolve, reject) => {
-      this.route.paramMap.pipe(map(()=> window.history.state.data)).subscribe((data) => {
+      this.route.paramMap.pipe(map(() => window.history.state.data)).subscribe((data) => {
         resolve(data);
       })
     })
@@ -74,7 +74,7 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   getDataFromApi(id): Promise<GameSession> {
     return new Promise((resolve, reject) => {
-      this.gameService.getGameSession(id).subscribe((gameSession:GameSession) => {
+      this.gameService.getGameSession(id).subscribe((gameSession: GameSession) => {
         resolve(gameSession)
       })
     })
@@ -85,24 +85,18 @@ export class GameComponent implements OnInit, OnDestroy {
   //TODO: Create selectable player update only for activePlayer (activePlayer can change only his properties)
 
   //TODO: GameLogic :D (when the start button starts a game!)
-  
+
   /**
    * cokolwiek
    */
-  changeTeam(player):void {
-    let team = this.gameSession.players.find(p => p.name === player.name).team;
-    if (team === 'red') {
-      team = 'blue';
-    } else {
-      team = 'red';
+  changeTeam(player): void {
+    if (player.name === this.activePlayer.name) {
+      player.team = player.team === 'red' ? 'blue' : 'red';
+      this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
     }
-    player.team = team;
-    console.log(player);
-    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
-
   }
 
-  changeLeaderStatus(player):void {
+  changeLeaderStatus(player): void {
     let team = this.gameSession.players.find(p => p.name === player.name).leader;
     if (team) {
       team = false;
@@ -118,6 +112,7 @@ export class GameComponent implements OnInit, OnDestroy {
   startGameSession(): void {
     console.log(this.gameSession);
     this.gameSession.started = true;
+    this.updateGame();
   }
 
   ngOnDestroy(): void {
@@ -129,13 +124,18 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
-    if(gamePlayer !== undefined && gamePlayer.name !== '') {
+    if (gamePlayer !== undefined && gamePlayer.name !== '') {
       console.debug("Creating player:" + gamePlayer.name)
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/player/add`, gamePlayer)
     }
-    if(gamePackage !== undefined) {
-      console.debug("Creating gamePackage:" + gamePackage.packageName)
+    if (gamePackage !== undefined) {
+      console.debug("Creating gamePackage:" + gamePackage.packageName);
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-package`, gamePackage);
     }
+  }
+
+  private updateGame() {
+    console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
   }
 }
