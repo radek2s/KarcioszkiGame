@@ -43,11 +43,12 @@ export class GameComponent implements OnInit, OnDestroy {
     this.webSocket = new WebSocket(this, `/topic/hub/${gameId}`);
 
     this.getDataFromApi(gameId).then((data: GameSession) => {
-      //When data has been received from server - save them to gameSession variable
       this.gameSession = data;
       this.getDataFromRouter().then((routerData: any) => {
         if (routerData !== undefined) {
           this.activePlayer.name = routerData.player;
+          this.activePlayer.leader = false;
+          this.activePlayer.team = "red";
           setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
         }
       });
@@ -86,33 +87,25 @@ export class GameComponent implements OnInit, OnDestroy {
 
   //TODO: GameLogic :D (when the start button starts a game!)
 
-  /**
-   * cokolwiek
-   */
   changeTeam(player): void {
     if (player.name === this.activePlayer.name) {
       player.team = player.team === 'red' ? 'blue' : 'red';
-      this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
+      this.updatePlayer(player);
     }
   }
 
   changeLeaderStatus(player): void {
-    let team = this.gameSession.players.find(p => p.name === player.name).leader;
-    if (team) {
-      team = false;
-    } else {
-      team = true;
+    if (player.name === this.activePlayer.name) {
+      if(player.leader === undefined) {
+        player.leader = false;
+      }
+      player.leader = !player.leader;
+      this.updatePlayer(player);
     }
-    player.leader = team;
-    console.log(player);
-    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
-
   }
 
   startGameSession(): void {
-    console.log(this.gameSession);
-    this.gameSession.started = true;
-    this.updateGame();
+    this.startGame();
   }
 
   ngOnDestroy(): void {
@@ -125,11 +118,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
     if (gamePlayer !== undefined && gamePlayer.name !== '') {
-      console.debug("Creating player:" + gamePlayer.name)
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/player/add`, gamePlayer)
     }
     if (gamePackage !== undefined) {
-      console.debug("Creating gamePackage:" + gamePackage.packageName);
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-package`, gamePackage);
     }
   }
@@ -138,4 +129,14 @@ export class GameComponent implements OnInit, OnDestroy {
     console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
   }
+
+  private startGame() {
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/start`, undefined);
+  }
+
+  private updatePlayer(player) {
+    this.activePlayer = player;
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
+  }
+
 }

@@ -12,13 +12,11 @@ sourceCompatibility = '11'
 processResources {
 	from './karcioszki-ui/dist'
 }
-processResources.dependsOn(':karcioszki-ui:buildAngular')
+//processResources.dependsOn(':karcioszki-ui:buildAngular')
 
 repositories {
 	mavenCentral()
 }
-
-
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

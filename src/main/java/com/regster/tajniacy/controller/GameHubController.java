@@ -70,9 +70,10 @@ public class GameHubController {
             if(getGameSessionById(id) == null) {
                 this.gameSessions.add(currentGameSession);
                 this.template.convertAndSend("/topic/hub", getGameSessionIds());
-            } else if(getGameSessionById(id).isStarted()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+//            else if(getGameSessionById(id).isStarted()) {
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }
         }
         return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
     }
