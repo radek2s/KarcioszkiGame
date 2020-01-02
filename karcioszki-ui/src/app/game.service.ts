@@ -20,7 +20,7 @@ export class GameService {
    * Return a currently created game session id's
    */
   getGameIdList(){
-    return this.http.get<Number[]>(this.gameHubUrl)
+    return this.http.get<number[]>(this.gameHubUrl)
   }
 
   /**

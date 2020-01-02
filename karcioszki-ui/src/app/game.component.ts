@@ -49,7 +49,10 @@ export class GameComponent implements OnInit, OnDestroy {
           this.activePlayer.name = routerData.player;
           this.activePlayer.leader = false;
           this.activePlayer.team = "red";
+          this.saveActivePlayer();
           setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
+        } else {
+          this.loadActivePlayer();
         }
       });
     })
@@ -83,8 +86,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   //TODO: Exit from room method (delete from this gamesession this user)
 
-  //TODO: Create selectable player update only for activePlayer (activePlayer can change only his properties)
-
   //TODO: GameLogic :D (when the start button starts a game!)
 
   changeTeam(player): void {
@@ -102,6 +103,11 @@ export class GameComponent implements OnInit, OnDestroy {
       player.leader = !player.leader;
       this.updatePlayer(player);
     }
+  }
+
+  selectedCard(card) {
+    console.log(card);
+    //TODO: Card clicked logic - update points for team
   }
 
   startGameSession(): void {
@@ -136,7 +142,16 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private updatePlayer(player) {
     this.activePlayer = player;
+    this.saveActivePlayer();
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
+  }
+
+  private saveActivePlayer() {
+    sessionStorage.setItem("activePlayer", JSON.stringify(this.activePlayer));
+  }
+
+  private loadActivePlayer() {
+    this.activePlayer = JSON.parse(sessionStorage.getItem("activePlayer"));
   }
 
 }

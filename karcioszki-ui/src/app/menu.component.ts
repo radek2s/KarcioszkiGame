@@ -13,7 +13,7 @@ import { WebSocket } from './WebSocketAPI';
 export class MenuComponent implements OnInit {
   
   playerName: string;
-  gameIds:Number[] = [];
+  gameIds:number[] = [];
   selectedGame: Number;
   cardsPackage: CardsPackage;
   ws: WebSocket;
@@ -40,9 +40,10 @@ export class MenuComponent implements OnInit {
   }
 
   openDialog(){
+    const maxId = Math.max(...this.gameIds.map(o => o), 0);
     const dialogRef = this.dialog.open(MenuDialog, {
         width: '80%',
-        data: {selectedPackage: null, playerName: this.playerName, gameId: 1}
+        data: {selectedPackage: null, playerName: this.playerName, gameId: maxId+1}
       });
   
       dialogRef.afterClosed().subscribe(result => {
