@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameSession } from 'src/models/GameSession';
 import { CardsPackage } from 'src/models/CardsPackage';
 import { Player } from 'src/models/Player';
 import { GameService } from './game.service';
 import { WebSocket } from './WebSocketAPI';
 import { map } from 'rxjs/operators';
+import { Card } from 'src/models/Card';
 
 /**
  * Game Component Class
@@ -30,7 +31,7 @@ export class GameComponent implements OnInit, OnDestroy {
    * @param route - Currently opened Route (address in url)
    * @param gameService - REST methods to fetch data from remote server
    */
-  constructor(private route: ActivatedRoute, private gameService: GameService) { }
+  constructor(private route: ActivatedRoute, private gameService: GameService, private router: Router) { }
 
   /**
    * Method invoked when component is created
@@ -48,7 +49,7 @@ export class GameComponent implements OnInit, OnDestroy {
         if (routerData !== undefined) {
           this.activePlayer.name = routerData.player;
           this.activePlayer.leader = false;
-          this.activePlayer.team = "red";
+          this.activePlayer.team = 0;
           this.saveActivePlayer();
           setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
         } else {
@@ -56,6 +57,13 @@ export class GameComponent implements OnInit, OnDestroy {
         }
       });
     })
+  }
+
+  clearSessionGame(gameSession):void{
+    console.log(gameSession);
+    gameSession = null;
+    this.router.navigate(['/hub']);
+    //TODO: endGame
   }
 
   /**
@@ -89,8 +97,9 @@ export class GameComponent implements OnInit, OnDestroy {
   //TODO: GameLogic :D (when the start button starts a game!)
 
   changeTeam(player): void {
+    console.debug(player);
     if (player.name === this.activePlayer.name) {
-      player.team = player.team === 'red' ? 'blue' : 'red';
+      player.team = player.team == 0 ? 1 : 0;
       this.updatePlayer(player);
     }
   }
@@ -105,8 +114,9 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectedCard(card) {
-    console.log(card);
+  selectedCard(card:Card, event) {
+    card.selected=true;
+
     //TODO: Card clicked logic - update points for team
   }
 

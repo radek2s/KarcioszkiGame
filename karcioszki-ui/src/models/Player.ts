@@ -1,5 +1,5 @@
 export class Player {
     name:String;
-    team:String;
+    team:number;
     leader:boolean;
 }

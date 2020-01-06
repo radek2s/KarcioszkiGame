@@ -1,7 +1,10 @@
 <mat-toolbar>
+    <button mat-raised-button color="primary" (click)="clearSessionGame(gameSession)">
+        Zakończ grę
+    </button>
     <span>Pokój numer: {{gameSession.id}}</span>
     <span class="fill-remaining-space"></span>
-    <span [ngStyle]="{'color':activePlayer.team === 'red' ? 'red' : 'blue'}">{{activePlayer.name}}</span>
+    <span [ngStyle]="{'color':activePlayer.team == 0 ? 'red' : 'blue'}">{{activePlayer.name}}</span>
     <span *ngIf=activePlayer.leader> (Lider)</span>
     <span class="fill-remaining-space"></span>
     <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
@@ -10,24 +13,42 @@
     <mat-list>
         <mat-list-item>Lista graczy | drużyna | lider</mat-list-item>
         <mat-list-item *ngFor="let player of gameSession.players">
-            {{player.name}} 
-            <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name' [ngStyle]="{'background-color':player.team === 'red' ? 'red' : 'blue'}" (click)="changeTeam(player)">Zmień drużynę</button>
-            <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name' [ngStyle]="{'background-color':player.leader ? 'yellow' : 'gray'}" (click)="changeLeaderStatus(player)">Lider</button>
+            {{player.name}}
+            <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name'
+                [ngStyle]="{'background-color':player.team == 0 ? 'red' : 'blue'}"
+                (click)="changeTeam(player)">Zmień drużynę</button>
+            <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name'
+                [ngStyle]="{'background-color':player.leader ? 'yellow' : 'gray'}"
+                (click)="changeLeaderStatus(player)">Lider</button>
         </mat-list-item>
     </mat-list>
-    <button mat-raised-button color="primary" (click)="startGameSession()" >Start</button>
+    <button mat-raised-button color="primary" (click)="startGameSession()">Start</button>
     <!-- (click)="startGame()" -->
 </section>
 <section *ngIf="gameSession.started">
-    <p>Aktywna drużyna: <span>{{gameSession.gameState}}</span></p>
+    <section>
+    <p>Aktywna drużyna:</p>
+        <div style="height: 20px; width:50px;"
+            [ngStyle]="{'background-color': gameSession.gameState === 0 ? 'red' : 'blue'}">
+            <!-- {{gameSession.gameState}} -->
+        </div>
+        <div>
+            <p>Bonusowa karta</p>
+            <mat-checkbox color="primary">niebiescy</mat-checkbox>
+            <mat-checkbox color="warn">czerwoni</mat-checkbox>
+        </div>
+    </section>
+
     <mat-list *ngIf="activePlayer.leader">
         <mat-list-item *ngFor="let card of gameSession.gameCards" class="card">
-            <button mat-raised-button color="primary" [ngStyle]="{'background-color':card.color}"> {{card.text}}</button>
+            <button mat-raised-button color="primary" [ngStyle]="{'background-color':card.color}">
+                {{card.text}}</button>
         </mat-list-item>
     </mat-list>
     <mat-list *ngIf="!activePlayer.leader">
         <mat-list-item *ngFor="let card of gameSession.gameCards">
-            <button mat-raised-button color="primary" [ngStyle]="{'background-color':'gray'}" (click)="selectedCard(card)"> {{card.text}}</button>
+            <button [disabled] = 'gameSession.gameState != activePlayer.team' mat-raised-button color="primary" [ngStyle]="{'background-color':'gray'}" [ngClass]="card.selected === true ? card.color : ''"
+                (click)="selectedCard(card)"> {{card.text}}</button>
         </mat-list-item>
     </mat-list>
     <button (click)="updateGame()">Zakończ turę</button>
