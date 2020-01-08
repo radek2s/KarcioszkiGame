@@ -46,10 +46,12 @@
         </mat-list-item>
     </mat-list>
     <mat-list *ngIf="!activePlayer.leader">
+        <section id="cards" class="flex-container">
         <mat-list-item *ngFor="let card of gameSession.gameCards">
             <button [disabled] = 'gameSession.gameState != activePlayer.team' mat-raised-button color="primary" [ngStyle]="{'background-color':'gray'}" [ngClass]="card.selected === true ? card.color : ''"
                 (click)="selectedCard(card)"> {{card.text}}</button>
         </mat-list-item>
+    </section>
     </mat-list>
     <button (click)="updateGame()">Zakończ turę</button>
 </section>

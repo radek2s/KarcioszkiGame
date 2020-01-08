@@ -1,15 +1,75 @@
+$red: #fc331d;
+$blue: #1186fb;
+$default: #f1e0bc;
+$black: #333333;
+$none: #ebe8de;
+
+
+@mixin combine-inside-border-collor($color){
+  //color of cards - with border
+  background-color: $color;
+  box-shadow:
+  0 0 0 2px darken($color, 10%),
+  0 0 0 4px $color;
+  color: lighten($color, 3%);
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#cards{
+  max-width: 1000px;
+  margin: auto;
+  button{
+    //default color card
+    @include combine-inside-border-collor($default);
+    color: black;
+    text-transform: uppercase;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 900;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-basis: 16%;
+    border-radius: 5px;
+    padding: 0.15%;
+    margin: calc(0.5% + 3px)
+  }
+  .none{
+    @include combine-inside-border-collor($none);
+  }
+  .blue{
+    @include combine-inside-border-collor($blue);
+  }
+  .red{
+    @include combine-inside-border-collor($red);
+  }
+  .black{
+    @include combine-inside-border-collor($black);
+  }
+}
+
+body{
+  text-align: center!important;
+}
+
 .fill-remaining-space {
     flex: 1 1 auto;
   }
-.red{
-  background-color: red!important;
-}
-.blue{
-  background-color: blue!important;
-}
-.black{
-  background-color: black!important;
-}
+
+// .red{
+//   background-color: red!important;
+// }
+// .blue{
+//   background-color: blue!important;
+// }
+// .black{
+//   background-color: black!important;
+// }
 .orange{
   background-color: orange!important;
 }
