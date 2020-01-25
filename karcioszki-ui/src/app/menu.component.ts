@@ -8,7 +8,7 @@ import { WebSocket } from './WebSocketAPI';
 @Component({
   selector: 'app-root',
   templateUrl: './menu.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss', './menu.component.scss']
 })
 export class MenuComponent implements OnInit {
   

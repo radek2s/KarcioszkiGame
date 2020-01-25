@@ -17,7 +17,7 @@ import { Card } from 'src/models/Card';
 @Component({
   selector: 'game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./app.component.scss', './game.component.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {
 

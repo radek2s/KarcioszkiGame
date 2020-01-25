@@ -2,8 +2,7 @@ $red: #fc331d;
 $blue: #1186fb;
 $default: #f1e0bc;
 $black: #333333;
-$none: #ebe8de;
-
+$none: #969696;
 
 @mixin combine-inside-border-collor($color){
   //color of cards - with border
@@ -11,7 +10,7 @@ $none: #ebe8de;
   box-shadow:
   0 0 0 2px darken($color, 10%),
   0 0 0 4px $color;
-  color: lighten($color, 3%);
+  color: lighten($color, 25%);
 }
 
 .flex-container {
@@ -36,10 +35,12 @@ $none: #ebe8de;
     justify-content: center;
     flex-basis: 16%;
     border-radius: 5px;
-    padding: 0.15%;
-    margin: calc(0.5% + 3px)
+    padding: 10px;//0.15%;
+    margin: 10px;//calc(0.5% + 18px);
+    min-width: 200px;
+    width: 25%;
   }
-  .none{
+  .none, .orange{
     @include combine-inside-border-collor($none);
   }
   .blue{
@@ -53,23 +54,26 @@ $none: #ebe8de;
   }
 }
 
-body{
-  text-align: center!important;
-}
 
 .fill-remaining-space {
     flex: 1 1 auto;
   }
 
-// .red{
-//   background-color: red!important;
-// }
-// .blue{
-//   background-color: blue!important;
-// }
-// .black{
-//   background-color: black!important;
-// }
-.orange{
-  background-color: orange!important;
+
+
+#infoPanel{
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+#activePlayerColor{
+  height: 20px;
+  width: 50px;
+  float: left;
+  margin: 0 1rem 0 0;
+}
+
+#extraCard{
+  width: min-content;
 }
