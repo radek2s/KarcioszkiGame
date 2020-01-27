@@ -3,6 +3,26 @@ $blue: #1186fb;
 $default: #f1e0bc;
 $black: #333333;
 $none: #969696;
+$active: rgb(59, 138, 59);
+
+.background-red{
+  background-color: $red;
+}
+.color-red{
+  color: $red;
+}
+.background-blue{
+  background-color: $blue;
+}
+.color-blue{
+  color: $blue;
+}
+.background-active{
+  background-color: $active;
+}
+.background-none{
+  background-color: $none;
+}
 
 @mixin combine-inside-border-collor($color){
   //color of cards - with border
@@ -21,7 +41,8 @@ $none: #969696;
 }
 
 #cards{
-  max-width: 1000px;
+  max-width: 1600px;
+  padding: 2rem;
   margin: auto;
   button{
     //default color card
@@ -39,6 +60,7 @@ $none: #969696;
     margin: 10px;//calc(0.5% + 18px);
     min-width: 200px;
     width: 25%;
+    font-size: 1.2rem;
   }
   .none, .orange{
     @include combine-inside-border-collor($none);
@@ -68,12 +90,21 @@ $none: #969696;
 }
 
 #activePlayerColor{
-  height: 20px;
-  width: 50px;
+  height: 36px;
+  width: 36px;
   float: left;
   margin: 0 1rem 0 0;
+  border-radius: 4px;
 }
 
 #extraCard{
   width: min-content;
+}
+
+#endGame{
+  margin-left: 15px;
+}
+
+mat-toolbar{
+  justify-content: space-between;
 }

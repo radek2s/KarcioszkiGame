@@ -3,3 +3,14 @@
     margin: auto;
     width: fit-content;
   }
+
+  button{
+    margin: 5px;
+    min-width: 0;
+  }
+  .flex-center{
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+  }

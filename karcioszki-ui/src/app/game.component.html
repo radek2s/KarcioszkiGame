@@ -1,39 +1,44 @@
 <mat-toolbar>
-    <button mat-raised-button color="primary" (click)="clearSessionGame(gameSession)">
+    <span>Pokój numer: {{gameSession.id}}</span>
+    <!-- <span class="fill-remaining-space"></span> -->
+    <div [ngClass]="activePlayer.team == 0 ? 'color-red' : 'color-blue'">
+    <span >{{activePlayer.name}}</span>
+    <span *ngIf=activePlayer.leader> (Lider)</span>
+    </div>
+    <!-- <span class="fill-remaining-space"></span> -->
+    <div>
+    <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+    <button id="endGame" mat-raised-button color="primary" (click)="clearSessionGame(gameSession)">
         Zakończ grę
     </button>
-    <span>Pokój numer: {{gameSession.id}}</span>
-    <span class="fill-remaining-space"></span>
-    <span [ngStyle]="{'color':activePlayer.team == 0 ? 'red' : 'blue'}">{{activePlayer.name}}</span>
-    <span *ngIf=activePlayer.leader> (Lider)</span>
-    <span class="fill-remaining-space"></span>
-    <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+    </div>
 </mat-toolbar>
+<!-- <div class="flex-center"> -->
 <section class="center" *ngIf="!gameSession.started">
     <mat-list>
-        <mat-list-item>Lista graczy | drużyna | lider</mat-list-item>
         <mat-list-item *ngFor="let player of gameSession.players">
             {{player.name}}
             <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name'
-                [ngStyle]="{'background-color':player.team == 0 ? 'red' : 'blue'}"
+                 [ngClass]="player.team == 0 ? 'background-red' : 'background-blue'"
                 (click)="changeTeam(player)">Zmień drużynę</button>
             <button mat-raised-button color="primary" [disabled]='player.name !== activePlayer.name'
-                [ngStyle]="{'background-color':player.leader ? 'yellow' : 'gray'}"
+                [ngClass]="player.leader ? 'background-active' : 'background-none'"
                 (click)="changeLeaderStatus(player)">Lider</button>
         </mat-list-item>
     </mat-list>
     <button mat-raised-button color="primary" (click)="startGameSession()">Start</button>
     <!-- (click)="startGame()" -->
 </section>
+<!-- </div> -->
 <section *ngIf="gameSession.started">
     <section id="infoPanel">
         <div>
     <p>Aktywna drużyna:</p>
         <div id="activePlayerColor"
-            [ngStyle]="{'background-color': gameSession.gameState === 0 ? 'red' : 'blue'}">
+            [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
             <!-- {{gameSession.gameState}} -->
         </div>
-        <button (click)="updateGame()">Zakończ turę</button>
+        <button mat-raised-button (click)="updateGame()">Zakończ turę</button>
     </div>
         <div id="extraCard">
             <p>Bonusowa karta</p>
@@ -41,22 +46,24 @@
             <mat-checkbox color="warn">czerwoni</mat-checkbox>
         </div>
     </section>
-
+    <!-- <div class="flex-center"> -->
     <mat-list *ngIf="activePlayer.leader">
-        <mat-list-item *ngFor="let card of gameSession.gameCards" class="card">
-            <button mat-raised-button color="primary" [ngStyle]="{'background-color':card.color}">
+        <section id="cards" class="flex-container">
+        <div *ngFor="let card of gameSession.gameCards" class="card">
+            <button mat-raised-button color="primary" [ngClass]="card.color">
                 {{card.text}}</button>
-        </mat-list-item>
+            </div>
+    </section>
     </mat-list>
+    <!-- </div> -->
+    <!-- <div class="flex-center"> -->
     <mat-list *ngIf="!activePlayer.leader">
         <section id="cards" class="flex-container">
         <div *ngFor="let card of gameSession.gameCards">
-        <!-- mat-list-item -->
             <button [disabled] = 'gameSession.gameState != activePlayer.team' mat-raised-button color="primary"  [ngClass]="card.selected === true ? card.color : ''"
                 (click)="selectedCard(card)"> {{card.text}}</button>
-                <!-- [ngStyle]="{'background-color':'gray'}" -->
         </div>
     </section>
     </mat-list>
-    
+<!-- </div> -->
 </section>
