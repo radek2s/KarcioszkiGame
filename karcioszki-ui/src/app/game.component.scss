@@ -93,7 +93,8 @@ $active: rgb(59, 138, 59);
   height: 36px;
   width: 36px;
   float: left;
-  margin: 0 1rem 0 0;
+  margin: 5px;
+  margin-left: 0;
   border-radius: 4px;
 }
 
@@ -107,4 +108,8 @@ $active: rgb(59, 138, 59);
 
 mat-toolbar{
   justify-content: space-between;
+}
+
+#room{
+  margin-right: 170px;
 }

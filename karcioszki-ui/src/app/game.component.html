@@ -1,12 +1,12 @@
 <mat-toolbar>
-    <span>Pokój numer: {{gameSession.id}}</span>
+    <span id="room">Pokój numer: {{gameSession.id}}</span>
     <!-- <span class="fill-remaining-space"></span> -->
     <div [ngClass]="activePlayer.team == 0 ? 'color-red' : 'color-blue'">
     <span >{{activePlayer.name}}</span>
     <span *ngIf=activePlayer.leader> (Lider)</span>
     </div>
     <!-- <span class="fill-remaining-space"></span> -->
-    <div>
+    <div class="flex-container">
     <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
     <button id="endGame" mat-raised-button color="primary" (click)="clearSessionGame(gameSession)">
         Zakończ grę
