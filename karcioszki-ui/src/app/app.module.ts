@@ -16,13 +16,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import { GamePackageComponent } from './layout/game-package/game-package.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     MenuDialog,
-    GameComponent
+    GameComponent,
+    GamePackageComponent
   ],
   imports: [
     AppRoutingModule,
@@ -36,7 +40,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatListModule,
     MatSelectModule,
     MatToolbarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

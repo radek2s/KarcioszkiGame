@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { GAME_IDS } from '../mocks/games'
-import { from, Observable } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { GameSession } from 'src/models/GameSession';
 import { CardsPackage } from 'src/models/CardsPackage';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,18 @@ export class GameService {
   private gameHubUrl = './api/game/hub';
   private gameCardPackageUrl = './api/card'
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+
   constructor(private http: HttpClient) { }
 
   /**
    * Get GameID list
    * Return a currently created game session id's
    */
-  getGameIdList(){
+  getGameIdList() {
     return this.http.get<number[]>(this.gameHubUrl)
   }
 
@@ -37,6 +43,15 @@ export class GameService {
    */
   getGamePackages(): Observable<CardsPackage[]> {
     return this.http.get<CardsPackage[]>(`${this.gameCardPackageUrl}/getAll`)
+  }
+
+  /**
+   * Add a new Game Card Package to backend
+   * @param cardPackage 
+   */
+  addGamePackage(cardPackage: CardsPackage) {
+    console.debug("Adding card package");
+    return this.http.post<CardsPackage>(`${this.gameCardPackageUrl}/create`, cardPackage, this.httpOptions).toPromise();
   }
 
 }

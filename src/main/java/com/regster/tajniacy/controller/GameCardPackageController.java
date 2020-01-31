@@ -30,7 +30,20 @@ public class GameCardPackageController {
 
     @PostMapping("/create")
     public GameCardPackage createGameCard(@Valid @RequestBody GameCardPackage gameCardPackage) {
+        System.out.println("Received Data");
         return gameCardPackageRepository.save(gameCardPackage);
+    }
+
+//    @PutMapping("update/{id}")
+//    public GameCardPackage updateGameCard(@Valid @RequestBody GameCardPackage gameCardPackage) {
+//        return gameCardPackageRepository.save(gameCardPackage)
+//    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteGameCardById(@PathVariable(value = "id") Long gameCardId) {
+        GameCardPackage gameCard = gameCardPackageRepository.findById(gameCardId).orElseThrow();
+        gameCardPackageRepository.delete(gameCard);
+        System.out.println("Game Card Package --- Deleted");
     }
 
 }
