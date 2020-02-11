@@ -94,6 +94,14 @@ public class GameHubController {
         return gameSession;
     }
 
+    @MessageMapping("/game/hub/{id}/player/exit")
+    @SendTo("/topic/hub/{id}")
+    public GameSession exitPlayer(@DestinationVariable int id, Player player) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.deletePlayer(player);
+        return gameSession;
+    }
+
     @MessageMapping("/game/hub/{id}/card-package")
     @SendTo("/topic/hub/{id}")
     public GameSession selectGameCardPackage(@DestinationVariable int id, GameCardPackage selectedGameCardPackage) {
@@ -121,6 +129,13 @@ public class GameHubController {
         } else {
             gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
         }
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/end")
+    @SendTo("/topic/hub/{id}")
+    public GameSession gameFinished(@DestinationVariable int id, GameSession gameSession) {
+        gameSession.setGameState(ActiveTeam.FINISHED.ordinal());
         return gameSession;
     }
 

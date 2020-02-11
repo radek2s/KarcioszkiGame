@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GameSession } from 'src/models/GameSession';
-import { CardsPackage } from 'src/models/CardsPackage';
-import { Player } from 'src/models/Player';
-import { GameService } from './game.service';
-import { WebSocket } from './WebSocketAPI';
 import { map } from 'rxjs/operators';
-import { Card } from 'src/models/Card';
+import { GameService } from '../../services/game.service';
+import { WebSocket } from '../../services/WebSocketAPI';
+import { GameSession } from '../../models/GameSession';
+import { CardsPackage } from '../../models/CardsPackage';
+import { Player } from '../../models/Player';
+import { Card } from '../../models/Card';
 
 /**
  * Game Component Class
@@ -17,13 +17,16 @@ import { Card } from 'src/models/Card';
 @Component({
   selector: 'game',
   templateUrl: './game.component.html',
-  styleUrls: ['./app.component.scss', './game.component.scss']
+  styleUrls: ['../../app.component.scss', './game.component.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {
 
   gameSession: GameSession;
   webSocket: WebSocket;
   activePlayer: Player = new Player();
+  validateGame: boolean = true;
+
+  _develop: boolean = false;
 
   /**
    * Create a new Game Component
@@ -57,13 +60,6 @@ export class GameComponent implements OnInit, OnDestroy {
         }
       });
     })
-  }
-
-  clearSessionGame(gameSession):void{
-    console.log(gameSession);
-    gameSession = null;
-    this.router.navigate(['/hub']);
-    //TODO: endGame
   }
 
   /**
@@ -116,6 +112,10 @@ export class GameComponent implements OnInit, OnDestroy {
 
   selectedCard(card:Card, event) {
     card.selected=true;
+    if(card.color === "black") {
+      this.endGame()
+    }
+
 
     //TODO: Card clicked logic - update points for team
   }
@@ -130,8 +130,18 @@ export class GameComponent implements OnInit, OnDestroy {
 
   handleMessage(message) {
     this.gameSession = JSON.parse(message);
+    if(this._develop) {
+      this.validateGame = false;
+    } else {
+      this.validateGame = this.validateGameStatus()
+    }
+    this.excludeActivePlayer(this.activePlayer);
+    if(this.gameSession.gameState == 2) {
+      alert("Game Over!");
+    }
   }
 
+  //--- WebSocket GameState ---//
   private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
     if (gamePlayer !== undefined && gamePlayer.name !== '') {
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/player/add`, gamePlayer)
@@ -150,12 +160,23 @@ export class GameComponent implements OnInit, OnDestroy {
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/start`, undefined);
   }
 
+  private endGame() {
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/end`, this.gameSession);
+  }
+
+  private exitGame() {
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/exit`, this.activePlayer);
+    this.router.navigateByUrl('/ui')
+    this.webSocket._disconnect();
+  }
+
   private updatePlayer(player) {
     this.activePlayer = player;
     this.saveActivePlayer();
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
   }
 
+  //Coockies//
   private saveActivePlayer() {
     sessionStorage.setItem("activePlayer", JSON.stringify(this.activePlayer));
   }
@@ -163,5 +184,49 @@ export class GameComponent implements OnInit, OnDestroy {
   private loadActivePlayer() {
     this.activePlayer = JSON.parse(sessionStorage.getItem("activePlayer"));
   }
+
+  // --- Utilities --- //
+
+  /**
+   * Check if is enough players to start the game
+   * Validate all contitions
+   */
+  private validateGameStatus() {
+    const minPlayerCount = 4;
+
+    let playerCount = this.gameSession.players.length;
+    let redLeaderCount = 0;  //TeamID 0
+    let blueLeaderCount = 0; //TeamID 1
+
+    this.gameSession.players.forEach(player => {
+      if(player.leader == true) {
+        if(player.team == 0) {
+          redLeaderCount = redLeaderCount + 1;
+        } else {
+          blueLeaderCount = blueLeaderCount + 1;
+        }
+      }
+    });
+
+    if(playerCount >= minPlayerCount) {
+      if(redLeaderCount === 1 && blueLeaderCount === 1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Remove from gameSession active player to display list of
+   * players without duplicates
+   * 
+   * @param activePlayer Active Player Object
+   */
+  private excludeActivePlayer(activePlayer) {
+    this.gameSession.players = this.gameSession.players.filter(function(player) {
+      return player.name !== activePlayer.name;
+    })
+  }
+
 
 }

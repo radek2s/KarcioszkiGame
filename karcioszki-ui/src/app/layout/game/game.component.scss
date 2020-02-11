@@ -23,6 +23,44 @@ $active: rgb(59, 138, 59);
 .background-none{
   background-color: $none;
 }
+.color-leader {
+  color: #e4da12
+}
+.player-list {
+  width: 90vw;
+}
+.mini-button {
+  background-color: $default;
+}
+.player-list-item-header {
+  font-weight: 500;
+  background-color: $none;
+}
+.player-list-item {
+  span.player-name {
+    flex-basis: 60%;
+    text-align: left;
+  }
+}
+.team-container {
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leader-container {
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-box {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 1.9px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
 
 @mixin combine-inside-border-collor($color){
   //color of cards - with border

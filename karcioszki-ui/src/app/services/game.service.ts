@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { GAME_IDS } from '../mocks/games'
+
 import { from, Observable, throwError } from 'rxjs';
-import { GameSession } from 'src/models/GameSession';
-import { CardsPackage } from 'src/models/CardsPackage';
+import { GameSession } from '../models/GameSession';
+import { CardsPackage } from '../models/CardsPackage';
 import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({

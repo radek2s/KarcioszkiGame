@@ -1,14 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { GameService } from './game.service';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { CardsPackage } from 'src/models/CardsPackage';
-import { WebSocket } from './WebSocketAPI';
+
+import { GameService } from '../../services/game.service';
+import { WebSocket } from '../../services/WebSocketAPI';
+
+import { CardsPackage } from '../../models/CardsPackage';
 
 @Component({
   selector: 'app-root',
   templateUrl: './menu.component.html',
-  styleUrls: ['./app.component.scss', './menu.component.scss']
+  styleUrls: ['../../app.component.scss', './menu.component.scss']
 })
 export class MenuComponent implements OnInit {
   
@@ -66,7 +68,7 @@ export class MenuComponent implements OnInit {
    */
   private openGame(gameId: Number, playerName: string, gamePackage: CardsPackage): void {
     if(playerName !== undefined && playerName !== '') {
-      this.router.navigateByUrl(`/game/${gameId}`, {state: {data: {player: playerName, cards: gamePackage}}});
+      this.router.navigateByUrl(`ui/game/${gameId}`, {state: {data: {player: playerName, cards: gamePackage}}});
       this.ws._disconnect();
     }
   }

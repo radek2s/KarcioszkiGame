@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { GameService } from 'src/app/game.service';
-import { CardsPackage } from 'src/models/CardsPackage';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { GameService } from '../../services/game.service';
+import { CardsPackage } from '../../models/CardsPackage';
 
 @Component({
   selector: 'page-game-package',

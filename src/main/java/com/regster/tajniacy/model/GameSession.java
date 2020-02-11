@@ -58,6 +58,18 @@ public class GameSession {
         }
     }
 
+    public void deletePlayer(Player player) {
+        int postion = -1;
+        for(Player p: this.players) {
+            if(p.getName().equalsIgnoreCase(player.getName())){
+                postion = this.players.indexOf(p);
+            }
+        }
+        if(postion != -1) {
+            this.players.remove(postion);
+        }
+    }
+
     public GameCardPackage getGameCardPackage() {
         return gameCardPackage;
     }
