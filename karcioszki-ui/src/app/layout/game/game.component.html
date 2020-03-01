@@ -65,6 +65,9 @@
             <button mat-raised-button (click)="updateGame()">Zakończ turę</button>
         </div>
         <div id="extraCard">
+            <div *ngIf="activePlayer.leader">
+                <button mat-raised-button color="primary" (click)="endGame()">Zakończ grę</button>
+            </div>
             <p>Bonusowa karta</p>
             <mat-checkbox color="primary">niebiescy</mat-checkbox>
             <mat-checkbox color="warn">czerwoni</mat-checkbox>

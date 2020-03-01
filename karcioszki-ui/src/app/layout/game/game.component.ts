@@ -25,8 +25,13 @@ export class GameComponent implements OnInit, OnDestroy {
   webSocket: WebSocket;
   activePlayer: Player = new Player();
   validateGame: boolean = true;
+  cardStatistics = {
+    remainingRed: 0,
+    reaminingBlue: 0
+  };
 
-  _develop: boolean = false;
+  _develop: boolean = true;
+  _gameStartedFlag: boolean = false;
 
   /**
    * Create a new Game Component
@@ -116,9 +121,27 @@ export class GameComponent implements OnInit, OnDestroy {
       this.endGame()
     }
 
+    //odliczanie zaznaczonych kart z koloru
+    if(card.color === "blue"){
+      this.cardStatistics.reaminingBlue -= 1;
+      if(this.cardStatistics.reaminingBlue == 0){
+        this.endGame();
+      }
+    }
+    if(card.color === "red"){
+      this.cardStatistics.remainingRed -= 1;
+      if(this.cardStatistics.remainingRed == 0){
+        this.endGame();
+      }
+    }
+
+    console.debug(this.cardStatistics, this.gameSession);
+
 
     //TODO: Card clicked logic - update points for team
   }
+
+  
 
   startGameSession(): void {
     this.startGame();
@@ -132,6 +155,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameSession = JSON.parse(message);
     if(this._develop) {
       this.validateGame = false;
+      console.debug(this._gameStartedFlag)
+      console.debug(this.gameSession)
     } else {
       this.validateGame = this.validateGameStatus()
     }
@@ -139,7 +164,13 @@ export class GameComponent implements OnInit, OnDestroy {
     if(this.gameSession.gameState == 2) {
       alert("Game Over!");
     }
+    if(this.gameSession.started && !this._gameStartedFlag) {
+      this.countCardsByColor();
+      this._gameStartedFlag = true;
+    }
   }
+
+
 
   //--- WebSocket GameState ---//
   private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
@@ -215,6 +246,18 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     return true;
   }
+
+
+  countCardsByColor(){
+    this.gameSession.gameCards.forEach(card => {
+      if (card.color=='red'){
+        this.cardStatistics.remainingRed += 1;
+      }else if(card.color=='blue'){
+        this.cardStatistics.reaminingBlue += 1;
+      }
+    });
+  }
+
 
   /**
    * Remove from gameSession active player to display list of
