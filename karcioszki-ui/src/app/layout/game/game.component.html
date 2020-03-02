@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar [ngClass]="activePlayer.team == 0 ? 'background-red' : 'background-blue'">
     <div>
         <button *ngIf="!gameSession.started" mat-icon-button aria-label="Exit from game" (click)="exitGame()">
             <mat-icon>cancel</mat-icon>

@@ -30,7 +30,7 @@ export class GameComponent implements OnInit, OnDestroy {
     reaminingBlue: 0
   };
 
-  _develop: boolean = true;
+  _develop: boolean = false;
   _gameStartedFlag: boolean = false;
 
   /**
@@ -212,7 +212,7 @@ export class GameComponent implements OnInit, OnDestroy {
   // --- Utilities --- //
 
   /**
-   * Check if is enough players to start the game
+   * Check if is button should be disabled (enough players to start the game)
    * Validate all contitions
    */
   private validateGameStatus() {
@@ -220,7 +220,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
     let playerCount = this.gameSession.players.length;
     let redLeaderCount = 0;  //TeamID 0
+    let redNonLeaderCount = 0;  //TeamID 0
     let blueLeaderCount = 0; //TeamID 1
+    let blueNonLeaderCount = 0; //TeamID 1
 
     this.gameSession.players.forEach(player => {
       if (player.leader == true) {
@@ -229,11 +231,19 @@ export class GameComponent implements OnInit, OnDestroy {
         } else {
           blueLeaderCount = blueLeaderCount + 1;
         }
+      }else{
+        if(player.team == 0) {
+          redNonLeaderCount = redLeaderCount + 1;
+        } else {
+          blueNonLeaderCount = blueLeaderCount + 1;
+        }
       }
+      console.log(redNonLeaderCount, redLeaderCount, blueNonLeaderCount, blueLeaderCount);
     });
 
+
     if (playerCount >= minPlayerCount) {
-      if (redLeaderCount === 1 && blueLeaderCount === 1) {
+      if (redLeaderCount === 1 && blueLeaderCount === 1 && redNonLeaderCount >= 1 && blueNonLeaderCount >= 1) {
         return false;
       }
     }
