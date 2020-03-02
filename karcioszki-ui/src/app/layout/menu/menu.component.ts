@@ -26,7 +26,8 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.getGameIds();
     this.ws = new WebSocket(this, "/topic/hub");
-    this.openPlayerDialog();
+    this.loadActivePlayer();
+    if(this.player === undefined || this.player === null) this.openPlayerDialog();
   }
 
   onSelect(id) {
@@ -44,7 +45,8 @@ export class MenuComponent implements OnInit {
   }
 
   openDialog() {
-    const maxId = Math.max(...this.gameIds.map(o => o), 0);
+
+    const maxId = Math.floor(Math.random() * 100000);
     const dialogRef = this.dialog.open(MenuDialog, {
       width: '80%',
       data: { selectedPackage: null, gameId: maxId + 1 }
@@ -90,6 +92,15 @@ export class MenuComponent implements OnInit {
       this.router.navigateByUrl(`ui/game/${gameId}`, { state: { data: { player: player, cards: gamePackage } } });
       this.ws._disconnect();
     }
+  }
+
+  //Coockies//
+  private saveActivePlayer() {
+    sessionStorage.setItem("activePlayer", JSON.stringify(this.player));
+  }
+
+  private loadActivePlayer() {
+    this.player = JSON.parse(sessionStorage.getItem("activePlayer"));
   }
 
 }

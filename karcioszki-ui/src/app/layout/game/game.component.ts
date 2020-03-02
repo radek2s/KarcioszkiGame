@@ -26,11 +26,12 @@ export class GameComponent implements OnInit, OnDestroy {
   activePlayer: Player = new Player();
   validateGame: boolean = true;
   cardStatistics = {
+    winner: undefined,
     remainingRed: 0,
     reaminingBlue: 0
   };
 
-  _develop: boolean = false;
+  _develop: boolean = true;
   _gameStartedFlag: boolean = false;
 
   /**
@@ -116,20 +117,20 @@ export class GameComponent implements OnInit, OnDestroy {
   selectedCard(card: Card, event) {
     card.selected = true;
     if (card.color === "black") {
-      this.endGame()
+      this.endGame("black")
     }
 
     //odliczanie zaznaczonych kart z koloru
     if (card.color === "blue") {
       this.cardStatistics.reaminingBlue -= 1;
       if (this.cardStatistics.reaminingBlue == 0) {
-        this.endGame();
+        this.endGame("blue");
       }
     }
     if (card.color === "red") {
       this.cardStatistics.remainingRed -= 1;
       if (this.cardStatistics.remainingRed == 0) {
-        this.endGame();
+        this.endGame("red");
       }
     }
 
@@ -184,7 +185,8 @@ export class GameComponent implements OnInit, OnDestroy {
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/start`, undefined);
   }
 
-  private endGame() {
+  private endGame(color: string) {
+    this.cardStatistics.winner = color;
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/end`, this.gameSession);
   }
 
