@@ -54,4 +54,12 @@ export class GameService {
     return this.http.post<CardsPackage>(`${this.gameCardPackageUrl}/create`, cardPackage, this.httpOptions).toPromise();
   }
 
+  /**
+   * Create a new player with unique ID
+   * @param playerName - Name of the player
+   */
+  createPlayer(playerName: string) {
+    return this.http.post<any>('./api/game/player/create', playerName, this.httpOptions).toPromise();
+  }
+
 }

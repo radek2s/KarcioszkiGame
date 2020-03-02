@@ -55,9 +55,7 @@ export class GameComponent implements OnInit, OnDestroy {
       this.gameSession = data;
       this.getDataFromRouter().then((routerData: any) => {
         if (routerData !== undefined) {
-          this.activePlayer.name = routerData.player;
-          this.activePlayer.leader = false;
-          this.activePlayer.team = 0;
+          this.activePlayer = routerData.player;
           this.saveActivePlayer();
           setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
         } else {
@@ -99,15 +97,15 @@ export class GameComponent implements OnInit, OnDestroy {
 
   changeTeam(player): void {
     console.debug(player);
-    if (player.name === this.activePlayer.name) {
+    if (player.id === this.activePlayer.id) {
       player.team = player.team == 0 ? 1 : 0;
       this.updatePlayer(player);
     }
   }
 
   changeLeaderStatus(player): void {
-    if (player.name === this.activePlayer.name) {
-      if(player.leader === undefined) {
+    if (player.id === this.activePlayer.id) {
+      if (player.leader === undefined) {
         player.leader = false;
       }
       player.leader = !player.leader;
@@ -115,33 +113,30 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectedCard(card:Card, event) {
-    card.selected=true;
-    if(card.color === "black") {
+  selectedCard(card: Card, event) {
+    card.selected = true;
+    if (card.color === "black") {
       this.endGame()
     }
 
     //odliczanie zaznaczonych kart z koloru
-    if(card.color === "blue"){
+    if (card.color === "blue") {
       this.cardStatistics.reaminingBlue -= 1;
-      if(this.cardStatistics.reaminingBlue == 0){
+      if (this.cardStatistics.reaminingBlue == 0) {
         this.endGame();
       }
     }
-    if(card.color === "red"){
+    if (card.color === "red") {
       this.cardStatistics.remainingRed -= 1;
-      if(this.cardStatistics.remainingRed == 0){
+      if (this.cardStatistics.remainingRed == 0) {
         this.endGame();
       }
     }
-
-    console.debug(this.cardStatistics, this.gameSession);
-
 
     //TODO: Card clicked logic - update points for team
   }
 
-  
+
 
   startGameSession(): void {
     this.startGame();
@@ -153,18 +148,16 @@ export class GameComponent implements OnInit, OnDestroy {
 
   handleMessage(message) {
     this.gameSession = JSON.parse(message);
-    if(this._develop) {
+    if (this._develop) {
       this.validateGame = false;
-      console.debug(this._gameStartedFlag)
-      console.debug(this.gameSession)
     } else {
       this.validateGame = this.validateGameStatus()
     }
     this.excludeActivePlayer(this.activePlayer);
-    if(this.gameSession.gameState == 2) {
+    if (this.gameSession.gameState == 2) {
       alert("Game Over!");
     }
-    if(this.gameSession.started && !this._gameStartedFlag) {
+    if (this.gameSession.started && !this._gameStartedFlag) {
       this.countCardsByColor();
       this._gameStartedFlag = true;
     }
@@ -230,8 +223,8 @@ export class GameComponent implements OnInit, OnDestroy {
     let blueLeaderCount = 0; //TeamID 1
 
     this.gameSession.players.forEach(player => {
-      if(player.leader == true) {
-        if(player.team == 0) {
+      if (player.leader == true) {
+        if (player.team == 0) {
           redLeaderCount = redLeaderCount + 1;
         } else {
           blueLeaderCount = blueLeaderCount + 1;
@@ -239,8 +232,8 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     });
 
-    if(playerCount >= minPlayerCount) {
-      if(redLeaderCount === 1 && blueLeaderCount === 1) {
+    if (playerCount >= minPlayerCount) {
+      if (redLeaderCount === 1 && blueLeaderCount === 1) {
         return false;
       }
     }
@@ -248,11 +241,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
 
-  countCardsByColor(){
+  private countCardsByColor() {
     this.gameSession.gameCards.forEach(card => {
-      if (card.color=='red'){
+      if (card.color == 'red') {
         this.cardStatistics.remainingRed += 1;
-      }else if(card.color=='blue'){
+      } else if (card.color == 'blue') {
         this.cardStatistics.reaminingBlue += 1;
       }
     });
@@ -261,15 +254,14 @@ export class GameComponent implements OnInit, OnDestroy {
 
   /**
    * Remove from gameSession active player to display list of
-   * players without duplicates
+   * players without duplicates. Compare by unique ID
    * 
    * @param activePlayer Active Player Object
    */
   private excludeActivePlayer(activePlayer) {
-    this.gameSession.players = this.gameSession.players.filter(function(player) {
-      return player.name !== activePlayer.name;
+    this.gameSession.players = this.gameSession.players.filter(function (player) {
+      return player.id !== activePlayer.id;
     })
   }
-
 
 }
