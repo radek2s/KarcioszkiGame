@@ -49,7 +49,7 @@ public class GameSession {
     public void updatePlayer(Player player) {
         int position = -1;
         for(Player p: this.players) {
-            if(p.getName().equalsIgnoreCase(player.getName())) {
+            if(p.getId() == player.getId()) {
                 position = this.players.indexOf(p);
             }
         }
@@ -61,7 +61,7 @@ public class GameSession {
     public void deletePlayer(Player player) {
         int postion = -1;
         for(Player p: this.players) {
-            if(p.getName().equalsIgnoreCase(player.getName())){
+            if(p.getId() == player.getId()){
                 postion = this.players.indexOf(p);
             }
         }
@@ -101,6 +101,5 @@ public class GameSession {
     public void setGameCards(ArrayList<GameCard> gameCards) {
         this.gameCards = gameCards;
     }
-
 
 }

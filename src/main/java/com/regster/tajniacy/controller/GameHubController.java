@@ -4,6 +4,7 @@ import com.regster.tajniacy.model.ActiveTeam;
 import com.regster.tajniacy.model.GameCardPackage;
 import com.regster.tajniacy.model.GameSession;
 import com.regster.tajniacy.model.Player;
+import com.regster.tajniacy.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +38,8 @@ public class GameHubController {
     public GameHubController(SimpMessagingTemplate template) {
         this.template = template;
     }
+    @Autowired
+    private PlayerRepository playerRepository;
 
     /**
      * Show Games
@@ -76,6 +80,17 @@ public class GameHubController {
 //            }
         }
         return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
+    }
+
+    /**
+     * Create a new player entity in database with unique ID
+     *
+     * @param playerName - name of the new player
+     * @return HTTP Response with created PlayerJSON data
+     */
+    @PostMapping("/player/create")
+    public ResponseEntity<Player> createPlayer(@Valid @RequestBody String playerName) {
+        return ResponseEntity.ok().body(playerRepository.save(new Player(playerName)));
     }
 
     @MessageMapping("/game/hub/{id}/player/add")
