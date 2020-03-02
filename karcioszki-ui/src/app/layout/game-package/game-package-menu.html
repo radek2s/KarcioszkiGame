@@ -1,0 +1,19 @@
+<mat-toolbar>
+    <div>
+        <button>
+            <mat-icon>back</mat-icon>
+        </button>
+        <span id="room">Menu package</span>
+    </div>
+    <div class="flex-container">
+        <a routerLink="/ui/gamePackage/add">
+            <button>
+                <mat-icon>add</mat-icon>
+            </button>
+        </a>
+    </div>
+</mat-toolbar>
+<section class="center">
+    <page-game-package-list></page-game-package-list>
+    <!-- <page-game-package-list [popupDisabled]="true"/> -->
+</section>

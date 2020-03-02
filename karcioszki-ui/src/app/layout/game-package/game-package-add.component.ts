@@ -5,12 +5,13 @@ import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 
 @Component({
-  selector: 'page-game-package',
-  templateUrl: './game-package.html',
-  host: { '(document:keypress)': 'addCardKeyboard($event)'}
+  selector: 'page-game-package-add',
+  templateUrl: './game-package-add.html',
+  host: { '(document:keypress)': 'addCardKeyboard($event)'},
   //   styleUrls: ['./app.component.scss']
+  styleUrls: ['../../app.component.scss']
 })
-export class GamePackageComponent {
+export class GamePackageAddComponent {
 
   cardsPackage: CardsPackage;
   cardTitle: string;
@@ -41,6 +42,10 @@ export class GamePackageComponent {
       this.openSnackBar("Something went wrong!", "Close")
       console.error(err)
     });
+  }
+
+  deleteCard(){
+    
   }
 
   openSnackBar(message: string, action: string) {

@@ -20,7 +20,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { GamePackageComponent } from './layout/game-package/game-package.component';
+import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
+import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
+import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { GamePackageComponent } from './layout/game-package/game-package.compone
     MenuComponent,
     MenuDialog,
     GameComponent,
-    GamePackageComponent
+    GamePackageMenuComponent,
+    GamePackageAddComponent,
+    GamePackageListComponent
   ],
   imports: [
     AppRoutingModule,

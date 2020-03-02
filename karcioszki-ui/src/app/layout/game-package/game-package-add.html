@@ -1,8 +1,13 @@
 <mat-toolbar>
-
+    <div>
+        <button>
+            <mat-icon>back</mat-icon>
+        </button>
+        <span id="room">Add package</span>
+    </div>
 </mat-toolbar>
-<section class="center">
-    <div class="example-container">
+<section class="flex-center">
+    <div class="center">
         <mat-form-field>
             <input  matInput placeholder="Author" [(ngModel)]="cardsPackage.author">
         </mat-form-field>
@@ -11,7 +16,10 @@
         </mat-form-field>
         <div>
             <mat-form-field *ngFor="let card of cardsPackage.cards">
-                <input matInput placeholder="Card Title" disabled [value]="card">
+                <input matInput placeholder="Card Title" [value]="card">
+                <button mat-icon-button aria-label="Delete card" (click)="deleteCard()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
             </mat-form-field>
         </div>
         <mat-form-field>

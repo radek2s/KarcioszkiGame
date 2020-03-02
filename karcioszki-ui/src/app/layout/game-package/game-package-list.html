@@ -1,0 +1,8 @@
+<section class="center">
+    <section id="card-packages" class="flex-container">
+        <div *ngFor="let package of cardsPackages">
+            <div class="cardPackage" (click)="openProperties()">
+                {{package.packageName}}</div>
+        </div>
+    </section>
+</section>
