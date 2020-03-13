@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo() {
-    this.openGame(this.selectedGame, this.player, null);
+    this.openGame(this.selectedGame, this.player, null, null);
   }
 
   openDialog() {
@@ -49,11 +49,11 @@ export class MenuComponent implements OnInit {
     const maxId = Math.floor(Math.random() * 100000);
     const dialogRef = this.dialog.open(MenuDialog, {
       width: '80%',
-      data: { selectedPackage: null, gameId: maxId + 1 }
+      data: { selectedPackage: null, gameId: maxId + 1, cardCount: 15 }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) this.openGame(result.gameId, this.player, result.selectedPackage);
+      if (result !== undefined) this.openGame(result.gameId, this.player, result.selectedPackage, result.cardCount);
     });
   }
 
@@ -87,9 +87,9 @@ export class MenuComponent implements OnInit {
    * @param player [Player] Player data
    * @param gamePackage [CardsPackage] Selected cards package
    */
-  private openGame(gameId: Number, player: Player, gamePackage: CardsPackage): void {
+  private openGame(gameId: Number, player: Player, gamePackage: CardsPackage, cardCount: number): void {
     if (player !== undefined && player.name !== '') {
-      this.router.navigateByUrl(`ui/game/${gameId}`, { state: { data: { player: player, cards: gamePackage } } });
+      this.router.navigateByUrl(`ui/game/${gameId}`, { state: { data: { player: player, cards: gamePackage, cardCount: cardCount } } });
       this.ws._disconnect();
     }
   }

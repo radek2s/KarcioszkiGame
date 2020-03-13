@@ -7,12 +7,13 @@ public class GameSession {
     private int id;
     private boolean started;
     private List<Player> players;
+    private int cardCount;
     private int gameState;
     private GameCardPackage gameCardPackage;
     private ArrayList<GameCard> gameCards;
 
     public GameSession() {
-
+        this.cardCount = 15; //DEFAULT VALUE
     }
 
     public GameSession(int id) {
@@ -26,6 +27,14 @@ public class GameSession {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCardCount() {
+        return cardCount;
+    }
+
+    public void setCardCount(int cardCount) {
+        this.cardCount = cardCount;
     }
 
     public List<Player> getPlayers() {

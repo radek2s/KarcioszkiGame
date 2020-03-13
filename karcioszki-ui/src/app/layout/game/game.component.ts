@@ -58,7 +58,7 @@ export class GameComponent implements OnInit, OnDestroy {
         if (routerData !== undefined) {
           this.activePlayer = routerData.player;
           this.saveActivePlayer();
-          setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
+          setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards, routerData.cardCount) }, 1000)
         } else {
           this.loadActivePlayer();
         }
@@ -167,12 +167,15 @@ export class GameComponent implements OnInit, OnDestroy {
 
 
   //--- WebSocket GameState ---//
-  private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
+  private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage, cardCount: Number) {
     if (gamePlayer !== undefined && gamePlayer.name !== '') {
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/player/add`, gamePlayer)
     }
-    if (gamePackage !== undefined) {
+    if (gamePackage !== null) {
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-package`, gamePackage);
+    }
+    if (cardCount !== null) {
+      this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-count`, cardCount);
     }
   }
 
