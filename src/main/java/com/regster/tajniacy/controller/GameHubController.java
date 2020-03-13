@@ -75,9 +75,6 @@ public class GameHubController {
                 this.gameSessions.add(currentGameSession);
                 this.template.convertAndSend("/topic/hub", getGameSessionIds());
             }
-//            else if(getGameSessionById(id).isStarted()) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
         }
         return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
     }
@@ -114,6 +111,10 @@ public class GameHubController {
     public GameSession exitPlayer(@DestinationVariable int id, Player player) {
         GameSession gameSession = getGameSessionById(id);
         gameSession.deletePlayer(player);
+        if(gameSession.getPlayers().isEmpty()) {
+            gameSessions.remove(gameSession);
+            this.template.convertAndSend("/topic/hub", getGameSessionIds());
+        }
         return gameSession;
     }
 
@@ -132,6 +133,7 @@ public class GameHubController {
         gameSession.setStarted(true);
         gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
         gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards());
+        this.template.convertAndSend("/topic/hub", getGameSessionIds());
         return gameSession;
     }
 
@@ -150,8 +152,9 @@ public class GameHubController {
     @MessageMapping("/game/hub/{id}/end")
     @SendTo("/topic/hub/{id}")
     public GameSession gameFinished(@DestinationVariable int id, GameSession gameSession) {
-        gameSession.setGameState(ActiveTeam.FINISHED.ordinal());
-        return gameSession;
+        GameSession gameSession2 = getGameSessionById(id);
+        gameSession2.setGameState(ActiveTeam.FINISHED.ordinal());
+        return gameSession2;
     }
 
     private GameSession getGameSessionById(int id) {
@@ -169,7 +172,9 @@ public class GameHubController {
         ArrayList<Integer> gameIds = new ArrayList<>();
         if(this.gameSessions != null) {
             for (GameSession gameSession: this.gameSessions) {
-                gameIds.add(gameSession.getId());
+                if(!gameSession.isStarted()) {
+                    gameIds.add(gameSession.getId());
+                }
             }
         }
         return gameIds;
