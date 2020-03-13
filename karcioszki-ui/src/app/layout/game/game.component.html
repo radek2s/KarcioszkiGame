@@ -29,9 +29,7 @@
                 </div>
                 <div class="leader-container">
                     <button mat-icon-button aria-label="Lider" (click)="changeLeaderStatus(this.playerService.getPlayer())">
-                        <span *ngIf="this.playerService.getPlayer().leader; else elseBlock">
-                            <mat-icon class="color-leader">star</mat-icon>
-                        </span>
+                        <mat-icon class="color-leader" *ngIf="this.playerService.getPlayer().leader; else elseBlock">star</mat-icon>
                         <ng-template #elseBlock>
                             <mat-icon class="color-leader">star_border</mat-icon>
                         </ng-template>
