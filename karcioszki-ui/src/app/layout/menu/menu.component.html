@@ -1,11 +1,9 @@
 <div class="flex-center">
 <div class="center">
 <h1>Karcioszki - Menu</h1>
-<form class="example-form">
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nazwa gracza" [(ngModel)]="playerName" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
-</form>
+<div *ngIf="playerService.getPlayer() !== null">
+    <p>{{playerService.getPlayer().name}}</p>
+</div>
 
 <div>
     <button mat-raised-button *ngFor="let id of gameIds" (click)="onSelect(id)">{{id}}</button>

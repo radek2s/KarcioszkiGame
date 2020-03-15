@@ -1,9 +1,6 @@
 <h1 mat-dialog-title>Create a new game</h1>
 <div mat-dialog-content class="flex column">
     <mat-form-field>
-        <input matInput placeholder="Nazwa gracza" [(ngModel)]="data.playerName" [ngModelOptions]="{standalone: true}">
-    </mat-form-field>
-    <mat-form-field>
         <input matInput placeholder="Id gry" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
     <mat-form-field>
@@ -13,6 +10,10 @@
           {{package.packageName}}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Liczba kart:</mat-label>
+      <input matInput placeholder="Podaj liczbe..." [(ngModel)]="data.cardCount" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
 </div>
 <div mat-dialog-actions>

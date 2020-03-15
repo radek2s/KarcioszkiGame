@@ -4,6 +4,7 @@ import com.regster.tajniacy.model.ActiveTeam;
 import com.regster.tajniacy.model.GameCardPackage;
 import com.regster.tajniacy.model.GameSession;
 import com.regster.tajniacy.model.Player;
+import com.regster.tajniacy.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +38,8 @@ public class GameHubController {
     public GameHubController(SimpMessagingTemplate template) {
         this.template = template;
     }
+    @Autowired
+    private PlayerRepository playerRepository;
 
     /**
      * Show Games
@@ -71,11 +75,19 @@ public class GameHubController {
                 this.gameSessions.add(currentGameSession);
                 this.template.convertAndSend("/topic/hub", getGameSessionIds());
             }
-//            else if(getGameSessionById(id).isStarted()) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
         }
         return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
+    }
+
+    /**
+     * Create a new player entity in database with unique ID
+     *
+     * @param playerName - name of the new player
+     * @return HTTP Response with created PlayerJSON data
+     */
+    @PostMapping("/player/create")
+    public ResponseEntity<Player> createPlayer(@Valid @RequestBody String playerName) {
+        return ResponseEntity.ok().body(playerRepository.save(new Player(playerName)));
     }
 
     @MessageMapping("/game/hub/{id}/player/add")
@@ -99,6 +111,10 @@ public class GameHubController {
     public GameSession exitPlayer(@DestinationVariable int id, Player player) {
         GameSession gameSession = getGameSessionById(id);
         gameSession.deletePlayer(player);
+        if(gameSession.getPlayers().isEmpty()) {
+            gameSessions.remove(gameSession);
+            this.template.convertAndSend("/topic/hub", getGameSessionIds());
+        }
         return gameSession;
     }
 
@@ -110,13 +126,22 @@ public class GameHubController {
         return gameSession;
     }
 
+    @MessageMapping("/game/hub/{id}/card-count")
+    @SendTo("/topic/hub/{id}")
+    public GameSession setCardCount(@DestinationVariable int id, int cardCount) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.setCardCount(cardCount);
+        return gameSession;
+    }
+
     @MessageMapping("/game/hub/{id}/start")
     @SendTo("/topic/hub/{id}")
     public GameSession selectGameCardPackage(@DestinationVariable int id) {
         GameSession gameSession = getGameSessionById(id);
         gameSession.setStarted(true);
         gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
-        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards());
+        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards(gameSession.getCardCount()));
+        this.template.convertAndSend("/topic/hub", getGameSessionIds());
         return gameSession;
     }
 
@@ -135,8 +160,9 @@ public class GameHubController {
     @MessageMapping("/game/hub/{id}/end")
     @SendTo("/topic/hub/{id}")
     public GameSession gameFinished(@DestinationVariable int id, GameSession gameSession) {
-        gameSession.setGameState(ActiveTeam.FINISHED.ordinal());
-        return gameSession;
+        GameSession gameSession2 = getGameSessionById(id);
+        gameSession2.setGameState(ActiveTeam.FINISHED.ordinal());
+        return gameSession2;
     }
 
     private GameSession getGameSessionById(int id) {
@@ -154,7 +180,9 @@ public class GameHubController {
         ArrayList<Integer> gameIds = new ArrayList<>();
         if(this.gameSessions != null) {
             for (GameSession gameSession: this.gameSessions) {
-                gameIds.add(gameSession.getId());
+                if(!gameSession.isStarted()) {
+                    gameIds.add(gameSession.getId());
+                }
             }
         }
         return gameIds;

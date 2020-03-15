@@ -7,12 +7,13 @@ public class GameSession {
     private int id;
     private boolean started;
     private List<Player> players;
+    private int cardCount;
     private int gameState;
     private GameCardPackage gameCardPackage;
     private ArrayList<GameCard> gameCards;
 
     public GameSession() {
-
+        this.cardCount = 15; //DEFAULT VALUE
     }
 
     public GameSession(int id) {
@@ -26,6 +27,14 @@ public class GameSession {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCardCount() {
+        return cardCount;
+    }
+
+    public void setCardCount(int cardCount) {
+        this.cardCount = cardCount;
     }
 
     public List<Player> getPlayers() {
@@ -49,7 +58,7 @@ public class GameSession {
     public void updatePlayer(Player player) {
         int position = -1;
         for(Player p: this.players) {
-            if(p.getName().equalsIgnoreCase(player.getName())) {
+            if(p.getId() == player.getId()) {
                 position = this.players.indexOf(p);
             }
         }
@@ -61,7 +70,7 @@ public class GameSession {
     public void deletePlayer(Player player) {
         int postion = -1;
         for(Player p: this.players) {
-            if(p.getName().equalsIgnoreCase(player.getName())){
+            if(p.getId() == player.getId()){
                 postion = this.players.indexOf(p);
             }
         }
@@ -101,6 +110,5 @@ public class GameSession {
     public void setGameCards(ArrayList<GameCard> gameCards) {
         this.gameCards = gameCards;
     }
-
 
 }

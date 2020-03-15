@@ -51,21 +51,23 @@ public class GameCardPackage {
         this.cards = cards;
     }
 
-    public ArrayList<GameCard> prepareCards() {
+    public ArrayList<GameCard> prepareCards(int cardCount) {
         ArrayList<GameCard> cards = new ArrayList<>();
         int cardId = 0;
         for (String cardText : this.cards) {
             cards.add(new GameCard(cardText, cardId++));
         }
         Collections.shuffle(cards);
-        cards = setCardColors(cards);
+        if(cards.size() < cardCount) {
+            cardCount = cards.size();
+        }
+        cards = setCardColors(cards, cardCount);
         Collections.shuffle(cards);
         return cards;
     }
 
-    private ArrayList<GameCard> setCardColors(ArrayList<GameCard> gameCards) {
+    private ArrayList<GameCard> setCardColors(ArrayList<GameCard> gameCards, int cardCount) {
 
-        int cardCount = gameCards.size();
         int cardColored = cardCount / 2;
         boolean isEven = cardCount % 2 == 0;
         int red = cardColored - 1;
@@ -73,7 +75,8 @@ public class GameCardPackage {
         int neutral = isEven ? 1 : 2;
         ArrayList<GameCard> cards = new ArrayList<>();
 
-        for (GameCard gameCard : gameCards) {
+        for(int x = 0; x < cardCount; x++) {
+            GameCard gameCard = gameCards.get(x);
             if (red > 0) {
                 gameCard.setColor("red");
                 cards.add(gameCard);

@@ -12,7 +12,7 @@ sourceCompatibility = '11'
 processResources {
 	from './karcioszki-ui/dist'
 }
- processResources.dependsOn(':karcioszki-ui:buildAngular')
+// processResources.dependsOn(':karcioszki-ui:buildAngular')
 
 repositories {
 	mavenCentral()
@@ -23,7 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	runtimeOnly 'mysql:mysql-connector-java'
+//	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly group: 'com.h2database', name: 'h2', version: '1.4.199'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	compile("org.springframework.boot:spring-boot-starter-websocket")
 	compile("org.webjars:webjars-locator-core")

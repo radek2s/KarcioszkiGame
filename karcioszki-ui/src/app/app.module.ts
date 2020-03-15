@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
-import { MenuComponent, MenuDialog } from './layout/menu/menu.component';
+import { MenuComponent, MenuDialog, PlayerDialog } from './layout/menu/menu.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,7 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
     AppComponent,
     MenuComponent,
     MenuDialog,
+    PlayerDialog,
     GameComponent,
     GamePackageMenuComponent,
     GamePackageAddComponent,
@@ -53,6 +54,6 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog]
+  entryComponents: [MenuDialog, PlayerDialog]
 })
 export class AppModule { }
