@@ -1,8 +1,8 @@
 <div class="flex-center">
 <div class="center">
 <h1>Karcioszki - Menu</h1>
-<div *ngIf="player !== null">
-    <p>{{player.name}}</p>
+<div *ngIf="playerService.getPlayer() !== null">
+    <p>{{playerService.getPlayer().name}}</p>
 </div>
 
 <div>

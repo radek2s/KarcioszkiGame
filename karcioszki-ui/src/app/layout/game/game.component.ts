@@ -7,6 +7,7 @@ import { GameSession } from '../../models/GameSession';
 import { CardsPackage } from '../../models/CardsPackage';
 import { Player } from '../../models/Player';
 import { Card } from '../../models/Card';
+import { PlayerService } from 'src/app/services/player.service';
 
 /**
  * Game Component Class
@@ -23,7 +24,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   gameSession: GameSession;
   webSocket: WebSocket;
-  activePlayer: Player = new Player();
   validateGame: boolean = true;
   cardStatistics = {
     winner: undefined,
@@ -40,7 +40,12 @@ export class GameComponent implements OnInit, OnDestroy {
    * @param route - Currently opened Route (address in url)
    * @param gameService - REST methods to fetch data from remote server
    */
-  constructor(private route: ActivatedRoute, private gameService: GameService, private router: Router) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute, 
+    private gameService: GameService, 
+    private playerService: PlayerService, 
+  ) { }
 
   /**
    * Method invoked when component is created
@@ -51,16 +56,11 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameSession = new GameSession();
     let gameId = +this.route.snapshot.paramMap.get('id');
     this.webSocket = new WebSocket(this, `/topic/hub/${gameId}`);
-
     this.getDataFromApi(gameId).then((data: GameSession) => {
       this.gameSession = data;
       this.getDataFromRouter().then((routerData: any) => {
         if (routerData !== undefined) {
-          this.activePlayer = routerData.player;
-          this.saveActivePlayer();
-          setTimeout(() => { this.initializeGame(gameId, this.activePlayer, routerData.cards) }, 1000)
-        } else {
-          this.loadActivePlayer();
+          setTimeout(() => { this.initializeGame(gameId, this.playerService.getPlayer(), routerData.cards, routerData.cardCount) }, 1000)
         }
       });
     })
@@ -68,7 +68,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   /**
    * Get Data from Active Route
-   * Load player name and packageCard
+   * Load PackageCard and card count
    */
   getDataFromRouter(): Promise<Object> {
     return new Promise((resolve, reject) => {
@@ -92,20 +92,15 @@ export class GameComponent implements OnInit, OnDestroy {
     })
   }
 
-  //TODO: Exit from room method (delete from this gamesession this user)
-
-  //TODO: GameLogic :D (when the start button starts a game!)
-
   changeTeam(player): void {
-    console.debug(player);
-    if (player.id === this.activePlayer.id) {
+    if (player.id === this.playerService.getPlayer().id) {
       player.team = player.team == 0 ? 1 : 0;
       this.updatePlayer(player);
     }
   }
 
   changeLeaderStatus(player): void {
-    if (player.id === this.activePlayer.id) {
+    if (player.id === this.playerService.getPlayer().id) {
       if (player.leader === undefined) {
         player.leader = false;
       }
@@ -137,14 +132,14 @@ export class GameComponent implements OnInit, OnDestroy {
     //TODO: Card clicked logic - update points for team
   }
 
-
-
   startGameSession(): void {
     this.startGame();
   }
 
   ngOnDestroy(): void {
-    this.webSocket._disconnect();
+    if(this.webSocket) {
+      this.webSocket._disconnect();
+    }
   }
 
   handleMessage(message) {
@@ -154,7 +149,7 @@ export class GameComponent implements OnInit, OnDestroy {
     } else {
       this.validateGame = this.validateGameStatus()
     }
-    this.excludeActivePlayer(this.activePlayer);
+    this.excludeActivePlayer(this.playerService.getPlayer());
     if (this.gameSession.gameState == 2) {
       alert("Game Over!");
     }
@@ -165,14 +160,16 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
 
-
   //--- WebSocket GameState ---//
-  private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage) {
+  private initializeGame(gameId: Number, gamePlayer: Player, gamePackage: CardsPackage, cardCount: Number) {
     if (gamePlayer !== undefined && gamePlayer.name !== '') {
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/player/add`, gamePlayer)
     }
-    if (gamePackage !== undefined) {
+    if (gamePackage !== null) {
       this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-package`, gamePackage);
+    }
+    if (cardCount !== null) {
+      this.webSocket.sendMessage(`/app/game/hub/${gameId}/card-count`, cardCount);
     }
   }
 
@@ -191,24 +188,14 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private exitGame() {
-    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/exit`, this.activePlayer);
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/exit`, this.playerService.getPlayer());
     this.router.navigateByUrl('/ui')
     this.webSocket._disconnect();
   }
 
   private updatePlayer(player) {
-    this.activePlayer = player;
-    this.saveActivePlayer();
+    this.playerService.setPlayer(player);
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/update`, player);
-  }
-
-  //Coockies//
-  private saveActivePlayer() {
-    sessionStorage.setItem("activePlayer", JSON.stringify(this.activePlayer));
-  }
-
-  private loadActivePlayer() {
-    this.activePlayer = JSON.parse(sessionStorage.getItem("activePlayer"));
   }
 
   // --- Utilities --- //

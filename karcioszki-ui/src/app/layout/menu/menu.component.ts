@@ -7,6 +7,7 @@ import { WebSocket } from '../../services/WebSocketAPI';
 
 import { CardsPackage } from '../../models/CardsPackage';
 import { Player } from 'src/app/models/Player';
+import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-root',
@@ -15,19 +16,19 @@ import { Player } from 'src/app/models/Player';
 })
 export class MenuComponent implements OnInit {
 
-  player: Player;
   gameIds: number[] = [];
   selectedGame: Number;
   cardsPackage: CardsPackage;
   ws: WebSocket;
 
-  constructor(private gameService: GameService, public dialog: MatDialog, private router: Router) { }
+  constructor(private gameService: GameService, private playerService: PlayerService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.getGameIds();
     this.ws = new WebSocket(this, "/topic/hub");
-    this.loadActivePlayer();
-    if(this.player === undefined || this.player === null) this.openPlayerDialog();
+    if(this.playerService.getPlayer === undefined || this.playerService.getPlayer() === null) {
+      this.openPlayerDialog();
+    }
   }
 
   onSelect(id) {
@@ -41,7 +42,7 @@ export class MenuComponent implements OnInit {
   }
 
   navigateTo() {
-    this.openGame(this.selectedGame, this.player, null);
+    this.openGame(this.selectedGame, this.playerService.getPlayer(), null, null);
   }
 
   openDialog() {
@@ -49,11 +50,11 @@ export class MenuComponent implements OnInit {
     const maxId = Math.floor(Math.random() * 100000);
     const dialogRef = this.dialog.open(MenuDialog, {
       width: '80%',
-      data: { selectedPackage: null, gameId: maxId + 1 }
+      data: { selectedPackage: null, gameId: maxId + 1, cardCount: 15 }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) this.openGame(result.gameId, this.player, result.selectedPackage);
+      if (result !== undefined) this.openGame(result.gameId, this.playerService.getPlayer(), result.selectedPackage, result.cardCount);
     });
   }
 
@@ -67,7 +68,7 @@ export class MenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.gameService.createPlayer(result.playerName).then(data => {
-          this.player = data;
+          this.playerService.setPlayer(data)
         })
       }
     });
@@ -87,20 +88,11 @@ export class MenuComponent implements OnInit {
    * @param player [Player] Player data
    * @param gamePackage [CardsPackage] Selected cards package
    */
-  private openGame(gameId: Number, player: Player, gamePackage: CardsPackage): void {
+  private openGame(gameId: Number, player: Player, gamePackage: CardsPackage, cardCount: number): void {
     if (player !== undefined && player.name !== '') {
-      this.router.navigateByUrl(`ui/game/${gameId}`, { state: { data: { player: player, cards: gamePackage } } });
+      this.router.navigateByUrl(`ui/game/${gameId}`, { state: { data: { player: player, cards: gamePackage, cardCount: cardCount } } });
       this.ws._disconnect();
     }
-  }
-
-  //Coockies//
-  private saveActivePlayer() {
-    sessionStorage.setItem("activePlayer", JSON.stringify(this.player));
-  }
-
-  private loadActivePlayer() {
-    this.player = JSON.parse(sessionStorage.getItem("activePlayer"));
   }
 
 }

@@ -7,6 +7,7 @@ export class GameSession{
     started:boolean;
     players: Player[];
     gameState:Number;
+    cardCount:Number;
     gameCardPackage: CardsPackage;
     gameCards: Card[];
 }

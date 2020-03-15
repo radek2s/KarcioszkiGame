@@ -1,4 +1,4 @@
-<mat-toolbar [ngClass]="activePlayer.team == 0 ? 'background-red' : 'background-blue'">
+<mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
     <div>
         <button *ngIf="!gameSession.started" mat-icon-button aria-label="Exit from game" (click)="exitGame()">
             <mat-icon>cancel</mat-icon>
@@ -22,16 +22,14 @@
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item class="player-list-item player-list-item-active">
-                <span class="player-name">{{activePlayer.name}}</span>
+                <span class="player-name">{{this.playerService.getPlayer().name}}</span>
                 <div class="team-container">
-                    <div class="team-box" [ngClass]="activePlayer.team == 0 ? 'background-red' : 'background-blue'"
-                        (click)="changeTeam(activePlayer)"></div>
+                    <div class="team-box" [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'"
+                        (click)="changeTeam(this.playerService.getPlayer())"></div>
                 </div>
                 <div class="leader-container">
-                    <button mat-icon-button aria-label="Lider" (click)="changeLeaderStatus(activePlayer)">
-                        <span *ngIf="activePlayer.leader; else elseBlock">
-                            <mat-icon class="color-leader">star</mat-icon>
-                        </span>
+                    <button mat-icon-button aria-label="Lider" (click)="changeLeaderStatus(this.playerService.getPlayer())">
+                        <mat-icon class="color-leader" *ngIf="this.playerService.getPlayer().leader; else elseBlock">star</mat-icon>
                         <ng-template #elseBlock>
                             <mat-icon class="color-leader">star_border</mat-icon>
                         </ng-template>
@@ -66,7 +64,7 @@
                 <button mat-raised-button (click)="updateGame()">Zakończ turę</button>
             </div>
             <div id="extraCard">
-                <div *ngIf="activePlayer.leader">
+                <div *ngIf="this.playerService.getPlayer().leader">
                     <button mat-raised-button color="primary" (click)="endGame()">Zakończ grę</button>
                 </div>
                 <p>Bonusowa karta</p>
@@ -74,7 +72,7 @@
                 <mat-checkbox color="warn">czerwoni</mat-checkbox>
             </div>
         </section>
-        <mat-list *ngIf="activePlayer.leader">
+        <mat-list *ngIf="this.playerService.getPlayer().leader">
             <section id="cards" class="flex-container">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
                     <button mat-raised-button color="primary" [ngClass]="card.color">
@@ -82,10 +80,10 @@
                 </div>
             </section>
         </mat-list>
-        <mat-list *ngIf="!activePlayer.leader">
+        <mat-list *ngIf="!this.playerService.getPlayer().leader">
             <section id="cards" class="flex-container">
                 <div *ngFor="let card of gameSession.gameCards">
-                    <button [disabled]='gameSession.gameState != activePlayer.team' mat-raised-button color="primary"
+                    <button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' mat-raised-button color="primary"
                         [ngClass]="card.selected === true ? card.color : ''" (click)="selectedCard(card)">
                         {{card.text}}</button>
                 </div>

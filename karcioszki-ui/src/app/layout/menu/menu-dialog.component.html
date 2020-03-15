@@ -11,6 +11,10 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Liczba kart:</mat-label>
+      <input matInput placeholder="Podaj liczbe..." [(ngModel)]="data.cardCount" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Anuluj</button>

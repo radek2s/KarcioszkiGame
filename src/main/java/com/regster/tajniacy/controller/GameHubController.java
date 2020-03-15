@@ -126,13 +126,21 @@ public class GameHubController {
         return gameSession;
     }
 
+    @MessageMapping("/game/hub/{id}/card-count")
+    @SendTo("/topic/hub/{id}")
+    public GameSession setCardCount(@DestinationVariable int id, int cardCount) {
+        GameSession gameSession = getGameSessionById(id);
+        gameSession.setCardCount(cardCount);
+        return gameSession;
+    }
+
     @MessageMapping("/game/hub/{id}/start")
     @SendTo("/topic/hub/{id}")
     public GameSession selectGameCardPackage(@DestinationVariable int id) {
         GameSession gameSession = getGameSessionById(id);
         gameSession.setStarted(true);
         gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
-        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards());
+        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards(gameSession.getCardCount()));
         this.template.convertAndSend("/topic/hub", getGameSessionIds());
         return gameSession;
     }
