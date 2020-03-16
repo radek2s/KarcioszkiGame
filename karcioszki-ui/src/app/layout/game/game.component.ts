@@ -129,6 +129,7 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     }
 
+    this.updateGame();
     //TODO: Card clicked logic - update points for team
   }
 
@@ -174,6 +175,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private updateGame() {
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
+  }
+
+  private endTurn() {
     console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
     this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
   }

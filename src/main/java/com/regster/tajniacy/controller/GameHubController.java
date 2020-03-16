@@ -145,9 +145,15 @@ public class GameHubController {
         return gameSession;
     }
 
-    @MessageMapping("/game/hub/{id}/turn")
+    @MessageMapping("/game/hub/{id}/update")
     @SendTo("/topic/hub/{id}")
     public GameSession gameUpdated(@DestinationVariable int id, GameSession gameSession) {
+        return gameSession;
+    }
+
+    @MessageMapping("/game/hub/{id}/turn")
+    @SendTo("/topic/hub/{id}")
+    public GameSession gameNextTurn(@DestinationVariable int id, GameSession gameSession) {
 
         if(gameSession.getGameState() == ActiveTeam.TEAM_A.ordinal()) {
             gameSession.setGameState(ActiveTeam.TEAM_B.ordinal());

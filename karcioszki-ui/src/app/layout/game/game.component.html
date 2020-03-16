@@ -61,7 +61,7 @@
                 <div id="activePlayerColor" [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
                     <!-- {{gameSession.gameState}} -->
                 </div>
-                <button mat-raised-button (click)="updateGame()">Zakończ turę</button>
+                <button mat-raised-button (click)="endTurn()">Zakończ turę</button>
             </div>
             <div id="extraCard">
                 <div *ngIf="this.playerService.getPlayer().leader">
