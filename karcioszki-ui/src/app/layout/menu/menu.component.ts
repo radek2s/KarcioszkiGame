@@ -17,7 +17,6 @@ import { PlayerService } from 'src/app/services/player.service';
 export class MenuComponent implements OnInit {
 
   gameIds: number[] = [];
-  selectedGame: Number;
   cardsPackage: CardsPackage;
   ws: WebSocket;
 
@@ -31,18 +30,14 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  onSelect(id) {
-    this.selectedGame = id;
-  }
-
   getGameIds(): void {
     this.gameService.getGameIdList().subscribe((data) => {
       this.gameIds = data;
     });
   }
 
-  navigateTo() {
-    this.openGame(this.selectedGame, this.playerService.getPlayer(), null, null);
+  navigateTo(id) {
+    this.openGame(id, this.playerService.getPlayer(), null, null);
   }
 
   openDialog() {
