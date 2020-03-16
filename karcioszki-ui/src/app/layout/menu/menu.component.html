@@ -1,14 +1,15 @@
 <div class="flex-center">
-<div class="center">
-<h1>Karcioszki - Menu</h1>
-<div *ngIf="playerService.getPlayer() !== null">
-    <p>{{playerService.getPlayer().name}}</p>
-</div>
+    <div class="center">
+        <h1>Karcioszki - Menu</h1>
+        <div *ngIf="playerService.getPlayer() !== null">
+            <p>{{playerService.getPlayer().name}}</p>
+        </div>
 
-<div>
-    <button mat-raised-button *ngFor="let id of gameIds" (click)="onSelect(id)">{{id}}</button>
-</div>
-<button mat-flat-button color="primary" (click)="openDialog()">Załóż grę</button>
-<button mat-flat-button color="accent" [disabled]="!selectedGame" (click) = "navigateTo()">Dołącz</button>
-</div>
+        <div>
+            <h4 *ngIf="gameIds.length !== 0">lista gier:</h4>
+
+            <button mat-raised-button *ngFor="let id of gameIds" (click)="navigateTo(id)">{{id}}</button>
+        </div>
+        <button mat-flat-button color="primary" (click)="openDialog()">Załóż grę</button>
+    </div>
 </div>

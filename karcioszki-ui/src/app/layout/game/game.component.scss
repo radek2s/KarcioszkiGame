@@ -1,7 +1,7 @@
 $red: #fc331d;
 $blue: #1186fb;
 $default: #f1e0bc;
-$black: #333333;
+$black: #222;
 $none: #969696;
 $active: rgb(59, 138, 59);
 
@@ -112,6 +112,11 @@ $active: rgb(59, 138, 59);
   .black{
     @include combine-inside-border-collor($black);
   }
+  .selected-card, button[disabled="true"]{
+    filter: brightness(0.5);
+    opacity: 0.7;
+  }  
+  
 }
 
 
