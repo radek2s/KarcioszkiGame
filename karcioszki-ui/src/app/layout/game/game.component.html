@@ -61,7 +61,7 @@
                 <div id="activePlayerColor" [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
                     <!-- {{gameSession.gameState}} -->
                 </div>
-                <button mat-raised-button (click)="updateGame()">Zakończ turę</button>
+                <button mat-raised-button (click)="endTurn()">Zakończ turę</button>
             </div>
             <div id="extraCard">
                 <div *ngIf="this.playerService.getPlayer().leader">
@@ -75,7 +75,7 @@
         <mat-list *ngIf="this.playerService.getPlayer().leader">
             <section id="cards" class="flex-container">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
-                    <button mat-raised-button color="primary" [ngClass]="card.color">
+                    <button mat-raised-button color="primary" [ngClass]="card.selected === true ? card.color+' selected-card' : card.color">
                         {{card.text}}</button>
                 </div>
             </section>

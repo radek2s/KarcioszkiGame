@@ -6,10 +6,11 @@
         </div>
 
         <div>
-            <button mat-raised-button *ngFor="let id of gameIds" (click)="onSelect(id)">{{id}}</button>
+            <h4 *ngIf="gameIds.length !== 0">lista gier:</h4>
+
+            <button mat-raised-button *ngFor="let id of gameIds" (click)="navigateTo(id)">{{id}}</button>
         </div>
-        <button mat-raised-button color="primary" (click)="openDialog()">Załóż grę</button>
-        <button mat-raised-button color="accent" [disabled]="!selectedGame" (click)="navigateTo()">Dołącz</button>
+        <button mat-flat-button color="primary" (click)="openDialog()">Załóż grę</button>
         <hr>
         <a routerLink="/ui/gamePackage">
             <button mat-raised-button>Zestaw kart</button>
