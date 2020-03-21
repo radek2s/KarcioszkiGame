@@ -18,6 +18,9 @@
 .margin-right-s{
   margin-right: 25px;
 }
+.margin-left-s{
+  margin-left: 25px;
+}
 
 .big-font{
   font-size: 1.5em;
@@ -28,4 +31,17 @@
 }
 .vertical-space-bottom{
   margin-bottom: 3em;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+mat-toolbar .absolute{
+  left: 0;
+  top: 0.5em;
 }
