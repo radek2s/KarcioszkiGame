@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
+import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'page-game-package-add',
@@ -16,7 +17,7 @@ export class GamePackageAddComponent {
   cardsPackage: CardsPackage;
   cardTitle: string;
 
-  constructor(private gameService: GameService, private _snackBar: MatSnackBar) {
+  constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService) {
     this.cardsPackage = new CardsPackage();
     this.cardsPackage.cards = [];
   }

@@ -8,14 +8,23 @@
 </mat-toolbar>
 <section class="flex-center">
     <div class="center">
-        <mat-form-field>
-            <input  matInput placeholder="Author" [(ngModel)]="cardsPackage.author">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName">
-        </mat-form-field>
+        <div class="big-font">
+            <mat-form-field class="margin-right-s">
+                <input matInput placeholder="Author" [value]="playerService.getPlayer().name">
+            </mat-form-field>
+            <mat-form-field class="margin-sides">
+                <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName">
+            </mat-form-field>
+        </div>
+        <div class="vertical-space-bottom">
+            <mat-form-field class="margin-right-s">
+                <input matInput placeholder="Card Title" [(ngModel)]="cardTitle">
+            </mat-form-field>
+            <button mat-raised-button (click)="addCard()">Add card</button>
+            <button mat-raised-button (click)="createGamePackage()">Send</button>
+        </div>
         <div>
-            <span *ngFor="let card of cardsPackage.cards">
+            <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
                 <mat-form-field>
                     <input matInput placeholder="Card Title" [value]="card">
                 </mat-form-field>
@@ -24,10 +33,5 @@
                 </button>
             </span>
         </div>
-        <mat-form-field>
-            <input  matInput placeholder="Card Title" [(ngModel)]="cardTitle">
-        </mat-form-field>
-        <button mat-raised-button (click)="addCard()">Add card</button>
-        <button mat-raised-button (click)="createGamePackage()">Send</button>
     </div>
 </section>
