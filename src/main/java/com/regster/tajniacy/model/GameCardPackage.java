@@ -14,6 +14,7 @@ public class GameCardPackage {
 
     private String author;
     private String packageName;
+    private String image;
 
     @ElementCollection
     @CollectionTable(name = "listOfCards")
@@ -41,6 +42,14 @@ public class GameCardPackage {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<String> getCards() {
