@@ -1,0 +1,14 @@
+<div mat-dialog-actions>
+<button mat-raised-button>
+    <mat-icon>delete</mat-icon>
+</button>
+<button mat-raised-button>
+    <mat-icon>edit</mat-icon>
+</button>
+    <button mat-raised-button (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+<div *ngFor = "let card of cardPackage.cards">
+    {{card}}
+</div>

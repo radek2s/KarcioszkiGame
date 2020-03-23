@@ -1,8 +1,13 @@
 <section class="center">
-    <section id="card-packages" class="flex-container">
-        <div *ngFor="let package of cardsPackages">
-            <div class="cardPackage" (click)="openProperties()">
-                {{package.packageName}}</div>
+    <div id="card-packages" class="flex-container">
+        <div *ngFor="let package of cardsPackages" class="cardPackage margin-right-s" (click)="openProperties(package)">
+            <mat-card class="example-card">
+                <img mat-card-image
+                [src]="package.image ? package.image : 'https://media.istockphoto.com/vectors/vector-beautiful-dark-blue-starry-sky-seamless-pattern-or-background-vector-id1137348000?k=6&m=1137348000&s=170667a&w=0&h=GXW50nREQMTvyzx_5KlJkTeBVRrDJFnYMbstz2y_srI='">
+                <mat-card-content>
+                    {{package.packageName}}
+                </mat-card-content>
+            </mat-card>
         </div>
-    </section>
+    </div>
 </section>

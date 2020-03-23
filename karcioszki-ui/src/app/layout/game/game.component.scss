@@ -71,12 +71,7 @@ $active: rgb(59, 138, 59);
   color: lighten($color, 25%);
 }
 
-.flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
+
 
 #cards{
   max-width: 1600px;

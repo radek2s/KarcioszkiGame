@@ -19,9 +19,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
 
 import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
 import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
+import { CardPackageInfoDialog } from './layout/game-package/card-package-info';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 
 @NgModule({
@@ -30,6 +32,7 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
     MenuComponent,
     MenuDialog,
     PlayerDialog,
+    CardPackageInfoDialog,
     GameComponent,
     GamePackageMenuComponent,
     GamePackageAddComponent,
@@ -50,10 +53,11 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
     MatCheckboxModule,
     MatSnackBarModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog]
+  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog]
 })
 export class AppModule { }
