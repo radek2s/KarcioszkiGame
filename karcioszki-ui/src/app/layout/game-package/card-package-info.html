@@ -1,14 +1,25 @@
-<div mat-dialog-actions>
-<button mat-raised-button>
-    <mat-icon>delete</mat-icon>
-</button>
-<button mat-raised-button>
-    <mat-icon>edit</mat-icon>
-</button>
-    <button mat-raised-button (click)="onNoClick()">
-        <mat-icon>cancel</mat-icon>
-    </button>
-  </div>
-<div *ngFor = "let card of cardPackage.cards">
-    {{card}}
+<div class="center">
+    <div>
+        <button mat-raised-button color="warn" (click)="deleteGamePackage(cardPackage.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-raised-button color="primary" (click)="goToEditGamePackage(cardPackage.id)">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-raised-button (click)="onNoClick()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+    <h4 class="sof-bold">Autor paczki: <span class="normal-weight">{{cardPackage.author}}</span></h4>
+    <h4 class="sof-bold">Lista kart:</h4>
+    <div class="flex-container">
+        <div class="cardPackage margin-xs" *ngFor="let card of cardPackage.cards">
+
+            <mat-card>
+                <mat-card-content>
+                    {{card}}
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>

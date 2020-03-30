@@ -44,6 +44,14 @@ export class GameService {
   getGamePackages(): Observable<CardsPackage[]> {
     return this.http.get<CardsPackage[]>(`${this.gameCardPackageUrl}/getAll`)
   }
+  /**
+   * Get CardsPackage from remote server
+   */
+  getGamePackage(id: number): CardsPackage {
+    // return {};
+    return {"id":2,"author":"Radek","packageName":"Jajecznica","image":null,"cards":["PlayStation","Mikrofon","Kwarantanna","Śnieg","Podłoga","The Sims","Karcioszki","Java","Przemek","Saper","Walizka","Gra","Przygoda","Fotografia"]}
+    // return this.http.get<CardsPackage>(`${this.gameCardPackageUrl}/get/${id}`)
+  }
 
   /**
    * Add a new Game Card Package to backend
@@ -52,6 +60,23 @@ export class GameService {
   addGamePackage(cardPackage: CardsPackage) {
     console.debug("Adding card package");
     return this.http.post<CardsPackage>(`${this.gameCardPackageUrl}/create`, cardPackage, this.httpOptions).toPromise();
+  }
+
+  /**
+   * Update the Game Card Package to backend
+   * @param cardPackage 
+   */
+  updateGamePackage(cardPackage: CardsPackage, packageId: number) {
+    console.debug("Updating card package");
+    return this.http.post<CardsPackage>(`${this.gameCardPackageUrl}/update`, {'cardPackage': cardPackage, 'packageId': packageId}, this.httpOptions).toPromise(); //TODO: update package by id
+  }
+  /**
+   * Delete the Game Card Package from backend
+   * @param cardPackage 
+   */
+  deleteGamePackage(packageId: number) {
+    console.debug("Deleting card package");
+    return this.http.post<CardsPackage>(`${this.gameCardPackageUrl}/delete`, packageId, this.httpOptions).toPromise(); //TODO: delete from db
   }
 
   /**

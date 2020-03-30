@@ -5,7 +5,7 @@
                     <mat-icon>keyboard_arrow_left</mat-icon>Powrót
                 </button>
             </a>
-        <span id="room">Add package</span>
+        <span id="room">Edit package</span>
     </div>
 </mat-toolbar>
 <section class="flex-center">
@@ -15,7 +15,7 @@
                 <input matInput placeholder="Author" [value]="playerService.getPlayer().name">
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName">
+                <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName" [value]="cardsPackage.name">
             </mat-form-field>
         </div>
         <div class="vertical-space-bottom">
@@ -23,7 +23,7 @@
                 <input matInput placeholder="Card Title" [(ngModel)]="cardTitle">
             </mat-form-field>
             <button mat-raised-button color="accent" (click)="addCard()">Add card</button>
-            <button mat-raised-button color="primary" (click)="createGamePackage()">Send</button>
+            <button mat-raised-button color="primary" (click)="updateGamePackage()">Update</button>
         </div>
         <div>
             <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">

@@ -23,7 +23,8 @@ import {MatCardModule} from '@angular/material/card';
 
 import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
 import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
-import { CardPackageInfoDialog } from './layout/game-package/card-package-info';
+import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
+import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
     GameComponent,
     GamePackageMenuComponent,
     GamePackageAddComponent,
+    GamePackageEditComponent,
     GamePackageListComponent
   ],
   imports: [

@@ -5,7 +5,7 @@ import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MenuDialog } from '../menu/menu.component';
-import { CardPackageInfoDialog } from './card-package-info';
+import { CardPackageInfoDialog } from './card-package-info.component';
 
 @Component({
   selector: 'page-game-package-list',

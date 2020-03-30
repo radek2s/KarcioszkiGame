@@ -20,6 +20,10 @@
     justify-content: center;
     align-items: center;
   }
+
+  .margin-xs{
+    margin: 10px;
+  }
 .margin-right-s{
   margin-right: 25px;
 }
@@ -47,10 +51,22 @@
   top: 0.5em;
 }
 
+.normal-weight{
+  font-weight: 400;
+}
+
+.sof-bold{
+  font-weight: 500;
+}
 
 mat-toolbar .right{
   right: 0;
 }
 mat-toolbar .left{
   left: 0;
+}
+
+
+.mat-card:not([class*=mat-elevation-z]), .mat-raised-button:not([class*=mat-elevation-z]){
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 }

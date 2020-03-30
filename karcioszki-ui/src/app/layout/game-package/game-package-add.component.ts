@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
@@ -9,7 +10,6 @@ import { PlayerService } from 'src/app/services/player.service';
   selector: 'page-game-package-add',
   templateUrl: './game-package-add.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)'},
-  //   styleUrls: ['./app.component.scss']
   styleUrls: ['../../app.component.scss']
 })
 export class GamePackageAddComponent {
@@ -17,7 +17,7 @@ export class GamePackageAddComponent {
   cardsPackage: CardsPackage;
   cardTitle: string;
 
-  constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService) {
+  constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router) {
     this.cardsPackage = new CardsPackage();
     this.cardsPackage.cards = [];
   }
@@ -34,7 +34,6 @@ export class GamePackageAddComponent {
   }
 
   createGamePackage() {
-    console.debug(this.cardsPackage);
     this.gameService.addGamePackage(this.cardsPackage).then(data => {
       this.cardsPackage = new CardsPackage();
       this.cardTitle = "";
@@ -43,6 +42,7 @@ export class GamePackageAddComponent {
       this.openSnackBar("Something went wrong!", "Close")
       console.error(err)
     });
+    this.router.navigateByUrl(`ui/gamePackage`);
   }
 
   deleteCard(){
