@@ -34,6 +34,7 @@ export class GamePackageAddComponent {
   }
 
   createGamePackage() {
+    this.cardsPackage.author = this.playerService.getPlayer().name.toString();
     this.gameService.addGamePackage(this.cardsPackage).then(data => {
       this.cardsPackage = new CardsPackage();
       this.cardTitle = "";

@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MenuDialog } from '../menu/menu.component';
+import { MatDialog } from '@angular/material/dialog';
 import { CardPackageInfoDialog } from './card-package-info.component';
 
 @Component({
@@ -15,12 +13,14 @@ import { CardPackageInfoDialog } from './card-package-info.component';
 })
 export class GamePackageListComponent implements OnInit {
 
-  @Input() popupDisabled;
+  @Input() edit: boolean;
+  @Output() selected = new EventEmitter<CardsPackage>();
   cardsPackages: CardsPackage[];
   cardTitle: string;
 
-  constructor(private gameService: GameService, private _snackBar: MatSnackBar, public infoDialog: MatDialog) {
-  }
+  constructor(
+    private gameService: GameService,
+    public infoDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.gameService.getGamePackages().subscribe((data) => {
@@ -28,18 +28,21 @@ export class GamePackageListComponent implements OnInit {
     });
   }
 
-
   private openProperties(cardPackage: any) {
-    this.infoDialog.open(CardPackageInfoDialog, {
-      width: '80%',
-      data: cardPackage
-    });
-  }
-
-
-  private openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+    if(this.edit) {
+      const dialogRef = this.infoDialog.open(CardPackageInfoDialog, {
+        width: '80%',
+        data: cardPackage
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.cardsPackages = this.cardsPackages.filter(item => item.id !== result)
+        }
+      });
+    } else {
+      this.selected.emit(cardPackage);
+    }
+    
   }
 }

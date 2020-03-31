@@ -31,6 +31,7 @@ export class CardPackageInfoDialog {
     
     deleteGamePackage(packageId: number) {
         this.gameService.deleteGamePackage(packageId).then(data => {
+            this.dialogRef.close(packageId)
             this.openSnackBar("Game Card Deleted", "Close")
         }).catch(err => {
             this.openSnackBar("Something went wrong!", "Close")

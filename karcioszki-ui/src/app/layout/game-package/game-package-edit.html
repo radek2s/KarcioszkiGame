@@ -9,13 +9,13 @@
     </div>
 </mat-toolbar>
 <section class="flex-center">
-    <div class="center">
+    <div class="center" *ngIf="cardsPackage">
         <div class="big-font">
             <mat-form-field class="margin-right-s">
-                <input matInput placeholder="Author" [value]="playerService.getPlayer().name">
+                <input matInput placeholder="Author" [value]="cardsPackage.author" disabled>
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName" [value]="cardsPackage.name">
+                <input matInput placeholder="Package Name" [value]="cardsPackage.packageName" disabled>
             </mat-form-field>
         </div>
         <div class="vertical-space-bottom">

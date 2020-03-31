@@ -10,7 +10,7 @@ import { debug } from 'util';
 @Component({
   selector: 'page-game-package-edit',
   templateUrl: './game-package-edit.html',
-  host: { '(document:keypress)': 'editCardKeyboard($event)'},
+  host: { '(document:keypress)': 'addCardKeyboard($event)'},
   styleUrls: ['../../app.component.scss']
 })
 export class GamePackageEditComponent {
@@ -19,7 +19,11 @@ export class GamePackageEditComponent {
   cardTitle: string;
   webSocket: WebSocket;
 
-  constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router, 
+  constructor(
+    private gameService: GameService, 
+    private _snackBar: MatSnackBar, 
+    private playerService: PlayerService, 
+    private router: Router, 
     private route: ActivatedRoute) {
   }
 
@@ -30,7 +34,9 @@ export class GamePackageEditComponent {
    */
   ngOnInit(): void {
     let packageId = +this.route.snapshot.paramMap.get('id');
-    this.cardsPackage = this.gameService.getGamePackage(packageId);
+    this.gameService.getGamePackage(packageId).subscribe((data) => {
+      this.cardsPackage = data
+    });
   }
 
   addCard() {

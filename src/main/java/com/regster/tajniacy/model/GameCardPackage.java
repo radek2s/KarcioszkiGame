@@ -10,21 +10,22 @@ public class GameCardPackage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     private String author;
     private String packageName;
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     @ElementCollection
     @CollectionTable(name = "listOfCards")
     private List<String> cards = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
