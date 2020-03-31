@@ -67,6 +67,7 @@ export class GameService {
    */
   updateGamePackage(cardPackage: CardsPackage, packageId: number) {
     console.debug("Updating card package");
+    console.log(cardPackage); //trzeba załadować edytowane karty
     return this.http.put<CardsPackage>(`${this.gameCardPackageUrl}/update/${packageId}`, cardPackage, this.httpOptions).toPromise();
   }
   /**

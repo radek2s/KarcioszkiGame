@@ -15,7 +15,10 @@
                 <input matInput placeholder="Author" [value]="cardsPackage.author" disabled>
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Name" [value]="cardsPackage.packageName" disabled>
+                <input matInput placeholder="Package Name" [value]="cardsPackage.packageName">
+            </mat-form-field>
+            <mat-form-field class="margin-sides">
+                <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image" [value]="cardsPackage.image">
             </mat-form-field>
         </div>
         <div class="vertical-space-bottom">
