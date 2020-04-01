@@ -26,6 +26,7 @@ import { GamePackageAddComponent } from './layout/game-package/game-package-add.
 import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
 import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
+import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
     PlayerDialog,
     CardPackageInfoDialog,
     GameComponent,
+    GameSummaryDialog,
     GamePackageMenuComponent,
     GamePackageAddComponent,
     GamePackageEditComponent,
@@ -60,6 +62,6 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog]
+  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog]
 })
 export class AppModule { }
