@@ -1,0 +1,20 @@
+// --- Summary Dialog --- //
+$red: #fc331d;
+$blue: #1186fb;
+$default: #f1e0bc;
+$black: #222;
+$none: #969696;
+$active: rgb(59, 138, 59);
+.winner {
+    padding: 100px;
+}
+.black {
+    color: $default;
+    background-color: $black;
+}
+.red {
+    background-color: $red;
+}
+.blue {
+    background-color: $blue;
+}

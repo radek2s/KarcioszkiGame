@@ -165,9 +165,15 @@ public class GameHubController {
 
     @MessageMapping("/game/hub/{id}/end")
     @SendTo("/topic/hub/{id}")
-    public GameSession gameFinished(@DestinationVariable int id, GameSession gameSession) {
+    public GameSession gameFinished(@DestinationVariable int id, String lastCardColor) {
         GameSession gameSession2 = getGameSessionById(id);
-        gameSession2.setGameState(ActiveTeam.FINISHED.ordinal());
+        if(lastCardColor.equals("\"blue\"")) {
+            gameSession2.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
+        } else if (lastCardColor.equals("\"red\"")) {
+            gameSession2.setGameState(ActiveTeam.FINISHED_RED.ordinal());
+        } else {
+            gameSession2.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
+        }
         return gameSession2;
     }
 

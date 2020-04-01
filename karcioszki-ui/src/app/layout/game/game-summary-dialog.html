@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>Koniec Gry!</h1>
+<div mat-dialog-content class="winner" [ngClass]="victoryBackground">
+    {{victoryLabel}}
+</div>
+<div mat-dialog-actions>
+    <button mat-button routerLink="/ui" (click)="onNoClick()">Powrót do menu</button>
+</div>
