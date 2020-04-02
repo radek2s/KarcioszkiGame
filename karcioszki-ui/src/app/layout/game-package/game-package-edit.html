@@ -15,15 +15,15 @@
                 <input matInput placeholder="Author" [value]="cardsPackage.author" disabled>
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Name" [value]="cardsPackage.packageName">
+                <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName">
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image" [value]="cardsPackage.image">
+                <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image">
             </mat-form-field>
         </div>
         <div class="vertical-space-bottom">
             <mat-form-field class="margin-right-s">
-                <input matInput placeholder="Card Title" [(ngModel)]="cardTitle">
+                <input matInput placeholder="Card Title" [(ngModel)]="cardTitle" [value]="cardTitle">
             </mat-form-field>
             <button mat-raised-button color="accent" (click)="addCard()">Add card</button>
             <button mat-raised-button color="primary" (click)="updateGamePackage()">Update</button>
@@ -31,7 +31,7 @@
         <div>
             <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
                 <mat-form-field>
-                    <input matInput placeholder="Card Title" [value]="card">
+                    <input matInput placeholder="Card Title" [value]="card" disabled>
                 </mat-form-field>
                 <button mat-icon-button aria-label="Delete card" (click)="deleteCard()">
                     <mat-icon>cancel</mat-icon>
