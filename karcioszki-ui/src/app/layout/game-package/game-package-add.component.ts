@@ -39,15 +39,15 @@ export class GamePackageAddComponent {
       this.cardsPackage = new CardsPackage();
       this.cardTitle = "";
       this.openSnackBar("Game Card Added", "Close")
+      this.router.navigateByUrl(`ui/gamePackage`);
     }).catch(err => {
       this.openSnackBar("Something went wrong!", "Close")
       console.error(err)
     });
-    this.router.navigateByUrl(`ui/gamePackage`);
   }
 
-  deleteCard(){
-    
+  deleteCard(card){
+    this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
   openSnackBar(message: string, action: string) {

@@ -31,9 +31,9 @@
         <div>
             <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
                 <mat-form-field>
-                    <input matInput placeholder="Card Title" [value]="card">
+                    <input matInput placeholder="Card Title" [value]="card" disabled>
                 </mat-form-field>
-                <button mat-icon-button aria-label="Delete card" (click)="deleteCard()">
+                <button mat-icon-button aria-label="Delete card" (click)="deleteCard(card)">
                     <mat-icon>cancel</mat-icon>
                 </button>
             </span>

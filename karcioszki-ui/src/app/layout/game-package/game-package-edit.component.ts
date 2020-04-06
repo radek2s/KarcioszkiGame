@@ -60,8 +60,8 @@ export class GamePackageEditComponent {
     this.router.navigateByUrl(`ui/gamePackage`);
   }
 
-  deleteCard(){
-    
+  deleteCard(card){
+    this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
   openSnackBar(message: string, action: string) {
