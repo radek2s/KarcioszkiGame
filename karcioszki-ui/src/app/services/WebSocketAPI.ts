@@ -3,7 +3,9 @@ import * as SockJS from 'sockjs-client';
 
 export class WebSocket {
 
-    private WS_END_POINT: String = 'http://localhost:8080/karcioszki-ws';
+    private development: boolean = true;
+    private WS_END_POINT_PRODUCTION: String = window.location.href;
+    private WS_END_POINT_DEVELOPMNET: String = 'http://localhost:8080/karcioszki-ws';
     private component: any;
     private destinationTopic: string;
     private stompClient: any;    
@@ -32,7 +34,13 @@ export class WebSocket {
     }
 
     private _connect(): void {
-        let ws = new SockJS(this.WS_END_POINT);
+        let ws;
+        if(this.development) {
+            ws = new SockJS(this.WS_END_POINT_DEVELOPMNET);
+        } else {
+            let address = this.WS_END_POINT_PRODUCTION.split("/")
+            ws = new SockJS(`${address[0]}//${address[2]}/karcioszki-ws`);
+        }
         this.stompClient = Stomp.over(ws);
         const _this = this;
         _this.stompClient.connect({}, function(frame) {

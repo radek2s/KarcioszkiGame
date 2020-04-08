@@ -114,6 +114,36 @@ $active: rgb(59, 138, 59);
   
 }
 
+// tablet resolution //
+@media screen and (max-width: 768px) {
+  #card-package {
+    display: none;
+  }
+  #cards {
+    padding: 0 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    button {
+      font-size: 0.8rem;
+      margin: 5%;
+      width: 100%;
+      padding: 2px;
+    }
+  }
+}
+
+// phone resolution //
+@media screen and (max-width: 425px) {
+  #cards {
+    padding: 0;
+    button {
+      font-size: 0.6rem;
+      margin: 2%;
+      flex-basis: auto;
+    }
+  }
+}
 
 .fill-remaining-space {
     flex: 1 1 auto;
