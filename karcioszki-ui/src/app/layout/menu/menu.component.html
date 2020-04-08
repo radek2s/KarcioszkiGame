@@ -11,5 +11,9 @@
             <button mat-raised-button *ngFor="let id of gameIds" (click)="navigateTo(id)">{{id}}</button>
         </div>
         <button mat-flat-button color="primary" (click)="openDialog()">Załóż grę</button>
+        <hr>
+        <a routerLink="/ui/gamePackage">
+            <button mat-raised-button>Zestawy kart</button>
+        </a>
     </div>
 </div>

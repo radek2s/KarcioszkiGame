@@ -24,7 +24,7 @@ public class GameCardPackageController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<GameCardPackage> getGameCardById(@PathVariable(value = "id") Long gameCardId)  {
-        GameCardPackage gameCard = gameCardPackageRepository.findById(gameCardId).orElseThrow();
+        GameCardPackage gameCard = gameCardPackageRepository.findById(gameCardId).orElseThrow(null);
         return ResponseEntity.ok().body(gameCard);
     }
 
@@ -34,16 +34,18 @@ public class GameCardPackageController {
         return gameCardPackageRepository.save(gameCardPackage);
     }
 
-//    @PutMapping("update/{id}")
-//    public GameCardPackage updateGameCard(@Valid @RequestBody GameCardPackage gameCardPackage) {
-//        return gameCardPackageRepository.save(gameCardPackage)
-//    }
+    @PutMapping("update/{id}")
+    public GameCardPackage updateGameCard(@Valid @RequestBody GameCardPackage gameCardPackage) {
+        System.out.println("Updated gamecardPackage");
+        return gameCardPackageRepository.save(gameCardPackage);
+    }
 
     @DeleteMapping("/delete/{id}")
     public void deleteGameCardById(@PathVariable(value = "id") Long gameCardId) {
-        GameCardPackage gameCard = gameCardPackageRepository.findById(gameCardId).orElseThrow();
+        GameCardPackage gameCard = gameCardPackageRepository.findById(gameCardId).orElseThrow(null);
         gameCardPackageRepository.delete(gameCard);
         System.out.println("Game Card Package --- Deleted");
+//        return ResponseEntity.ok().body("{'status':'deleted'}");
     }
 
 }

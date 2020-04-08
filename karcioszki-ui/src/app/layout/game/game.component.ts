@@ -8,6 +8,8 @@ import { CardsPackage } from '../../models/CardsPackage';
 import { Player } from '../../models/Player';
 import { Card } from '../../models/Card';
 import { PlayerService } from 'src/app/services/player.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GameSummaryDialog } from './game-summary-dialog.component';
 
 /**
  * Game Component Class
@@ -45,6 +47,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, 
     private gameService: GameService, 
     private playerService: PlayerService, 
+    private gameSummaryDialog: MatDialog
   ) { }
 
   /**
@@ -151,8 +154,10 @@ export class GameComponent implements OnInit, OnDestroy {
       this.validateGame = this.validateGameStatus()
     }
     this.excludeActivePlayer(this.playerService.getPlayer());
-    if (this.gameSession.gameState == 2) {
-      alert("Game Over!");
+    if (this.gameSession.gameState == 2 || this.gameSession.gameState == 3 || this.gameSession.gameState == 4) {
+      this.gameSummaryDialog.open(GameSummaryDialog, {
+        data: { winner: this.gameSession.gameState, activeTeam: this.playerService.getPlayer().team }
+      })
     }
     if (this.gameSession.started && !this._gameStartedFlag) {
       this.countCardsByColor();
@@ -189,7 +194,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private endGame(color: string) {
     this.cardStatistics.winner = color;
-    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/end`, this.gameSession);
+    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/end`, color);
   }
 
   private exitGame() {

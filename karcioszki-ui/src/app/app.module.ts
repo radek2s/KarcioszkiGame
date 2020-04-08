@@ -19,8 +19,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
 
-import { GamePackageComponent } from './layout/game-package/game-package.component';
+import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
+import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
+import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
+import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
+import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
+import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +34,13 @@ import { GamePackageComponent } from './layout/game-package/game-package.compone
     MenuComponent,
     MenuDialog,
     PlayerDialog,
+    CardPackageInfoDialog,
     GameComponent,
-    GamePackageComponent
+    GameSummaryDialog,
+    GamePackageMenuComponent,
+    GamePackageAddComponent,
+    GamePackageEditComponent,
+    GamePackageListComponent
   ],
   imports: [
     AppRoutingModule,
@@ -46,10 +57,11 @@ import { GamePackageComponent } from './layout/game-package/game-package.compone
     MatCheckboxModule,
     MatSnackBarModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog]
+  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog]
 })
 export class AppModule { }

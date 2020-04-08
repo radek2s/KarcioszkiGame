@@ -12,7 +12,7 @@ sourceCompatibility = '11'
 processResources {
 	from './karcioszki-ui/dist'
 }
-// processResources.dependsOn(':karcioszki-ui:buildAngular')
+processResources.dependsOn(':karcioszki-ui:buildAngular')
 
 repositories {
 	mavenCentral()

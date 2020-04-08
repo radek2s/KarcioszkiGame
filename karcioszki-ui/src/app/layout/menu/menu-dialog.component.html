@@ -3,14 +3,9 @@
     <mat-form-field>
         <input matInput placeholder="Id gry" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Wybierz zestaw kart:</mat-label>
-      <mat-select [(ngModel)]="data.selectedPackage">
-        <mat-option *ngFor="let package of cardPackages" [value]="package">
-          {{package.packageName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <p>Wybierz zestaw kart: <span *ngIf="data.selectedPackage">{{data.selectedPackage.packageName}}</span></p>
+    
+    <page-game-package-list [edit]=false (selected)="selectPackage($event)"></page-game-package-list>
     <mat-form-field>
       <mat-label>Liczba kart:</mat-label>
       <input matInput placeholder="Podaj liczbe..." [(ngModel)]="data.cardCount" [ngModelOptions]="{standalone: true}">

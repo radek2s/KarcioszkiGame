@@ -14,3 +14,59 @@
     align-items: center;
     height: 80%;
   }
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .margin-xs{
+    margin: 10px;
+  }
+.margin-right-s{
+  margin-right: 25px;
+}
+.margin-left-s{
+  margin-left: 25px;
+}
+
+.big-font{
+  font-size: 1.5em;
+}
+
+.vertical-space-top{
+  margin-top: 3em;
+}
+.vertical-space-bottom{
+  margin-bottom: 3em;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+  top: 0.5em;
+}
+
+.normal-weight{
+  font-weight: 400;
+}
+
+.sof-bold{
+  font-weight: 500;
+}
+
+mat-toolbar .right{
+  right: 0;
+}
+mat-toolbar .left{
+  left: 0;
+}
+
+
+.mat-card:not([class*=mat-elevation-z]), .mat-raised-button:not([class*=mat-elevation-z]){
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}

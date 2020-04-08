@@ -1,0 +1,19 @@
+<mat-toolbar class="relative">
+    <div class="center">
+        <a routerLink="/" class="absolute left margin-left-s">
+            <button mat-raised-button>
+                <mat-icon>keyboard_arrow_left</mat-icon>Powrót
+            </button>
+        </a>
+        <span id="room">Zestawy kart</span>
+        <a routerLink="/ui/gamePackage/add" class="absolute right margin-right-s">
+            <button mat-raised-button color="primary">
+                <mat-icon>add</mat-icon>Dodaj
+            </button>
+        </a>
+    </div>
+</mat-toolbar>
+
+<section class="center vertical-space-top">
+    <page-game-package-list [edit]=true></page-game-package-list>
+</section>

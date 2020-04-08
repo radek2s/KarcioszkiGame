@@ -108,7 +108,13 @@ export class MenuDialog {
     this.gameService.getGamePackages().subscribe((data) => {
       this.cardPackages = data;
     })
+
   }
+
+  selectPackage(data){
+    this.data.selectedPackage = data;
+  }
+  
 
   onNoClick(): void {
     this.dialogRef.close();
