@@ -51,6 +51,13 @@ export class GameService {
     // return {"id":2,"author":"Radek","packageName":"Jajecznica","image":null,"cards":["PlayStation","Mikrofon","Kwarantanna","Śnieg","Podłoga","The Sims","Karcioszki","Java","Przemek","Saper","Walizka","Gra","Przygoda","Fotografia"]}
     return this.http.get<CardsPackage>(`${this.gameCardPackageUrl}/get/${id}`)
   }
+  
+  /**
+   * Check if package name exist in remote server
+   */
+  checkIfPackageNameExist(name: string){
+    return this.http.get<number>(`${this.gameCardPackageUrl}/checkExistingName/${name}`)
+  }
 
   /**
    * Add a new Game Card Package to backend
