@@ -161,6 +161,12 @@ public class GameHubController {
         return gameSession;
     }
 
+    @MessageMapping("/game/hub/{id}/leader")
+    @SendTo("/topic/hub/{id}")
+    public GameSession gameLeaderStart(@DestinationVariable int id, GameSession gameSession) {
+        return gameSession;
+    }
+
     @MessageMapping("/game/hub/{id}/turn")
     @SendTo("/topic/hub/{id}")
     public GameSession gameNextTurn(@DestinationVariable int id, GameSession gameSession) {
@@ -170,21 +176,22 @@ public class GameHubController {
         } else {
             gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
         }
+        gameSession.getGameCardStatistics().setCardToGuess(0);
         return gameSession;
     }
 
     @MessageMapping("/game/hub/{id}/end")
     @SendTo("/topic/hub/{id}")
     public GameSession gameFinished(@DestinationVariable int id, String lastCardColor) {
-        GameSession gameSession2 = getGameSessionById(id);
+        GameSession gameSession = getGameSessionById(id);
         if (lastCardColor.equals("\"blue\"")) {
-            gameSession2.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
+            gameSession.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
         } else if (lastCardColor.equals("\"red\"")) {
-            gameSession2.setGameState(ActiveTeam.FINISHED_RED.ordinal());
+            gameSession.setGameState(ActiveTeam.FINISHED_RED.ordinal());
         } else {
-            gameSession2.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
+            gameSession.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
         }
-        return gameSession2;
+        return gameSession;
     }
 
     private GameSession getGameSessionById(int id) {
