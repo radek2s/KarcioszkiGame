@@ -44,9 +44,9 @@ export class GameComponent implements OnInit, OnDestroy {
    */
   constructor(
     private router: Router,
-    private route: ActivatedRoute, 
-    private gameService: GameService, 
-    private playerService: PlayerService, 
+    private route: ActivatedRoute,
+    private gameService: GameService,
+    private playerService: PlayerService,
     private gameSummaryDialog: MatDialog
   ) { }
 
@@ -113,26 +113,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   selectedCard(card: Card, event) {
-    card.selected = true;
-    if (card.color === "black") {
-      this.endGame("black")
+    if (!card.selected) {
+      card.selected = true;
+      this.updateGame(card.color);
     }
 
-    //odliczanie zaznaczonych kart z koloru
-    if (card.color === "blue") {
-      this.cardStatistics.reaminingBlue -= 1;
-      if (this.cardStatistics.reaminingBlue == 0) {
-        this.endGame("blue");
-      }
-    }
-    if (card.color === "red") {
-      this.cardStatistics.remainingRed -= 1;
-      if (this.cardStatistics.remainingRed == 0) {
-        this.endGame("red");
-      }
-    }
-
-    this.updateGame();
     //TODO: Card clicked logic - update points for team
   }
 
@@ -141,12 +126,13 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.webSocket) {
+    if (this.webSocket) {
       this.webSocket._disconnect();
     }
   }
 
   handleMessage(message) {
+    // debugger
     this.gameSession = JSON.parse(message);
     if (this._develop) {
       this.validateGame = false;
@@ -160,7 +146,7 @@ export class GameComponent implements OnInit, OnDestroy {
       })
     }
     if (this.gameSession.started && !this._gameStartedFlag) {
-      this.countCardsByColor();
+      
       this._gameStartedFlag = true;
     }
   }
@@ -179,9 +165,27 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateGame() {
-    this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
+  private updateGame(cardColor) {
+    switch(this.validateColor(cardColor, this.playerService.getPlayer().team)) {
+      case -1:
+        this.endGame("black")
+        break;
+      case 0:
+        this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
+        break;
+      case 1:
+        this.endTurn();
+        break;
+      case 2:
+        this.endGame("blue")
+        break
+      case 3:
+        this.endGame("red")
+        break;
+    }
   }
+
+  
 
   private endTurn() {
     console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
@@ -230,8 +234,8 @@ export class GameComponent implements OnInit, OnDestroy {
         } else {
           blueLeaderCount = blueLeaderCount + 1;
         }
-      }else{
-        if(player.team == 0) {
+      } else {
+        if (player.team == 0) {
           redNonLeaderCount = redLeaderCount + 1;
         } else {
           blueNonLeaderCount = blueLeaderCount + 1;
@@ -250,17 +254,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
 
-  private countCardsByColor() {
-    this.gameSession.gameCards.forEach(card => {
-      if (card.color == 'red') {
-        this.cardStatistics.remainingRed += 1;
-      } else if (card.color == 'blue') {
-        this.cardStatistics.reaminingBlue += 1;
-      }
-    });
-  }
-
-
   /**
    * Remove from gameSession active player to display list of
    * players without duplicates. Compare by unique ID
@@ -271,6 +264,45 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameSession.players = this.gameSession.players.filter(function (player) {
       return player.id !== activePlayer.id;
     })
+  }
+
+  /**
+   * 
+   * @param cardColor 
+   * @param playerTeam 
+   * 
+   * Return codes:
+   * -1 if black card color
+   * 0 if just update a game
+   * 1 to change a turn
+   * 2 to win as a blue
+   * 3 to win as a red
+   */
+  private validateColor(cardColor, playerTeam) {
+    if(cardColor === "blue") {
+      this.gameSession.gameCardStatistics.remainingBlueCards -= 1;
+      if(this.gameSession.gameCardStatistics.remainingBlueCards == 0) {
+        return 2
+      }
+      if(playerTeam == 0) {
+        this.gameSession.gameCardStatistics.redBonusCards = 1;
+        return 1
+      }
+    } else if (cardColor === "red") {
+      this.gameSession.gameCardStatistics.remainingRedCards -= 1;
+      if(this.gameSession.gameCardStatistics.remainingRedCards == 0) {
+        return 3
+      }
+      if(playerTeam == 1) {
+        this.gameSession.gameCardStatistics.blueBounsCards = 1;
+        return 1
+      }
+    } else if (cardColor === "black") {
+      return -1
+    } else if (cardColor === "orange") {
+      return 1
+    }
+    return 0
   }
 
 }

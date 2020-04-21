@@ -12,7 +12,7 @@ public class GameCard {
 
     }
 
-    GameCard(String text, int id) {
+    public GameCard(String text, int id) {
         this.id = id;
         this.text = text;
         this.selected = false;

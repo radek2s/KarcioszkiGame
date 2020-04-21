@@ -1,7 +1,7 @@
 export class CardsPackage{
     id:number;
     author:string;
-    packageName: string; //TODO: Zmień w Javie
+    packageName: string;
     image:string;
     cards: string[];
 }

@@ -59,6 +59,11 @@
 <ng-template #gameStartedBlock>
     <section id="infoPanel">
         <div>
+            <p>Pozostało kart: 
+                <span *ngIf="this.playerService.getPlayer().team===0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
+                <span *ngIf="this.playerService.getPlayer().team===1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
+            </p>
+            
             <p>Aktywna drużyna:</p>
             <div id="activePlayerColor" [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
                 <!-- {{gameSession.gameState}} -->
