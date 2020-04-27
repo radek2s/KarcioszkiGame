@@ -49,12 +49,15 @@ export class CardPackageInfoDialog {
         });
     }
 
-    public openConfirmationDialog(cardPackageId: number) {
-       const dialogRef = this.infoDialog.open(ConfirmationDialogComponent, {
-            width: '80%',
+    public openConfirmationDialogDelete(cardPackageId: number) {
+        const dialogRef = this.infoDialog.open(ConfirmationDialogComponent, {
+            width: '50%',
             data: {
-                title: "Tytuł"
-                },
+                title: "Czy na pewno chcesz usunąć tę paczkę?",
+                message: "",
+                btnOkText: "Tak",
+                btnCancelText: "Nie"
+            },
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -62,7 +65,5 @@ export class CardPackageInfoDialog {
                 this.deleteGamePackage(cardPackageId);
             }
         })
-
-        
     }
 }

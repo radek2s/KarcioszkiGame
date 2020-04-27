@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from
 @Component({
   selector: 'page-game-package-add',
   templateUrl: './game-package-add.html',
-  host: { '(document:keypress)': 'addCardKeyboard($event)'},
+  host: { '(document:keypress)': 'addCardKeyboard($event)' },
   styleUrls: ['../../app.component.scss']
 })
 export class GamePackageAddComponent {
@@ -41,11 +41,11 @@ export class GamePackageAddComponent {
 
   addCard() {
     this.cardsPackage.cards.push(this.cardTitle);
-    this.cardTitle =  "";
+    this.cardTitle = "";
   }
 
   addCardKeyboard(event: KeyboardEvent) {
-    if(event.code === "Enter") {
+    if (event.code === "Enter") {
       this.addCard();
     }
   }
@@ -63,7 +63,7 @@ export class GamePackageAddComponent {
     });
   }
 
-  deleteCard(card){
+  deleteCard(card) {
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
@@ -74,9 +74,9 @@ export class GamePackageAddComponent {
   }
 
   forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       const forbidden = nameRe.test(control.value);
-      return forbidden ? {'forbiddenName': {value: control.value}} : null;
+      return forbidden ? { 'forbiddenName': { value: control.value } } : null;
     };
   }
 }

@@ -1,13 +1,19 @@
-<div class="modal-header">
-    <h4 class="modal-title">{{ title }}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="decline()">
-        <span aria-hidden="true">&times;</span>
+<div class="relative">
+  <div class="center">
+    <div class="modal-header">
+      <h4 class="modal-title">{{ title }}</h4>
+      <button mat-raised-button class="close" (click)="decline()">
+        <mat-icon>cancel</mat-icon>
       </button>
     </div>
     <div class="modal-body">
       {{ message }}
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="decline()">A{{ btnCancelText }}</button>
-      <button type="button" class="btn btn-primary" (click)="accept()">bba{{ btnOkText }}</button>
+      <button mat-raised-button color="primary" type="button" class="btn btn-primary"
+        (click)="accept()">{{ btnOkText }}</button>
+      <button mat-raised-button color="danger" type="button" class="btn btn-danger"
+        (click)="decline()">{{ btnCancelText }}</button>
     </div>
+  </div>
+</div>
