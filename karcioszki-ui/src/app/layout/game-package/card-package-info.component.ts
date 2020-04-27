@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../confirmation/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'card-package-info-dialog',
@@ -16,9 +18,10 @@ export class CardPackageInfoDialog {
     constructor(
         private gameService: GameService,
         private _snackBar: MatSnackBar,
+        public infoDialog: MatDialog,
         public dialogRef: MatDialogRef<CardPackageInfoDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
-            this.cardPackage = data;
+        this.cardPackage = data;
     }
 
     onNoClick(): void {
@@ -28,8 +31,8 @@ export class CardPackageInfoDialog {
         this.router.navigateByUrl(`ui/gamePackage/edit/${packageId}`);
         this.dialogRef.close();
     }
-    
-    deleteGamePackage(packageId: number) {
+
+    private deleteGamePackage(packageId: number) {
         this.gameService.deleteGamePackage(packageId).then(data => {
             this.dialogRef.close(packageId)
             this.openSnackBar("Game Card Deleted", "Close")
@@ -42,7 +45,24 @@ export class CardPackageInfoDialog {
 
     openSnackBar(message: string, action: string) {
         this._snackBar.open(message, action, {
-          duration: 2000,
+            duration: 2000,
         });
-      }
+    }
+
+    public openConfirmationDialog(cardPackageId: number) {
+       const dialogRef = this.infoDialog.open(ConfirmationDialogComponent, {
+            width: '80%',
+            data: {
+                title: "Tytuł"
+                },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.deleteGamePackage(cardPackageId);
+            }
+        })
+
+        
+    }
 }

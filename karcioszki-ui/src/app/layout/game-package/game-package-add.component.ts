@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 import { PlayerService } from 'src/app/services/player.service';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'page-game-package-add',
@@ -16,28 +17,27 @@ export class GamePackageAddComponent {
 
   cardsPackage: CardsPackage;
   cardTitle: string;
- // packageForm: FormGroup;
+  packageForm: FormGroup;
 
   constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router) {
     this.cardsPackage = new CardsPackage();
     this.cardsPackage.cards = [];
   }
-/*
+
   ngOnInit(): void {
     this.packageForm = new FormGroup({
-      'model': new FormControl(this.cardsPackage.packageName, [
-        //Validators.required,
-        Validators.minLength(4)
-        //forbiddenNameValidator(/bob/i)
+      'packageName': new FormControl(this.cardsPackage.packageName, [
+        Validators.required,
+        Validators.minLength(4),
+        //todo: Pobrać wszysstkie game package. Sprawdzać czy ich name 
+        this.forbiddenNameValidator(/bober/i)
       ]),
-      // 'alterEgo': new FormControl(this.hero.alterEgo, {
-      //   asyncValidators: [this.alterEgoValidator.validate.bind(this.alterEgoValidator)],
-      //   updateOn: 'blur'
-      // }),
-      // 'power': new FormControl(this.hero.power, Validators.required)
-    }//,  { validators: identityRevealedValidator } // <-- add custom validator at the FormGroup level
-    );
-  }*/
+    });
+  }
+
+  get packageName() {
+    return this.packageForm.get('packageName');
+  }
 
   addCard() {
     this.cardsPackage.cards.push(this.cardTitle);
@@ -71,5 +71,12 @@ export class GamePackageAddComponent {
     this._snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const forbidden = nameRe.test(control.value);
+      return forbidden ? {'forbiddenName': {value: control.value}} : null;
+    };
   }
 }
