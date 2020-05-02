@@ -28,6 +28,7 @@ import { CardPackageInfoDialog } from './layout/game-package/card-package-info.c
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
 import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
+import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-
     GamePackageAddComponent,
     GamePackageEditComponent,
     GamePackageListComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    UniqueNameValidationDirective
   ],
   imports: [
     AppRoutingModule,
