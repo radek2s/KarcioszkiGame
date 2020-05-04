@@ -12,7 +12,7 @@ import { PlayerService } from 'src/app/services/player.service';
 @Component({
   selector: 'app-root',
   templateUrl: './menu.component.html',
-  styleUrls: ['../../app.component.scss', './menu.component.scss']
+  styleUrls: ['../../app.component.scss']
 })
 export class MenuComponent implements OnInit {
 
@@ -96,7 +96,7 @@ export class MenuComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'menu-dialog.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['../../app.component.scss']
 })
 export class MenuDialog {
 
@@ -125,7 +125,7 @@ export class MenuDialog {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'player-dialog.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['../../app.component.scss']
 })
 export class PlayerDialog {
 

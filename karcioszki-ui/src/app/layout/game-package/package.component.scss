@@ -3,3 +3,15 @@
     font-weight: 500;
     cursor: pointer;
 }
+button.mat-menu-item{
+    width: fit-content;
+}
+.column {
+    flex-direction: column;
+}
+.flex {
+    display: flex;
+}
+.fill-width{
+    width: -webkit-fill-available;
+}

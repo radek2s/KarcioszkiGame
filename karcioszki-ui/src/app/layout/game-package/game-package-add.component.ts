@@ -25,6 +25,7 @@ export class GamePackageAddComponent {
 
   constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router, private fb: FormBuilder) {
     this.cardsPackage = new CardsPackage();
+    this.cardsPackage.pin = String(Math.round(Math.random() * 10000))
     this.cardsPackage.cards = [];
 
     this.gameService.getGamePackages().subscribe(cardsPackages => {

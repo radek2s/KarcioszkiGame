@@ -49,7 +49,7 @@ import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.comp
     GamePackageListComponent,
     ConfirmationDialogComponent,
     PinValidationDialog,
-    UniqueNameValidationDirective
+    UniqueNameValidationDirective,
   ],
   imports: [
     AppRoutingModule,
@@ -80,6 +80,7 @@ import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.comp
     CardPackageInfoDialog, 
     GameSummaryDialog, 
     ConfirmationDialogComponent, 
-    PinValidationDialog]
+    PinValidationDialog,
+  ]
 })
 export class AppModule { }

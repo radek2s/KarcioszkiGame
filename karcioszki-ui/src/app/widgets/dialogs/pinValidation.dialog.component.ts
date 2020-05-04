@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     selector: 'pin-validation-dialog',
     template: `
-    <h1 mat-dialog-title>Podaj PIN do edycji paczki</h1>
+    <h1 mat-dialog-title>Podaj PIN paczki</h1>
     <div mat-dialog-content>
     <mat-form-field>
         <input matInput placeholder="Numer PIN:" [(ngModel)]=inputPin>
