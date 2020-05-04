@@ -62,21 +62,14 @@
             Liczba kart do zgadniecia
         </p>
         <div class="flex-container">
-            <button mat-raised-button (click)="leaderSelect(1)">1</button>
-            <button mat-raised-button (click)="leaderSelect(2)">2</button>
-            <button mat-raised-button (click)="leaderSelect(3)">3</button>
-            <button mat-raised-button (click)="leaderSelect(4)">4</button>
-            <button mat-raised-button (click)="leaderSelect(5)">5</button>
-            <button mat-raised-button (click)="leaderSelect(6)">6</button>
-            <button mat-raised-button (click)="leaderSelect(7)">7</button>
-            <button mat-raised-button (click)="leaderSelect(8)">8</button>
-            <!-- <mat-form-field>
-            <input matInput placeholder="Liczba kart do zgadniecia"
-            [(ngModel)]="gameSession.gameCardStatistics.cardToGuess" [ngModelOptions]="{standalone: true}"
-            id="cardToGuess">
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="leaderStart()">Zatwierdź liczbę kart</button> -->
-
+            <button mat-raised-button [ngStyle]="getCardCountSelected(1)" (click)="leaderSelect(1)">1</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(2)" (click)="leaderSelect(2)">2</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(3)" (click)="leaderSelect(3)">3</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(4)" (click)="leaderSelect(4)">4</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(5)" (click)="leaderSelect(5)">5</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(6)" (click)="leaderSelect(6)">6</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(7)" (click)="leaderSelect(7)">7</button>
+            <button mat-raised-button [ngStyle]="getCardCountSelected(8)" (click)="leaderSelect(8)">8</button>
         </div>
 
     </div>
@@ -84,10 +77,8 @@
         <div>
             <p>Pozostało ruchów: {{gameSession.gameCardStatistics.cardToGuess}}</p>
             <p>Pozostało kart:
-                <span
-                    *ngIf="this.playerService.getPlayer().team===0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
-                <span
-                    *ngIf="this.playerService.getPlayer().team===1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
+                <span *ngIf="this.playerService.getPlayer().team==0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
+                <span *ngIf="this.playerService.getPlayer().team==1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
             </p>
 
             <p>Aktywna drużyna:</p>
@@ -98,11 +89,21 @@
         </div>
         <div id="extraCard">
             <div *ngIf="this.playerService.getPlayer().leader">
-                <button mat-raised-button (click)="endGame()">Zakończ grę</button>
+                <button mat-raised-button (click)="endGame('black')">Zakończ grę</button>
             </div>
-            <p>Bonusowa karta</p>
-            <mat-checkbox color="primary">niebiescy</mat-checkbox>
-            <mat-checkbox color="warn">czerwoni</mat-checkbox>
+            <p>Bonusowa karta:</p>
+            <div *ngIf="this.playerService.getPlayer().team==0">
+                <mat-checkbox color="warn" [checked]="gameSession.gameCardStatistics.redBonusCards == 1">
+                    <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 1">Dostępna karta!</span>
+                    <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 0"> -- brak --</span>
+                </mat-checkbox>
+            </div>
+            <div *ngIf="this.playerService.getPlayer().team==1">
+                <mat-checkbox color="primary" [checked]="gameSession.gameCardStatistics.blueBounsCards == 1">
+                    <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 1">Dostępna karta!</span>
+                    <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 0"> -- brak --</span>
+                </mat-checkbox>
+            </div>
         </div>
     </section>
     <mat-list *ngIf="this.playerService.getPlayer().leader">
