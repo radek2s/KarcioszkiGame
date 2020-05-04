@@ -174,12 +174,26 @@ export class GameComponent implements OnInit, OnDestroy {
         break;
       case 0:
         this.gameSession.gameCardStatistics.cardToGuess -= 1;
-        if(this.gameSession.gameCardStatistics.cardToGuess == 0) {
-          this.endTurn();
+        if (this.gameSession.gameCardStatistics.cardToGuess <= 0) {
+          if (this.playerService.getPlayer().team == 0) {
+            if (this.gameSession.gameCardStatistics.redBonusCards > 0) {
+              this.gameSession.gameCardStatistics.redBonusCards = 0;
+              this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
+            } else {
+              this.endTurn();
+            }
+          }
+          if (this.playerService.getPlayer().team == 1) {
+            if (this.gameSession.gameCardStatistics.blueBounsCards > 0) {
+              this.gameSession.gameCardStatistics.blueBounsCards = 0;
+              this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
+            } else {
+              this.endTurn();
+            }
+          }
         } else {
           this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
         }
-        
         break;
       case 1:
         this.endTurn();
@@ -324,6 +338,13 @@ export class GameComponent implements OnInit, OnDestroy {
       return 1
     }
     return 0
+  }
+
+  public getCardCountSelected(cardCount) {
+    if(this.gameSession.gameCardStatistics.cardToGuess == cardCount) {
+      return {'background-color' : 'rgb(59, 138, 59)'}
+    }
+    return null;
   }
 
 }
