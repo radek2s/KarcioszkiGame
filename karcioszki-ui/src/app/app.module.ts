@@ -20,6 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
 import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
@@ -63,7 +65,8 @@ import { UniqueNameValidationDirective } from './shared/unique-validator.directi
     MatSnackBarModule,
     MatIconModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,6 +5,8 @@ import com.regster.tajniacy.model.GameCardPackage;
 import com.regster.tajniacy.model.GameSession;
 import com.regster.tajniacy.model.Player;
 import com.regster.tajniacy.repository.PlayerRepository;
+import com.regster.tajniacy.service.GameSessionService;
+import com.regster.tajniacy.service.GameSessionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,9 @@ import java.util.ArrayList;
 
 /**
  * Game Hub Controller Class
- * @author Radek Jajko
  *
+ * @author Radek Jajko
+ * <p>
  * Main class to handle the game events. Handle user requests for API and
  * WebSocket messages.  This class holds every created gameSession, it also provide
  * a methotds to create a new sessions and to setup the game.
@@ -38,14 +41,18 @@ public class GameHubController {
     public GameHubController(SimpMessagingTemplate template) {
         this.template = template;
     }
+
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private GameSessionService gameSessionService;
 
     /**
      * Show Games
-     *
+     * <p>
      * While opening the main view, handle this request to return
      * currently created gameSessionIds.
+     *
      * @return gameSessionIds
      */
     @RequestMapping(value = "/hub")
@@ -57,9 +64,10 @@ public class GameHubController {
 
     /**
      * OpenGame
-     *
+     * <p>
      * Join or create a new gameSession if it do not exist. Then send a message
      * about created game to WebSocket topic. And for API request return this gameSession
+     *
      * @param id id of the game
      * @return GameSession
      */
@@ -71,12 +79,12 @@ public class GameHubController {
             this.gameSessions.add(currentGameSession);
             this.template.convertAndSend("/topic/hub", getGameSessionIds());
         } else {
-            if(getGameSessionById(id) == null) {
+            if (getGameSessionById(id) == null) {
                 this.gameSessions.add(currentGameSession);
                 this.template.convertAndSend("/topic/hub", getGameSessionIds());
             }
         }
-        return new ResponseEntity<>(getGameSessionById(id), HttpStatus.OK);
+        return new ResponseEntity<GameSession>(getGameSessionById(id), HttpStatus.OK);
     }
 
     /**
@@ -111,7 +119,7 @@ public class GameHubController {
     public GameSession exitPlayer(@DestinationVariable int id, Player player) {
         GameSession gameSession = getGameSessionById(id);
         gameSession.deletePlayer(player);
-        if(gameSession.getPlayers().isEmpty()) {
+        if (gameSession.getPlayers().isEmpty()) {
             gameSessions.remove(gameSession);
             this.template.convertAndSend("/topic/hub", getGameSessionIds());
         }
@@ -130,7 +138,7 @@ public class GameHubController {
     @SendTo("/topic/hub/{id}")
     public GameSession setCardCount(@DestinationVariable int id, int cardCount) {
         GameSession gameSession = getGameSessionById(id);
-        gameSession.setCardCount(cardCount);
+        gameSession.getGameCardStatistics().setCardCount(cardCount);
         return gameSession;
     }
 
@@ -140,7 +148,9 @@ public class GameHubController {
         GameSession gameSession = getGameSessionById(id);
         gameSession.setStarted(true);
         gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
-        gameSession.setGameCards(gameSession.getGameCardPackage().prepareCards(gameSession.getCardCount()));
+        gameSession.setGameCards(
+                gameSessionService.prepareGameCardsColors(
+                        gameSessionService.prepareGameCards(gameSession.getGameCardPackage().getCards()), gameSession.getGameCardStatistics().getCardCount()));
         this.template.convertAndSend("/topic/hub", getGameSessionIds());
         return gameSession;
     }
@@ -151,30 +161,37 @@ public class GameHubController {
         return gameSession;
     }
 
+    @MessageMapping("/game/hub/{id}/leader")
+    @SendTo("/topic/hub/{id}")
+    public GameSession gameLeaderStart(@DestinationVariable int id, GameSession gameSession) {
+        return gameSession;
+    }
+
     @MessageMapping("/game/hub/{id}/turn")
     @SendTo("/topic/hub/{id}")
     public GameSession gameNextTurn(@DestinationVariable int id, GameSession gameSession) {
 
-        if(gameSession.getGameState() == ActiveTeam.TEAM_A.ordinal()) {
+        if (gameSession.getGameState() == ActiveTeam.TEAM_A.ordinal()) {
             gameSession.setGameState(ActiveTeam.TEAM_B.ordinal());
         } else {
             gameSession.setGameState(ActiveTeam.TEAM_A.ordinal());
         }
+        gameSession.getGameCardStatistics().setCardToGuess(0);
         return gameSession;
     }
 
     @MessageMapping("/game/hub/{id}/end")
     @SendTo("/topic/hub/{id}")
     public GameSession gameFinished(@DestinationVariable int id, String lastCardColor) {
-        GameSession gameSession2 = getGameSessionById(id);
-        if(lastCardColor.equals("\"blue\"")) {
-            gameSession2.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
+        GameSession gameSession = getGameSessionById(id);
+        if (lastCardColor.equals("\"blue\"")) {
+            gameSession.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
         } else if (lastCardColor.equals("\"red\"")) {
-            gameSession2.setGameState(ActiveTeam.FINISHED_RED.ordinal());
+            gameSession.setGameState(ActiveTeam.FINISHED_RED.ordinal());
         } else {
-            gameSession2.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
+            gameSession.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
         }
-        return gameSession2;
+        return gameSession;
     }
 
     private GameSession getGameSessionById(int id) {
@@ -190,9 +207,9 @@ public class GameHubController {
 
     private ArrayList<Integer> getGameSessionIds() {
         ArrayList<Integer> gameIds = new ArrayList<>();
-        if(this.gameSessions != null) {
-            for (GameSession gameSession: this.gameSessions) {
-                if(!gameSession.isStarted()) {
+        if (this.gameSessions != null) {
+            for (GameSession gameSession : this.gameSessions) {
+                if (!gameSession.isStarted()) {
                     gameIds.add(gameSession.getId());
                 }
             }
