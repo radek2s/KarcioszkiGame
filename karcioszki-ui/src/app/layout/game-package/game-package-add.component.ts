@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormB
   selector: 'page-game-package-add',
   templateUrl: './game-package-add.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)' },
-  styleUrls: ['../../app.component.scss']
+  styleUrls: ['../../app.component.scss', './package.component.scss']
 })
 export class GamePackageAddComponent {
 

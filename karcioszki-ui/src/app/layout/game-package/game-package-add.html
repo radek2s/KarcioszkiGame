@@ -34,15 +34,26 @@
                 <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image">
             </mat-form-field>
             <mat-form-field class="margin-sides">
-                <input matInput placeholder="PIN to edit package" [(ngModel)]="cardsPackage.pin">
-            </mat-form-field>
-            <mat-form-field class="margin-sides">
                 <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image">
             </mat-form-field>
-            <mat-slide-toggle (change)="toggle($event)">Public package</mat-slide-toggle>
-            <mat-form-field class="margin-sides" *ngIf="!cardsPackage.visible">
-                <input matInput placeholder="Password to package" [(ngModel)]="cardsPackage.password">
-            </mat-form-field>
+            <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>PIN</button>
+                <button mat-menu-item>Prywatne</button>
+            </mat-menu>
+            <div>
+                <mat-form-field class="margin-sides">
+                    <input matInput placeholder="PIN to edit package" [(ngModel)]="cardsPackage.pin">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-slide-toggle (change)="toggle($event)">Paczka prywatna</mat-slide-toggle>
+                <mat-form-field class="margin-sides" *ngIf="cardsPackage.visible">
+                    <input matInput placeholder="Password to package" [(ngModel)]="cardsPackage.password">
+                </mat-form-field>
+            </div>
         </div>
         <div class="vertical-space-bottom">
             <mat-form-field class="margin-right-s">
@@ -54,6 +65,24 @@
                 [disabled]="packageName.invalid">Send</button>
             <!-- [disabled]="form.invalid" -->
         </div>
+        <!-- <mat-accordion class="short">
+        <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  PIN
+                </mat-panel-title>
+                <mat-panel-description> -->
+        <!-- zmień PIN do paczki, dzięki któremu będziesz mógł edytować paczkę -->
+        <!-- </mat-panel-description> 
+              </mat-expansion-panel-header>
+          
+              <mat-form-field>
+                <mat-label>PIN</mat-label>
+                <input matInput>
+              </mat-form-field>
+              </mat-expansion-panel>
+              </mat-accordion>
+     -->
         <div>
             <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
                 <mat-form-field>
