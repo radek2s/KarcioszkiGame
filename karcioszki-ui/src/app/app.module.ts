@@ -32,6 +32,7 @@ import { GamePackageListComponent } from './layout/game-package/game-package-lis
 import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
 import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
+import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UniqueNameValidationDirective } from './shared/unique-validator.directi
     GamePackageEditComponent,
     GamePackageListComponent,
     ConfirmationDialogComponent,
+    PinValidationDialog,
     UniqueNameValidationDirective
   ],
   imports: [
@@ -72,6 +74,12 @@ import { UniqueNameValidationDirective } from './shared/unique-validator.directi
     ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog, ConfirmationDialogComponent]
+  entryComponents: [
+    MenuDialog, 
+    PlayerDialog, 
+    CardPackageInfoDialog, 
+    GameSummaryDialog, 
+    ConfirmationDialogComponent, 
+    PinValidationDialog]
 })
 export class AppModule { }
