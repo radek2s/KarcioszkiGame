@@ -3,9 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { GameService } from '../../services/game.service';
-import { CardsPackage } from '../../models/CardsPackage';
 import { PlayerService } from 'src/app/services/player.service';
-import { debug } from 'util';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'page-game-package-edit',
@@ -62,6 +61,10 @@ export class GamePackageEditComponent {
 
   deleteCard(card){
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
+  }
+
+  public toggle(event: MatSlideToggleChange) {
+    this.cardsPackage.visible = event.checked;
   }
 
   openSnackBar(message: string, action: string) {

@@ -5,6 +5,7 @@ import { GameService } from '../../services/game.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../confirmation/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PinValidationDialog } from 'src/app/widgets/dialogs/pinValidation.dialog.component';
 
 @Component({
     selector: 'card-package-info-dialog',
@@ -18,7 +19,7 @@ export class CardPackageInfoDialog {
     constructor(
         private gameService: GameService,
         private _snackBar: MatSnackBar,
-        public infoDialog: MatDialog,
+        public dialog: MatDialog,
         public dialogRef: MatDialogRef<CardPackageInfoDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
         this.cardPackage = data;
@@ -28,19 +29,43 @@ export class CardPackageInfoDialog {
         this.dialogRef.close();
     }
     goToEditGamePackage(packageId: number) {
-        this.router.navigateByUrl(`ui/gamePackage/edit/${packageId}`);
-        this.dialogRef.close();
+        const dialogReference = this.dialog.open(PinValidationDialog, {
+            width: '50%',
+            disableClose: true,
+            data: this.cardPackage
+        });
+        dialogReference.afterClosed().subscribe(res => {
+            if(res == true) {
+                this.router.navigateByUrl(`ui/gamePackage/edit/${packageId}`);
+                this.dialogRef.close();
+            } else {
+                this.openSnackBar("Błędny PIN", "Close")
+            }
+        })
+        
     }
 
     private deleteGamePackage(packageId: number) {
-        this.gameService.deleteGamePackage(packageId).then(data => {
-            this.dialogRef.close(packageId)
-            this.openSnackBar("Game Card Deleted", "Close")
-        }).catch(err => {
-            this.openSnackBar("Something went wrong!", "Close")
-            console.error(err)
+        const dialogReference = this.dialog.open(PinValidationDialog, {
+            width: '50%',
+            disableClose: true,
+            data: this.cardPackage
         });
-        this.dialogRef.close();
+        dialogReference.afterClosed().subscribe(res => {
+            if(res == true) {
+                this.gameService.deleteGamePackage(packageId).then(data => {
+                    this.dialogRef.close(packageId)
+                    this.openSnackBar("Game Card Deleted", "Close")
+                }).catch(err => {
+                    this.openSnackBar("Something went wrong!", "Close")
+                    console.error(err)
+                });
+                this.dialogRef.close();
+            } else {
+                this.openSnackBar("Błędny PIN", "Close")
+            }
+        })
+        
     }
 
     openSnackBar(message: string, action: string) {
@@ -50,7 +75,7 @@ export class CardPackageInfoDialog {
     }
 
     public openConfirmationDialogDelete(cardPackageId: number) {
-        const dialogRef = this.infoDialog.open(ConfirmationDialogComponent, {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '50%',
             data: {
                 title: "Czy na pewno chcesz usunąć tę paczkę?",

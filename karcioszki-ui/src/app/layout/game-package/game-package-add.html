@@ -36,9 +36,6 @@
             <mat-form-field class="margin-sides">
                 <input matInput placeholder="PIN to edit package" [(ngModel)]="cardsPackage.pin">
             </mat-form-field>
-            <mat-form-field class="margin-sides">
-                <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image">
-            </mat-form-field>
             <mat-slide-toggle (change)="toggle($event)">Public package</mat-slide-toggle>
             <mat-form-field class="margin-sides" *ngIf="!cardsPackage.visible">
                 <input matInput placeholder="Password to package" [(ngModel)]="cardsPackage.password">
