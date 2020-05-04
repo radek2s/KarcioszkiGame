@@ -11,6 +11,9 @@
 <div class="flex-center">
     <div class="fill-width">
         <div class="flex">
+            <div>
+                <img [src]="cardsPackage.image">
+            </div>
             <div class="center big-font flex column">
                 <mat-form-field class="margin-sides">
                     <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName" disabled>

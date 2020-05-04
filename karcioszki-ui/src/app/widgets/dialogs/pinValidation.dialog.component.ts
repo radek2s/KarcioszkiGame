@@ -7,6 +7,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     selector: 'pin-validation-dialog',
     template: `
     <h1 mat-dialog-title>Podaj PIN paczki</h1>
+    <button mat-mini-fab class="close" (click)="onNoClick()">
+    <mat-icon>cancel</mat-icon>
+</button>
     <div mat-dialog-content>
     <mat-form-field>
         <input matInput placeholder="Numer PIN:" [(ngModel)]=inputPin>
@@ -29,5 +32,8 @@ export class PinValidationDialog {
         } else {
             this.dialogReference.close()
         }
+    }
+    onNoClick(): void {
+        this.dialogReference.close();
     }  
 }

@@ -39,8 +39,14 @@ export class GamePackageEditComponent {
   }
 
   addCard() {
+    if (this.cardsPackage.cards.find(cardTitle => {
+      return cardTitle === this.cardTitle
+    })) {
+      this.openSnackBar("Karta o tej nazwie już została dodana", "Zamknij")
+    } else {
     this.cardsPackage.cards.push(this.cardTitle);
     this.cardTitle =  "";
+    }
   }
 
   addCardKeyboard(event: KeyboardEvent) {

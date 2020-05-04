@@ -11,6 +11,9 @@ button.mat-menu-item{
 }
 .flex {
     display: flex;
+    img{
+        width: 10em;
+    }
 }
 .fill-width{
     width: -webkit-fill-available;
