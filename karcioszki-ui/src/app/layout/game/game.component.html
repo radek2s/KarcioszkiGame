@@ -57,8 +57,39 @@
 
 <!-- Game panel -->
 <ng-template #gameStartedBlock>
+    <div *ngIf="this.playerService.getPlayer().leader" >
+        <p class="flex-container">
+            Liczba kart do zgadniecia
+        </p>
+        <div class="flex-container">
+            <button mat-raised-button (click)="leaderSelect(1)">1</button>
+            <button mat-raised-button (click)="leaderSelect(2)">2</button>
+            <button mat-raised-button (click)="leaderSelect(3)">3</button>
+            <button mat-raised-button (click)="leaderSelect(4)">4</button>
+            <button mat-raised-button (click)="leaderSelect(5)">5</button>
+            <button mat-raised-button (click)="leaderSelect(6)">6</button>
+            <button mat-raised-button (click)="leaderSelect(7)">7</button>
+            <button mat-raised-button (click)="leaderSelect(8)">8</button>
+            <!-- <mat-form-field>
+            <input matInput placeholder="Liczba kart do zgadniecia"
+            [(ngModel)]="gameSession.gameCardStatistics.cardToGuess" [ngModelOptions]="{standalone: true}"
+            id="cardToGuess">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="leaderStart()">Zatwierdź liczbę kart</button> -->
+
+        </div>
+
+    </div>
     <section id="infoPanel">
         <div>
+            <p>Pozostało ruchów: {{gameSession.gameCardStatistics.cardToGuess}}</p>
+            <p>Pozostało kart:
+                <span
+                    *ngIf="this.playerService.getPlayer().team===0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
+                <span
+                    *ngIf="this.playerService.getPlayer().team===1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
+            </p>
+
             <p>Aktywna drużyna:</p>
             <div id="activePlayerColor" [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
                 <!-- {{gameSession.gameState}} -->
@@ -67,7 +98,7 @@
         </div>
         <div id="extraCard">
             <div *ngIf="this.playerService.getPlayer().leader">
-                <button mat-raised-button color="primary" (click)="endGame()">Zakończ grę</button>
+                <button mat-raised-button (click)="endGame()">Zakończ grę</button>
             </div>
             <p>Bonusowa karta</p>
             <mat-checkbox color="primary">niebiescy</mat-checkbox>

@@ -52,6 +52,7 @@ export class GameService {
     return this.http.get<CardsPackage>(`${this.gameCardPackageUrl}/get/${id}`)
   }
 
+
   /**
    * Add a new Game Card Package to backend
    * @param cardPackage 

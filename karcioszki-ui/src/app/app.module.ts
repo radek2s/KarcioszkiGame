@@ -2,7 +2,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
@@ -20,6 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
 import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
@@ -27,6 +29,8 @@ import { GamePackageEditComponent } from './layout/game-package/game-package-edi
 import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
+import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
+import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
 
 @NgModule({
   declarations: [
@@ -40,13 +44,16 @@ import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
     GamePackageMenuComponent,
     GamePackageAddComponent,
     GamePackageEditComponent,
-    GamePackageListComponent
+    GamePackageListComponent,
+    ConfirmationDialogComponent,
+    UniqueNameValidationDirective
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
     MatDialogModule,
@@ -58,10 +65,11 @@ import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
     MatSnackBarModule,
     MatIconModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog]
+  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog, ConfirmationDialogComponent]
 })
 export class AppModule { }

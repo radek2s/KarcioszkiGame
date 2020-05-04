@@ -7,18 +7,19 @@ public class GameSession {
     private int id;
     private boolean started;
     private List<Player> players;
-    private int cardCount;
     private int gameState;
     private GameCardPackage gameCardPackage;
+    private GameCardStatistics gameCardStatistics;
     private ArrayList<GameCard> gameCards;
 
     public GameSession() {
-        this.cardCount = 15; //DEFAULT VALUE
+        this.gameCardStatistics = new GameCardStatistics(15); //DEFAULT VALUE
     }
 
     public GameSession(int id) {
         this.id = id;
         this.players = new ArrayList<>();
+        this.gameCardStatistics = new GameCardStatistics(15);
     }
 
     public int getId() {
@@ -27,14 +28,6 @@ public class GameSession {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCardCount() {
-        return cardCount;
-    }
-
-    public void setCardCount(int cardCount) {
-        this.cardCount = cardCount;
     }
 
     public List<Player> getPlayers() {
@@ -111,4 +104,11 @@ public class GameSession {
         this.gameCards = gameCards;
     }
 
+    public GameCardStatistics getGameCardStatistics() {
+        return gameCardStatistics;
+    }
+
+    public void setGameCardStatistics(GameCardStatistics gameCardStatistics) {
+        this.gameCardStatistics = gameCardStatistics;
+    }
 }

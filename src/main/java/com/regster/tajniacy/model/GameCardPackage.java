@@ -12,10 +12,13 @@ public class GameCardPackage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Boolean visible;
     private String author;
     private String packageName;
     @Column(columnDefinition = "TEXT")
     private String image;
+    private String pin;
+    private String password;
 
     @ElementCollection
     @CollectionTable(name = "listOfCards")
@@ -61,54 +64,27 @@ public class GameCardPackage {
         this.cards = cards;
     }
 
-    public ArrayList<GameCard> prepareCards(int cardCount) {
-        ArrayList<GameCard> cards = new ArrayList<>();
-        int cardId = 0;
-        for (String cardText : this.cards) {
-            cards.add(new GameCard(cardText, cardId++));
-        }
-        Collections.shuffle(cards);
-        if(cards.size() < cardCount) {
-            cardCount = cards.size();
-        }
-        cards = setCardColors(cards, cardCount);
-        Collections.shuffle(cards);
-        return cards;
+    public String getPassword() {
+        return password;
     }
 
-    private ArrayList<GameCard> setCardColors(ArrayList<GameCard> gameCards, int cardCount) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        int cardColored = cardCount / 2;
-        boolean isEven = cardCount % 2 == 0;
-        int red = cardColored - 1;
-        int blue = cardColored - 1;
-        int neutral = isEven ? 1 : 2;
-        ArrayList<GameCard> cards = new ArrayList<>();
+    public Boolean getVisible() {
+        return visible;
+    }
 
-        for(int x = 0; x < cardCount; x++) {
-            GameCard gameCard = gameCards.get(x);
-            if (red > 0) {
-                gameCard.setColor("red");
-                cards.add(gameCard);
-                red--;
-            } else {
-                if (blue > 0) {
-                    gameCard.setColor("blue");
-                    cards.add(gameCard);
-                    blue--;
-                } else {
-                    if (neutral > 0) {
-                        gameCard.setColor("orange");
-                        cards.add(gameCard);
-                        neutral--;
-                    } else {
-                        gameCard.setColor("black");
-                        cards.add(gameCard);
-                    }
-                }
-            }
-        }
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 
-        return cards;
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 }

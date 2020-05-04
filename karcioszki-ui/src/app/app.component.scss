@@ -2,11 +2,17 @@
     text-align: center!important;
     margin: auto;
     width: fit-content;
-  }
+}
 
   button{
     margin: 5px;
     min-width: 0;
+  }
+
+  .close{
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   .flex-center{
     display: flex!important;

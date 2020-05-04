@@ -1,7 +1,10 @@
 export class CardsPackage{
     id:number;
     author:string;
-    packageName: string; //TODO: Zmień w Javie
+    packageName: string;
+    visible: Boolean;
+    pin: string;
+    password: string;
     image:string;
     cards: string[];
 }
