@@ -2,7 +2,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
@@ -27,6 +27,8 @@ import { GamePackageEditComponent } from './layout/game-package/game-package-edi
 import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
+import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
+import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
 
 @NgModule({
   declarations: [
@@ -40,13 +42,16 @@ import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
     GamePackageMenuComponent,
     GamePackageAddComponent,
     GamePackageEditComponent,
-    GamePackageListComponent
+    GamePackageListComponent,
+    ConfirmationDialogComponent,
+    UniqueNameValidationDirective
   ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
     MatDialogModule,
@@ -62,6 +67,6 @@ import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog]
+  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog, ConfirmationDialogComponent]
 })
 export class AppModule { }
