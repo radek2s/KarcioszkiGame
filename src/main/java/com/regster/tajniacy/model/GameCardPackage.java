@@ -12,10 +12,13 @@ public class GameCardPackage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private Boolean visible;
     private String author;
     private String packageName;
     @Column(columnDefinition = "TEXT")
     private String image;
+    private String pin;
+    private String password;
 
     @ElementCollection
     @CollectionTable(name = "listOfCards")
@@ -61,4 +64,27 @@ public class GameCardPackage {
         this.cards = cards;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
 }
