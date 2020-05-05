@@ -88,4 +88,9 @@ export class GameService {
     return this.http.post<any>('./api/game/player/create', playerName, this.httpOptions).toPromise();
   }
 
+  createGameLobby(gameSession, cardCount) {
+    console.debug("Creating game lobby");
+    return this.http.post<any>(`${this.gameHubUrl}/createLobby/${cardCount}`, gameSession, this.httpOptions);
+  }
+  
 }

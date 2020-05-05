@@ -33,6 +33,13 @@ import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
 import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
 import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.component';
+import { HomeComponent } from './views/home/home.component';
+import { LobbyComponent } from './views/lobby/lobby.component';
+import { GameNewComponent } from './views/game/game.component';
+import { SimpleInputDialog } from './widgets/dialogs/simpleInput.dialog.component';
+import { CreateGameLobbyDialog } from './widgets/dialogs/createGameLobby.dialog.component';
+
+
 
 @NgModule({
   declarations: [
@@ -50,6 +57,11 @@ import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.comp
     ConfirmationDialogComponent,
     PinValidationDialog,
     UniqueNameValidationDirective,
+    HomeComponent,
+    LobbyComponent,
+    GameNewComponent,
+    SimpleInputDialog,
+    CreateGameLobbyDialog
   ],
   imports: [
     AppRoutingModule,
@@ -81,6 +93,8 @@ import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.comp
     GameSummaryDialog, 
     ConfirmationDialogComponent, 
     PinValidationDialog,
+    SimpleInputDialog,
+    CreateGameLobbyDialog
   ]
 })
 export class AppModule { }

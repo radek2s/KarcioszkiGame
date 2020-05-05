@@ -5,10 +5,12 @@ import { GameComponent } from './layout/game/game.component';
 import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
 import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
 import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
+import { HomeComponent } from './views/home/home.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/ui', pathMatch: 'full'},
-  {path: 'ui', component: MenuComponent},
+  {path: 'ui', component: HomeComponent},
+  {path: 'ui/old', component: MenuComponent},
   {path: 'ui/game/:id', component: GameComponent},
   {path: 'ui/gamePackage/add', component: GamePackageAddComponent},
   {path: 'ui/gamePackage/edit/:id', component: GamePackageEditComponent},

@@ -1,4 +1,6 @@
 package com.regster.tajniacy.model;
+import com.regster.tajniacy.repository.GameCardPackageRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,20 @@ public class GameSession {
         this.id = id;
         this.players = new ArrayList<>();
         this.gameCardStatistics = new GameCardStatistics(15);
+    }
+
+    public GameSession(int id, boolean started, List<Player> players, int gameState, GameCardPackage gameCardPackage, ArrayList<GameCard> gameCards, int gameCardCount) {
+        this.id = id;
+        this.started = started;
+        this.players = players;
+        this.gameState = gameState;
+        this.gameCardPackage = gameCardPackage;
+        this.gameCards = gameCards;
+        prepareGameCardStatistics(gameCardCount);
+    }
+
+    public void prepareGameCardStatistics(int gameCardCount) {
+        this.gameCardStatistics = new GameCardStatistics(gameCardCount);
     }
 
     public int getId() {

@@ -8,6 +8,7 @@ import { WebSocket } from '../../services/WebSocketAPI';
 import { CardsPackage } from '../../models/CardsPackage';
 import { Player } from 'src/app/models/Player';
 import { PlayerService } from 'src/app/services/player.service';
+import { SimpleInputDialog } from 'src/app/widgets/dialogs/simpleInput.dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -59,6 +60,17 @@ export class MenuComponent implements OnInit {
       disableClose: true,
       data: {}
     });
+
+    // const dialogRef = this.dialog.open(SimpleInputDialog, {
+    //   width: '50%',
+    //   disableClose: true,
+    //   data: { 
+    //     title: "Player Dialog",
+    //     message: "Pick username",
+    //     placeholder: "Username",
+    //     optional: true
+    //   }
+    // });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {

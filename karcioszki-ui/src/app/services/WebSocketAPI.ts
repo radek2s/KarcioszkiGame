@@ -69,7 +69,7 @@ export class WebSocket {
      * @param message Received WebSocket message
      */
     private onMessageReceived(message): void {
-        this.component.handleMessage(message.body)
+        this.component.handleWsMessage(message.body)
     }
 
 }
