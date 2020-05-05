@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
      * @param gameId - exising open Game Lobby
      */
     public joinGameLobby(gameId): void {
-        this.router.navigateByUrl(`ui/game/${gameId}`)
+        this.router.navigateByUrl(`ui/lobby/${gameId}`)
     }
     
     /**
