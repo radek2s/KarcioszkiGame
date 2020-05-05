@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { WebSocket } from '../../services/WebSocketAPI';
 import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
-import { SimpleInputDialog } from 'src/app/widgets/dialogs/simpleInput.dialog.component';
-import { CreateGameLobbyDialog } from 'src/app/widgets/dialogs/createGameLobby.dialog.component';
+import { CreateGameLobbyDialog } from 'src/app/widgets/dialogs/game-create-lobby-dialog.component';
 
 import { GameSession } from 'src/app/models/GameSession';
+import { SimpleInputDialog } from 'src/app/widgets/dialogs/simple-input.component';
 
 @Component({
     selector: 'game-main-menu',
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
      * @param gameId - exising open Game Lobby
      */
     public joinGameLobby(gameId): void {
-        this.router.navigateByUrl(`ui/lobby/${gameId}`)
+        this.router.navigateByUrl(`/lobby/${gameId}`)
     }
     
     /**

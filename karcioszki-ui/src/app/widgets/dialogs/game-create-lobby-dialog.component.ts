@@ -5,7 +5,7 @@ import { GameService } from 'src/app/services/game.service';
 
 @Component({
     selector: 'create-game-lobby-dialog',
-    templateUrl: 'createGameLobbyDialog.html',
+    templateUrl: './game-create-lobby-dialog.html',
 })
 export class CreateGameLobbyDialog {
 

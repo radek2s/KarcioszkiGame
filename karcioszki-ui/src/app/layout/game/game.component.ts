@@ -9,7 +9,7 @@ import { Player } from '../../models/Player';
 import { Card } from '../../models/Card';
 import { PlayerService } from 'src/app/services/player.service';
 import { MatDialog } from '@angular/material/dialog';
-import { GameSummaryDialog } from './game-summary-dialog.component';
+import { GameSummaryDialog } from 'src/app/widgets/dialogs/game-summary-dialog.component';
 
 /**
  * Game Component Class
@@ -19,7 +19,7 @@ import { GameSummaryDialog } from './game-summary-dialog.component';
  */
 @Component({
   selector: 'game',
-  templateUrl: './game.component.html',
+  // templateUrl: './game.component.html',
   styleUrls: ['../../app.component.scss', './game.component.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {

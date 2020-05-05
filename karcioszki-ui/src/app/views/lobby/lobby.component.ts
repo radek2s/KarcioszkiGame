@@ -60,18 +60,18 @@ export class LobbyComponent implements OnInit {
         this.gameSession = JSON.parse(message);
         this.excludeDuplicatedPlayer(this.playerService.getPlayer());
         if (this.gameSession.started) {
-            this.router.navigateByUrl(`/ui/game/${this.gameSession.id}`)
+            this.router.navigateByUrl(`/game/${this.gameSession.id}`)
         }
     }
 
     lobbyStartGame() {
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/start`, null);
-        this.router.navigateByUrl(`/ui/game/${this.gameSession.id}`)
+        this.router.navigateByUrl(`/game/${this.gameSession.id}`)
     }
 
     lobbyExitGame() {
         this.webSocketPlayerRemove(this.playerService.getPlayer())
-        this.router.navigateByUrl('/ui')
+        this.router.navigateByUrl('/')
     }
 
     webSocketPlayerAdd(player: Player) {

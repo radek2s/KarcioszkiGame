@@ -7,7 +7,7 @@ import { PlayerService } from 'src/app/services/player.service';
 import { WebSocket } from '../../services/WebSocketAPI';
 import { Card } from 'src/app/models/Card';
 import { MatDialog } from '@angular/material';
-import { GameSummaryDialog } from 'src/app/layout/game/game-summary-dialog.component';
+import { GameSummaryDialog } from 'src/app/widgets/dialogs/game-summary-dialog.component';
 
 @Component({
     selector: 'game-session',

@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
-import { MenuComponent, MenuDialog, PlayerDialog } from './layout/menu/menu.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,38 +28,33 @@ import { GamePackageAddComponent } from './layout/game-package/game-package-add.
 import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
 import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
-import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
-import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
-import { PinValidationDialog } from './widgets/dialogs/pinValidation.dialog.component';
+import { PinValidationDialog } from './widgets/dialogs/pin-validation-dialog.component';
 import { HomeComponent } from './views/home/home.component';
 import { LobbyComponent } from './views/lobby/lobby.component';
 import { GameNewComponent } from './views/game/game.component';
-import { SimpleInputDialog } from './widgets/dialogs/simpleInput.dialog.component';
-import { CreateGameLobbyDialog } from './widgets/dialogs/createGameLobby.dialog.component';
+import { CreateGameLobbyDialog } from './widgets/dialogs/game-create-lobby-dialog.component';
+import { SimpleInputDialog } from './widgets/dialogs/simple-input.component';
+import { SimpleConfirmDialog } from './widgets/dialogs/simple-confirm-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    MenuDialog,
-    PlayerDialog,
     CardPackageInfoDialog,
     GameComponent,
-    GameSummaryDialog,
     GamePackageMenuComponent,
     GamePackageAddComponent,
     GamePackageEditComponent,
     GamePackageListComponent,
-    ConfirmationDialogComponent,
     PinValidationDialog,
     UniqueNameValidationDirective,
     HomeComponent,
     LobbyComponent,
     GameNewComponent,
     SimpleInputDialog,
+    SimpleConfirmDialog,
     CreateGameLobbyDialog
   ],
   imports: [
@@ -87,13 +81,10 @@ import { CreateGameLobbyDialog } from './widgets/dialogs/createGameLobby.dialog.
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    MenuDialog, 
-    PlayerDialog, 
     CardPackageInfoDialog, 
-    GameSummaryDialog, 
-    ConfirmationDialogComponent, 
     PinValidationDialog,
     SimpleInputDialog,
+    SimpleConfirmDialog,
     CreateGameLobbyDialog
   ]
 })
