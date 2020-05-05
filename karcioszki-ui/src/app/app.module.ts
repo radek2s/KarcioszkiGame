@@ -23,10 +23,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatMenuModule} from '@angular/material/menu';
 
 
-import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
-import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
-import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
-import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
+import { GamePackageMenuComponent } from './views/package-editor/game-package-menu.component';
+import { GamePackageAddComponent } from './views/package-editor/game-package-add.component';
+import { GamePackageEditComponent } from './views/package-editor/game-package-edit.component';
 import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
 import { PinValidationDialog } from './widgets/dialogs/pin-validation-dialog.component';
@@ -36,6 +35,7 @@ import { GameNewComponent } from './views/game/game.component';
 import { CreateGameLobbyDialog } from './widgets/dialogs/game-create-lobby-dialog.component';
 import { SimpleInputDialog } from './widgets/dialogs/simple-input.component';
 import { SimpleConfirmDialog } from './widgets/dialogs/simple-confirm-dialog.component';
+import { CardPackageInfoDialog } from './widgets/dialogs/package-info-dialog.component';
 
 
 

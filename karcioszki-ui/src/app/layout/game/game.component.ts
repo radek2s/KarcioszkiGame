@@ -19,6 +19,7 @@ import { GameSummaryDialog } from 'src/app/widgets/dialogs/game-summary-dialog.c
  */
 @Component({
   selector: 'game',
+  template: `<h1></h1>`,
   // templateUrl: './game.component.html',
   styleUrls: ['../../app.component.scss', './game.component.scss']
 })

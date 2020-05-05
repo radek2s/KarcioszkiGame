@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 import { MatDialog } from '@angular/material/dialog';
-import { CardPackageInfoDialog } from './card-package-info.component';
+import { CardPackageInfoDialog } from 'src/app/widgets/dialogs/package-info-dialog.component';
 
 @Component({
   selector: 'page-game-package-list',

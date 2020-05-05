@@ -10,7 +10,7 @@ import { MatSlideToggleChange } from '@angular/material';
   selector: 'page-game-package-edit',
   templateUrl: './game-package-edit.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)'},
-  styleUrls: ['../../app.component.scss', './package.component.scss']
+  styleUrls: ['../../app.component.scss', '../../layout/game-package/package.component.scss']
 })
 export class GamePackageEditComponent {
 
@@ -62,7 +62,7 @@ export class GamePackageEditComponent {
       this.openSnackBar("Something went wrong!", "Close")
       console.error(err)
     });
-    this.router.navigateByUrl(`ui/gamePackage`);
+    this.router.navigateByUrl(`package-editor`);
   }
 
   deleteCard(card){

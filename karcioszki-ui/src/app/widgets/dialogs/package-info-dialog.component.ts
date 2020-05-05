@@ -9,7 +9,7 @@ import { SimpleConfirmDialog } from 'src/app/widgets/dialogs/simple-confirm-dial
 
 @Component({
     selector: 'card-package-info-dialog',
-    templateUrl: 'card-package-info.html',
+    templateUrl: 'package-info-dialog.html',
     styleUrls: ['../../app.component.scss']
 })
 export class CardPackageInfoDialog {
@@ -21,7 +21,9 @@ export class CardPackageInfoDialog {
         private _snackBar: MatSnackBar,
         public dialog: MatDialog,
         public dialogRef: MatDialogRef<CardPackageInfoDialog>,
-        @Inject(MAT_DIALOG_DATA) public data: any, private router: Router) {
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private router: Router
+    ) {
         this.cardPackage = data;
     }
 
@@ -35,14 +37,14 @@ export class CardPackageInfoDialog {
             data: this.cardPackage
         });
         dialogReference.afterClosed().subscribe(res => {
-            if(res == true) {
-                this.router.navigateByUrl(`ui/gamePackage/edit/${packageId}`);
+            if (res == true) {
+                this.router.navigateByUrl(`package-editor/edit/${packageId}`);
                 this.dialogRef.close();
             } else {
                 this.openSnackBar("Błędny PIN", "Close")
             }
         })
-        
+
     }
 
     private deleteGamePackage(packageId: number) {
@@ -52,7 +54,7 @@ export class CardPackageInfoDialog {
             data: this.cardPackage
         });
         dialogReference.afterClosed().subscribe(res => {
-            if(res == true) {
+            if (res == true) {
                 this.gameService.deleteGamePackage(packageId).then(data => {
                     this.dialogRef.close(packageId)
                     this.openSnackBar("Game Card Deleted", "Close")
@@ -65,7 +67,7 @@ export class CardPackageInfoDialog {
                 this.openSnackBar("Błędny PIN", "Close")
             }
         })
-        
+
     }
 
     openSnackBar(message: string, action: string) {
