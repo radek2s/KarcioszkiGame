@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { WebSocket } from '../../services/WebSocketAPI';
 import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
-import { CreateGameLobbyDialog } from 'src/app/widgets/dialogs/game-create-lobby-dialog.component';
+import { CreateGameLobbyDialog } from 'src/app/layout/dialogs/game-create-lobby-dialog.component';
 
 import { GameSession } from 'src/app/models/GameSession';
-import { SimpleInputDialog } from 'src/app/widgets/dialogs/simple-input.component';
+import { SimpleInputDialog } from 'src/app/layout/dialogs/simple-input-dialog.component';
 
 @Component({
     selector: 'game-main-menu',

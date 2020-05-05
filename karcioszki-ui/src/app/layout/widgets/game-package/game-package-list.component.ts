@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 
-import { GameService } from '../../services/game.service';
-import { CardsPackage } from '../../models/CardsPackage';
+import { GameService } from '../../../services/game.service';
+import { CardsPackage } from '../../../models/CardsPackage';
 import { MatDialog } from '@angular/material/dialog';
-import { CardPackageInfoDialog } from 'src/app/widgets/dialogs/package-info-dialog.component';
+import { CardPackageInfoDialog } from 'src/app/layout/dialogs/package-info-dialog.component';
 
 @Component({
   selector: 'page-game-package-list',
   templateUrl: './game-package-list.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)' },
-  styleUrls: ['../../app.component.scss', './package.component.scss']
+  styleUrls: ['../../../app.component.scss', './package.component.scss']
 })
 export class GamePackageListComponent implements OnInit {
 

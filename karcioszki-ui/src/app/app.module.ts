@@ -26,16 +26,17 @@ import {MatMenuModule} from '@angular/material/menu';
 import { GamePackageMenuComponent } from './views/package-editor/game-package-menu.component';
 import { GamePackageAddComponent } from './views/package-editor/game-package-add.component';
 import { GamePackageEditComponent } from './views/package-editor/game-package-edit.component';
-import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
+import { GamePackageListComponent } from './layout/widgets/game-package/game-package-list.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
-import { PinValidationDialog } from './widgets/dialogs/pin-validation-dialog.component';
+import { PinValidationDialog } from './layout/dialogs/pin-validation-dialog.component';
 import { HomeComponent } from './views/home/home.component';
 import { LobbyComponent } from './views/lobby/lobby.component';
 import { GameNewComponent } from './views/game/game.component';
-import { CreateGameLobbyDialog } from './widgets/dialogs/game-create-lobby-dialog.component';
-import { SimpleInputDialog } from './widgets/dialogs/simple-input.component';
-import { SimpleConfirmDialog } from './widgets/dialogs/simple-confirm-dialog.component';
-import { CardPackageInfoDialog } from './widgets/dialogs/package-info-dialog.component';
+import { CreateGameLobbyDialog } from './layout/dialogs/game-create-lobby-dialog.component';
+import { SimpleInputDialog } from './layout/dialogs/simple-input-dialog.component';
+import { SimpleConfirmDialog } from './layout/dialogs/simple-confirm-dialog.component';
+import { CardPackageInfoDialog } from './layout/dialogs/package-info-dialog.component';
+import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.component';
 
 
 
@@ -53,6 +54,7 @@ import { CardPackageInfoDialog } from './widgets/dialogs/package-info-dialog.com
     HomeComponent,
     LobbyComponent,
     GameNewComponent,
+    GameSummaryDialog,
     SimpleInputDialog,
     SimpleConfirmDialog,
     CreateGameLobbyDialog
@@ -83,6 +85,7 @@ import { CardPackageInfoDialog } from './widgets/dialogs/package-info-dialog.com
   entryComponents: [
     CardPackageInfoDialog, 
     PinValidationDialog,
+    GameSummaryDialog,
     SimpleInputDialog,
     SimpleConfirmDialog,
     CreateGameLobbyDialog

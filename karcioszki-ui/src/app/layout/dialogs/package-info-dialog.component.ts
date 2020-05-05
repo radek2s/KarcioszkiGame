@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { PinValidationDialog } from 'src/app/widgets/dialogs/pin-validation-dialog.component';
-import { SimpleConfirmDialog } from 'src/app/widgets/dialogs/simple-confirm-dialog.component';
+import { PinValidationDialog } from 'src/app/layout/dialogs/pin-validation-dialog.component';
+import { SimpleConfirmDialog } from 'src/app/layout/dialogs/simple-confirm-dialog.component';
 
 @Component({
     selector: 'card-package-info-dialog',

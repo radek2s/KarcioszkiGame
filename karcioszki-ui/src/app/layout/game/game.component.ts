@@ -9,7 +9,7 @@ import { Player } from '../../models/Player';
 import { Card } from '../../models/Card';
 import { PlayerService } from 'src/app/services/player.service';
 import { MatDialog } from '@angular/material/dialog';
-import { GameSummaryDialog } from 'src/app/widgets/dialogs/game-summary-dialog.component';
+import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.component';
 
 /**
  * Game Component Class
