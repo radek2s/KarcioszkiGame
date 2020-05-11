@@ -56,7 +56,7 @@ export class LobbyComponent implements OnInit {
     }
 
     handleWsMessage(message): void {
-        console.debug("Received data:", message)
+        // console.debug("Received data:", message)
         this.gameSession = JSON.parse(message);
         this.excludeDuplicatedPlayer(this.playerService.getPlayer());
         if (this.gameSession.started) {
@@ -76,7 +76,7 @@ export class LobbyComponent implements OnInit {
 
     webSocketPlayerAdd(player: Player) {
         if (!this.gameSession.players.find(e => e.id === player.id)) {
-            console.debug("Sending a player data to WebSocket")
+            // console.debug("Sending a player data to WebSocket")
             this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/player/add`, player)
         }
     }

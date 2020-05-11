@@ -38,7 +38,7 @@ export class GameNewComponent implements OnInit {
     }
 
     handleWsMessage(message): void {
-        console.debug("Received data:", message)
+        // console.debug("Received data:", message)
         this.gameSession = JSON.parse(message);
         if (this.gameSession.gameState == 2 || this.gameSession.gameState == 3 || this.gameSession.gameState == 4) {
             this.dialog.open(GameSummaryDialog, {
@@ -131,7 +131,7 @@ export class GameNewComponent implements OnInit {
     }
 
     private endTurn() {
-        console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
+        // console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
     }
 
