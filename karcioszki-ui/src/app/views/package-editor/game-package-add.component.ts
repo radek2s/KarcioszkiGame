@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormB
   selector: 'page-game-package-add',
   templateUrl: './game-package-add.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)' },
-  styleUrls: ['../../app.component.scss']
+  styleUrls: ['../../karcioszki.style.scss', '../../layout/widgets/game-package/package.component.scss']
 })
 export class GamePackageAddComponent {
 
@@ -25,6 +25,7 @@ export class GamePackageAddComponent {
 
   constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router, private fb: FormBuilder) {
     this.cardsPackage = new CardsPackage();
+    this.cardsPackage.pin = String(Math.round(Math.random() * 10000))
     this.cardsPackage.cards = [];
 
     this.gameService.getGamePackages().subscribe(cardsPackages => {
@@ -68,7 +69,7 @@ export class GamePackageAddComponent {
       this.cardsPackage = new CardsPackage();
       this.cardTitle = "";
       this.openSnackBar("Game Card Added", "Close")
-      this.router.navigateByUrl(`ui/gamePackage`);
+      this.router.navigateByUrl(`package-editor`);
     }).catch(err => {
       this.openSnackBar("Something went wrong!", "Close")
       console.error(err)

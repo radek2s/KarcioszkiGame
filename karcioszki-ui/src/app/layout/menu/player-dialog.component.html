@@ -1,9 +1,0 @@
-<h1 mat-dialog-title>Witaj w Karcioszki the Game!</h1>
-<div mat-dialog-content class="flex column">
-    <mat-form-field>
-        <input matInput required minlength="3" placeholder="Nazwa gracza" [(ngModel)]="data.playerName" [ngModelOptions]="{standalone: true}" id="name" #name="ngModel">
-    </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" [disabled]="name.invalid">Utwórz!</button>
-</div>

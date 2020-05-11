@@ -1,0 +1,59 @@
+<div *ngIf="gameSession; else loadingBlock">
+    <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
+        <div>
+            <button *ngIf="!gameSession.started" mat-icon-button aria-label="Exit from game" (click)="lobbyExitGame()">
+                <mat-icon>cancel</mat-icon>
+            </button>
+            <span id="room">Pokój numer: {{gameSession.id}}</span>
+        </div>
+        <div id="card-package" class="flex-container">
+            <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+        </div>
+    </mat-toolbar>
+    <section class="center">
+        <mat-list class="player-list">
+            <mat-list-item class="player-list-item player-list-item-header">
+                <span class="player-name">Nazwa gracza</span>
+                <span class="team-container">Drużyna</span>
+                <span class="leader-container">Lider</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="player-list-item player-list-item-active">
+                <span class="player-name">{{this.playerService.getPlayer().name}}</span>
+                <div class="team-container">
+                    <div class="team-box"
+                        [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'"
+                        (click)="changeTeam(this.playerService.getPlayer())"></div>
+                </div>
+                <div class="leader-container">
+                    <button mat-icon-button aria-label="Lider"
+                        (click)="changeLeader(this.playerService.getPlayer())">
+                        <mat-icon class="color-leader" *ngIf="this.playerService.getPlayer().leader; else elseBlock">
+                            star
+                        </mat-icon>
+                        <ng-template #elseBlock>
+                            <mat-icon class="color-leader">star_border</mat-icon>
+                        </ng-template>
+                    </button>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item *ngFor="let player of gameSession.players" class="player-list-item">
+                <span class="player-name">{{player.name}}</span>
+                <div class="team-container">
+                    <div class="team-box" [ngClass]="player.team == 0 ? 'background-red' : 'background-blue'"></div>
+                </div>
+                <div class="leader-container">
+                    <span *ngIf="player.leader">
+                        <mat-icon class="color-leader">star</mat-icon>
+                    </span>
+                </div>
+            </mat-list-item>
+        </mat-list>
+        <button mat-raised-button color="primary" (click)="lobbyStartGame()" [disabled]="validateGame">Start</button>
+    </section>
+</div>
+<ng-template #loadingBlock>
+    <p>Loading</p>
+
+</ng-template>

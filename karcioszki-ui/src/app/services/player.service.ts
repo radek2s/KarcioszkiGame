@@ -47,7 +47,7 @@ export class PlayerService {
     public loadActivePlayerFromBrowser(): void {
         this.activePlayer = JSON.parse(sessionStorage.getItem("activePlayer"));
         if (this.activePlayer === null || this.activePlayer === undefined) {
-            this.router.navigateByUrl('/ui')
+            this.router.navigateByUrl('/')
         }
     }
 }

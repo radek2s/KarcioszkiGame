@@ -6,4 +6,5 @@ public enum ActiveTeam {
     FINISHED_RED,
     FINISHED_BLUE,
     FINISHED_BLACK,
+    FINISHED_GIVE_UP
 }

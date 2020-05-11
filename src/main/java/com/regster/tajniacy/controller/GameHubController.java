@@ -87,6 +87,24 @@ public class GameHubController {
         return new ResponseEntity<GameSession>(getGameSessionById(id), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/hub/createLobby/{cardCount}")
+    public ResponseEntity<String> createGameLobby(@RequestBody GameSession newGameSession, @PathVariable("cardCount") int cardCount) {
+
+        newGameSession.prepareGameCardStatistics(cardCount);
+        if(this.gameSessions == null) {
+            this.gameSessions = new ArrayList<>();
+        }
+        if(getGameSessionById(newGameSession.getId()) == null) {
+            this.gameSessions.add(newGameSession);
+            this.template.convertAndSend("/topic/hub", getGameSessionIds());
+            //201 Created
+            return  new ResponseEntity<String>("{\"status\":\"Created\"}", HttpStatus.CREATED);
+        } else {
+            //409 Conflict
+            return  new ResponseEntity<String>("{\"status\":\"Failed\"}", HttpStatus.CONFLICT);
+        }
+    }
+
     /**
      * Create a new player entity in database with unique ID
      *
@@ -188,9 +206,19 @@ public class GameHubController {
             gameSession.setGameState(ActiveTeam.FINISHED_BLUE.ordinal());
         } else if (lastCardColor.equals("\"red\"")) {
             gameSession.setGameState(ActiveTeam.FINISHED_RED.ordinal());
+        } else if (lastCardColor.equals("\"give_up\"")) {
+            gameSession.setGameState(ActiveTeam.FINISHED_GIVE_UP.ordinal());
         } else {
             gameSession.setGameState(ActiveTeam.FINISHED_BLACK.ordinal());
         }
+        try {
+            System.out.println(gameSessions.size());
+            this.gameSessions.remove(gameSession);
+            System.out.println(gameSessions.size());
+        } catch (Exception e) {
+            System.err.println("Game Session do not exists");
+        }
+
         return gameSession;
     }
 

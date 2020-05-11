@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Załóż nową grę</h1>
+<div mat-dialog-content class="flex column">
+    <div>
+        <mat-form-field>
+            <input matInput placeholder="Id gry" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Liczba kart:</mat-label>
+            <input matInput placeholder="Podaj liczbe..." [(ngModel)]="data.cardCount"
+                [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+    </div>
+    <p>Wybierz zestaw kart: <span *ngIf="data.selectedPackage">{{data.selectedPackage.packageName}}</span></p>
+    <page-game-package-list [edit]=false (selected)="selectCardPackage($event)"></page-game-package-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Anuluj</button>
+    <button mat-button [mat-dialog-close]="data">Utwórz!</button>
+</div>

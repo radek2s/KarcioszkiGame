@@ -1,0 +1,82 @@
+<mat-toolbar class="relative">
+    <div class="center">
+        <a routerLink="/package-editor" class="absolute left margin-left-s">
+            <button mat-raised-button>
+                <mat-icon>keyboard_arrow_left</mat-icon>Powrót
+            </button>
+        </a>
+        <span id="room">Dodaj paczkę</span>
+    </div>
+</mat-toolbar>
+<div class="flex-center">
+    <div class="fill-width">
+        <div class="flex">
+            <div class="center big-font flex column">
+                <mat-form-field class="margin-sides" [formGroup]="packageForm">
+                    <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName"
+                        formControlName="packageName" uniqueName required>
+                    <div *ngIf="packageName.invalid && (packageName.dirty || packageName.touched)"
+                        class="alert alert-danger">
+                        Błąd
+
+                        <div *ngIf="packageName.errors.required">
+                            Name is required.
+                        </div>
+                        <div *ngIf="packageName.errors.uniqueName">
+                            Name is not unique.
+                        </div>
+                    </div>
+                </mat-form-field>
+                <mat-form-field class="margin-right-s">
+                    <input matInput placeholder="Author" [value]="playerService.getPlayer().name">
+                </mat-form-field>
+                <mat-form-field class="margin-sides">
+                    <input matInput placeholder="Package Image URL" [(ngModel)]="cardsPackage.image">
+                </mat-form-field>
+
+            </div>
+            <div class="center big-font flex-column">
+                <div>
+                    <mat-form-field class="margin-sides">
+                        <input type="number" matInput placeholder="PIN to edit package" [(ngModel)]="cardsPackage.pin"
+                            #pinModel="ngModel" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <div>
+                        <mat-slide-toggle (change)="toggle($event)">Paczka prywatna</mat-slide-toggle>
+                    </div>
+
+                    <mat-form-field class="margin-sides" *ngIf="cardsPackage.visible">
+                        <input type="password" matInput placeholder="Password to package"
+                            [(ngModel)]="cardsPackage.password">
+                    </mat-form-field>
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="center flex column">
+                <div class="vertical-space-bottom">
+                    <mat-form-field class="margin-right-s">
+                        <input matInput placeholder="Card Title" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
+                    </mat-form-field>
+                    <button mat-raised-button color="accent" (click)="addCard()" [disabled]="cardModel.invalid">Dodaj
+                        kartę</button>
+                    <button mat-raised-button color="primary" (click)="createGamePackage()"
+                        [disabled]="packageName.invalid || pinModel.invalid">Wyślij</button>
+                </div>
+                <div>
+                    <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
+                        <mat-form-field>
+                            <input matInput placeholder="Card Title" [value]="card" disabled>
+                        </mat-form-field>
+                        <button mat-icon-button aria-label="Delete card" (click)="deleteCard(card)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
-import { MenuComponent, MenuDialog, PlayerDialog } from './layout/menu/menu.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,32 +20,44 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatMenuModule} from '@angular/material/menu';
 
 
-import { GamePackageMenuComponent } from './layout/game-package/game-package-menu.component';
-import { GamePackageAddComponent } from './layout/game-package/game-package-add.component';
-import { GamePackageEditComponent } from './layout/game-package/game-package-edit.component';
-import { CardPackageInfoDialog } from './layout/game-package/card-package-info.component';
-import { GamePackageListComponent } from './layout/game-package/game-package-list.component';
-import { GameSummaryDialog } from './layout/game/game-summary-dialog.component';
-import { ConfirmationDialogComponent } from './layout/confirmation/confirmation-dialog.component';
+import { GamePackageMenuComponent } from './views/package-editor/game-package-menu.component';
+import { GamePackageAddComponent } from './views/package-editor/game-package-add.component';
+import { GamePackageEditComponent } from './views/package-editor/game-package-edit.component';
+import { GamePackageListComponent } from './layout/widgets/game-package/game-package-list.component';
 import { UniqueNameValidationDirective } from './shared/unique-validator.directive';
+import { PinValidationDialog } from './layout/dialogs/pin-validation-dialog.component';
+import { HomeComponent } from './views/home/home.component';
+import { LobbyComponent } from './views/lobby/lobby.component';
+import { GameNewComponent } from './views/game/game.component';
+import { CreateGameLobbyDialog } from './layout/dialogs/game-create-lobby-dialog.component';
+import { SimpleInputDialog } from './layout/dialogs/simple-input-dialog.component';
+import { SimpleConfirmDialog } from './layout/dialogs/simple-confirm-dialog.component';
+import { CardPackageInfoDialog } from './layout/dialogs/package-info-dialog.component';
+import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    MenuDialog,
-    PlayerDialog,
     CardPackageInfoDialog,
     GameComponent,
-    GameSummaryDialog,
     GamePackageMenuComponent,
     GamePackageAddComponent,
     GamePackageEditComponent,
     GamePackageListComponent,
-    ConfirmationDialogComponent,
-    UniqueNameValidationDirective
+    PinValidationDialog,
+    UniqueNameValidationDirective,
+    HomeComponent,
+    LobbyComponent,
+    GameNewComponent,
+    GameSummaryDialog,
+    SimpleInputDialog,
+    SimpleConfirmDialog,
+    CreateGameLobbyDialog
   ],
   imports: [
     AppRoutingModule,
@@ -66,10 +77,18 @@ import { UniqueNameValidationDirective } from './shared/unique-validator.directi
     MatIconModule,
     MatDividerModule,
     MatCardModule,
-    MatSlideToggleModule
-  ],
+    MatSlideToggleModule,
+    MatMenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [MenuDialog, PlayerDialog, CardPackageInfoDialog, GameSummaryDialog, ConfirmationDialogComponent]
+  entryComponents: [
+    CardPackageInfoDialog, 
+    PinValidationDialog,
+    GameSummaryDialog,
+    SimpleInputDialog,
+    SimpleConfirmDialog,
+    CreateGameLobbyDialog
+  ]
 })
 export class AppModule { }

@@ -1,0 +1,17 @@
+<div class="flex-center">
+    <div class="center">
+        <h1>Karcioszki - Menu</h1>
+        <div *ngIf="playerService.getPlayer() !== null">
+            <p>{{playerService.getPlayer().name}}</p>
+        </div>
+        <div *ngIf="gameIdList">
+            <h4 *ngIf="gameIdList.length !== 0">lista gier:</h4>
+            <button mat-raised-button *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
+        </div>
+        <button mat-flat-button color="primary" (click)="createGameLobby()">Załóż grę</button>
+        <hr>
+        <a routerLink="/package-editor">
+            <button mat-raised-button>Zestawy kart</button>
+        </a>
+    </div>
+</div>
