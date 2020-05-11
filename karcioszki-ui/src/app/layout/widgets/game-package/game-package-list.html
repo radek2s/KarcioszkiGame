@@ -2,10 +2,13 @@
     <div id="card-packages" class="flex-container">
         <div *ngFor="let package of cardsPackages" class="cardPackage margin-right-s">
             <mat-card (click)="openProperties(package)">
-                <img *ngIf="!package.visible" mat-card-image
-                [src]="package.image ? package.image : 'https://cdn.pixabay.com/photo/2016/05/29/16/42/speech-bubble-1423320_960_720.jpg'">
-                <img *ngIf="package.visible" mat-card-image
-                src="https://cdn.pixabay.com/photo/2015/04/15/01/38/padlock-723075_960_720.jpg">
+                <div *ngIf="!package.visible">
+                    <img *ngIf="!package.image" mat-card-image src="../../../../assets/graphics/default.jpg">
+                    <img *ngIf="package.image" mat-card-image [src]="package.image">
+                </div>
+                <div *ngIf="package.visible">
+                    <img mat-card-image src="../../../../assets/graphics/locked.jpg">
+                </div>
                 <mat-card-content>
                     {{package.packageName}}
                 </mat-card-content>
