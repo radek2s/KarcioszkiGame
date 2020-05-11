@@ -12,7 +12,7 @@ import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.co
 @Component({
     selector: 'game-session',
     templateUrl: './game.html',
-    styleUrls: ['../../app.component.scss', '../../layout/game/game.component.scss']
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class GameNewComponent implements OnInit {
 

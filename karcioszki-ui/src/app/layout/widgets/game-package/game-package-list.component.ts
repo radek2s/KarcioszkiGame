@@ -9,7 +9,7 @@ import { CardPackageInfoDialog } from 'src/app/layout/dialogs/package-info-dialo
   selector: 'page-game-package-list',
   templateUrl: './game-package-list.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)' },
-  styleUrls: ['../../../app.component.scss', './package.component.scss']
+  styleUrls: ['../../../karcioszki.style.scss', './package.component.scss']
 })
 export class GamePackageListComponent implements OnInit {
 

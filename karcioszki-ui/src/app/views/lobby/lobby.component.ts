@@ -11,7 +11,7 @@ import { Player } from 'src/app/models/Player';
     selector: 'game-lobby',
     templateUrl: './lobby.html',
     //StyleURLS to fix
-    styleUrls: ['../../app.component.scss', '../../layout/game/game.component.scss']
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class LobbyComponent implements OnInit {
 

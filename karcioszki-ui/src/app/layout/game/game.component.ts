@@ -21,7 +21,7 @@ import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.co
   selector: 'game',
   template: `<h1></h1>`,
   // templateUrl: './game.component.html',
-  styleUrls: ['../../app.component.scss', './game.component.scss']
+  styleUrls: ['../../karcioszki.style.scss']
 })
 export class GameComponent implements OnInit, OnDestroy {
 

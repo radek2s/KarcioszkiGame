@@ -10,7 +10,7 @@ import { MatSlideToggleChange } from '@angular/material';
   selector: 'page-game-package-edit',
   templateUrl: './game-package-edit.html',
   host: { '(document:keypress)': 'addCardKeyboard($event)'},
-  styleUrls: ['../../app.component.scss', '../../layout/game-package/package.component.scss']
+  styleUrls: ['../../karcioszki.style.scss', '../../layout/widgets/game-package/package.component.scss']
 })
 export class GamePackageEditComponent {
 

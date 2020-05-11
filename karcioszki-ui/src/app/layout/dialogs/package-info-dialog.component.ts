@@ -10,7 +10,7 @@ import { SimpleConfirmDialog } from 'src/app/layout/dialogs/simple-confirm-dialo
 @Component({
     selector: 'card-package-info-dialog',
     templateUrl: 'package-info-dialog.html',
-    styleUrls: ['../../app.component.scss']
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class CardPackageInfoDialog {
 
