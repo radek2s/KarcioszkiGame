@@ -35,6 +35,7 @@ import { GameNewComponent } from './views/game/game.component';
 import { CreateGameLobbyDialog } from './layout/dialogs/game-create-lobby-dialog.component';
 import { SimpleInputDialog } from './layout/dialogs/simple-input-dialog.component';
 import { SimpleConfirmDialog } from './layout/dialogs/simple-confirm-dialog.component';
+import { SimpleInfoDialog } from './layout/dialogs/simple-info-dialog.component';
 import { CardPackageInfoDialog } from './layout/dialogs/package-info-dialog.component';
 import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.component';
 
@@ -57,6 +58,7 @@ import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.componen
     GameSummaryDialog,
     SimpleInputDialog,
     SimpleConfirmDialog,
+    SimpleInfoDialog,
     CreateGameLobbyDialog
   ],
   imports: [
@@ -88,6 +90,7 @@ import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.componen
     GameSummaryDialog,
     SimpleInputDialog,
     SimpleConfirmDialog,
+    SimpleInfoDialog,
     CreateGameLobbyDialog
   ]
 })

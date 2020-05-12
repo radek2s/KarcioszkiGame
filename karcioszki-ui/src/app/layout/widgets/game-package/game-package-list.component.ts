@@ -5,7 +5,7 @@ import { CardsPackage } from '../../../models/CardsPackage';
 import { MatDialog } from '@angular/material/dialog';
 import { CardPackageInfoDialog } from 'src/app/layout/dialogs/package-info-dialog.component';
 import { SimpleInputDialog } from '../../dialogs/simple-input-dialog.component';
-import { SimpleConfirmDialog } from '../../dialogs/simple-confirm-dialog.component';
+import { SimpleInfoDialog } from '../../dialogs/simple-info-dialog.component';
 
 @Component({
   selector: 'page-game-package-list',
@@ -56,7 +56,7 @@ export class GamePackageListComponent implements OnInit {
             if(result === cardPackage.password) {
               this.selected.emit(cardPackage);
             } else {
-              this.infoDialog.open(SimpleConfirmDialog, {
+              this.infoDialog.open(SimpleInfoDialog, {
                 width: '50%',
                 data: {
                   title:'Błędne hasło!'
