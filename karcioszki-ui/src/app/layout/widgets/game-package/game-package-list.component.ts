@@ -42,7 +42,7 @@ export class GamePackageListComponent implements OnInit {
         }
       });
     } else {
-      if(cardPackage.password !== null) {
+      if(cardPackage.visible) {
         const dialogRef = this.infoDialog.open(SimpleInputDialog, {
           width: '50%',
           data: {
