@@ -1,5 +1,4 @@
 .cardPackage mat-card{
-    width: 10em;
     font-weight: 500;
     cursor: pointer;
 }
@@ -17,4 +16,7 @@ button.mat-menu-item{
 }
 .fill-width{
     width: -webkit-fill-available;
+}
+.cardPackage{
+    width: 10%;
 }

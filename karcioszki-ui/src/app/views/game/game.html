@@ -1,10 +1,10 @@
 <div *ngIf="gameSession">
     <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
         <div>
-            <span id="room">Pokój numer: {{gameSession.id}}</span>
+            <span id="room">miejsce na info</span>
         </div>
-        <div id="card-package" class="flex-container">
-            <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+        <div id="card--package" class="flex-container">
+            <span>miejsce na info 2</span>
         </div>
     </mat-toolbar>
     <section>

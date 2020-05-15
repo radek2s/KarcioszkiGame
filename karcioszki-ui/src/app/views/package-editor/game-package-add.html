@@ -1,14 +1,12 @@
-<mat-toolbar class="relative">
-    <div class="center">
-        <a routerLink="/package-editor" class="absolute left margin-left-s">
-            <button mat-raised-button>
-                <mat-icon>keyboard_arrow_left</mat-icon>Powrót
-            </button>
-        </a>
-        <span id="room">Dodaj paczkę</span>
-    </div>
+<mat-toolbar class="center flex">
+    <a routerLink="/package-editor" class="margin-left-s">
+        <button mat-raised-button>
+            <mat-icon>keyboard_arrow_left</mat-icon><span class="mobile-hidden">Powrót</span>
+        </button>
+    </a>
+    <span id="room">Dodaj paczkę</span>
 </mat-toolbar>
-<div class="flex-center">
+<div class="flex-center" id="add-package">
     <div class="fill-width">
         <div class="flex">
             <div class="center big-font flex column">
@@ -57,7 +55,7 @@
         </div>
         <div>
             <div class="center flex column">
-                <div class="vertical-space-bottom">
+                <div class="vertical-space-bottom margin-right-s margin-left-s">
                     <mat-form-field class="margin-right-s">
                         <input matInput placeholder="Card Title" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
                     </mat-form-field>

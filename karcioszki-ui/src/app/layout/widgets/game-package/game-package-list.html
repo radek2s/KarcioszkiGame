@@ -1,6 +1,6 @@
 <section class="center">
     <div id="card-packages" class="flex-container">
-        <div *ngFor="let package of cardsPackages" class="cardPackage margin-right-s">
+        <div *ngFor="let package of cardsPackages" class="cardPackage margin-xs margin-bottom-s">
             <mat-card (click)="openProperties(package)">
                 <div *ngIf="!package.visible">
                     <img *ngIf="!package.image" mat-card-image src="../../../../assets/graphics/default.jpg">
@@ -10,7 +10,7 @@
                     <img mat-card-image src="../../../../assets/graphics/locked.jpg">
                 </div>
                 <mat-card-content>
-                    {{package.packageName}}
+                    {{package.packageName}}PIN: {{package.pin}}
                 </mat-card-content>
             </mat-card>
         </div>

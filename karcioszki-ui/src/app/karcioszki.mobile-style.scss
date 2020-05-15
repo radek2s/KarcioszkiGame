@@ -1,0 +1,52 @@
+@media all and (max-width: 1524px) and (min-width: 1025px) {
+  .cardPackage {
+    width: 15% !important;
+  }
+}
+@media all and (max-width: 1024px) and (min-width: 551px) {
+  .cardPackage {
+    width: 20% !important;
+  }
+}
+@media all and (max-width: 550px) and (min-width: 250px) {
+  .mobile-hidden {
+    display: none;
+  }
+  ::ng-deep {
+    h1 {
+      line-height: normal !important;
+    }
+
+    .mat-dialog-container {
+      text-align: center;
+    }
+    .mat-dialog-actions {
+      justify-content: space-around !important;
+    }
+    .margin-right-s {
+      margin-right: 7px !important;
+    }
+    .margin-left-s {
+      margin-left: 7px !important;
+    }
+    .margin-bottom-s {
+      margin-bottom: 7px !important;
+    }
+    .cardPackage {
+      width: 25% !important;
+    }
+    .mat-card {
+      padding: 7px !important;
+    }
+    .mat-card-image {
+      width: calc(100% + 14px) !important;
+      margin: 0px -16px 0px -16px !important;
+    }
+    .flex {
+      flex-wrap: wrap;
+    }
+    .flex-center#add-package {
+      height: initial;
+    }
+  }
+}
