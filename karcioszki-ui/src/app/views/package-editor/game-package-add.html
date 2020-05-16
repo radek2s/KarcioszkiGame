@@ -5,10 +5,11 @@
         </button>
     </a>
     <span id="room">Dodaj paczkę</span>
+    <div class="empty"></div>
 </mat-toolbar>
 <div class="flex-center" id="add-package">
-    <div class="fill-width">
-        <div class="flex">
+    <div class="fill-width margin-s">
+        <div class="flex-container">
             <div class="center big-font flex column">
                 <mat-form-field class="margin-sides" [formGroup]="packageForm">
                     <input matInput placeholder="Package Name" [(ngModel)]="cardsPackage.packageName"
@@ -65,14 +66,14 @@
                         [disabled]="packageName.invalid || pinModel.invalid">Wyślij</button>
                 </div>
                 <div>
-                    <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
+                    <div *ngFor="let card of cardsPackage.cards" class="margin-right-s inline-block">
                         <mat-form-field>
                             <input matInput placeholder="Card Title" [value]="card" disabled>
                         </mat-form-field>
                         <button mat-icon-button aria-label="Delete card" (click)="deleteCard(card)">
                             <mat-icon>cancel</mat-icon>
                         </button>
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>

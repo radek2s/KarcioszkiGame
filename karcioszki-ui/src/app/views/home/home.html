@@ -4,9 +4,9 @@
         <div *ngIf="playerService.getPlayer() !== null">
             <p>{{playerService.getPlayer().name}}</p>
         </div>
-        <div *ngIf="gameIdList">
+        <div *ngIf="gameIdList" class="margin-bottom-m">
             <h4 *ngIf="gameIdList.length !== 0">lista gier:</h4>
-            <button mat-raised-button *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
+            <button mat-raised-button color="accent" *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
         </div>
         <button mat-flat-button color="primary" (click)="createGameLobby()">Załóż grę</button>
         <hr>

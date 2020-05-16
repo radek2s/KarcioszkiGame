@@ -1,27 +1,25 @@
-<div class=" relative">
-    <div class="center">
-        <div>
-            <button mat-raised-button color="warn" (click)="openConfirmationDialogDelete(cardPackage.id)">
-                <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-raised-button color="primary" (click)="goToEditGamePackage(cardPackage.id)">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-raised-button class="close" (click)="onNoClick()">
-                <mat-icon>cancel</mat-icon>
-            </button>
-        </div>
-        <h4 class="sof-bold">Autor paczki: <span class="normal-weight">{{cardPackage.author}}</span></h4>
-        <h4 class="sof-bold">Lista kart:</h4>
-        <div class="flex-container">
-            <div class="cardPackage margin-xs" *ngFor="let card of cardPackage.cards">
-
-                <mat-card>
-                    <mat-card-content>
-                        {{card}}
-                    </mat-card-content>
-                </mat-card>
-            </div>
+<div class="relative">
+    <div>
+        <button mat-icon-button color="primary" (click)="goToEditGamePackage(cardPackage.id)">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="openConfirmationDialogDelete(cardPackage.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+        <button mat-icon-button id="close-dialog" (click)="onNoClick()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    <h4 class="sof-bold">Autor paczki: <span class="normal-weight">{{cardPackage.author}}</span></h4>
+    <h4 class="sof-bold" *ngIf="cardPackage.visible">Paczka prywatna</h4>
+    <h4 class="sof-bold" *ngIf="!cardPackage.visible">Lista kart:</h4>
+    <div class="flex-container" *ngIf="!cardPackage.visible">
+        <div class="cardPackage margin-xs" *ngFor="let card of cardPackage.cards">
+            <mat-card>
+                <mat-card-content>
+                    {{card}}
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

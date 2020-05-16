@@ -23,6 +23,9 @@
     .mat-dialog-actions {
       justify-content: space-around !important;
     }
+    .margin-xs {
+      margin: 5px !important;
+    }
     .margin-right-s {
       margin-right: 7px !important;
     }
@@ -45,8 +48,14 @@
     .flex {
       flex-wrap: wrap;
     }
-    .flex-center#add-package {
-      height: initial;
+    mat-toolbar .empty {
+      width: 56px !important;
+    }
+    .big-font {
+      font-size: 1.2em !important;
+    }
+    #cards, #cards button{
+        padding: 0.2rem 1rem!important;
     }
   }
 }

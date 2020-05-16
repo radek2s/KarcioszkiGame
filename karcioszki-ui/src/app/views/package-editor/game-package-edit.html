@@ -5,12 +5,13 @@
         </button>
     </a>
     <span id="room">Edytuj paczkę</span>
+    <div class="empty"></div>
 </mat-toolbar>
-<div class="flex-center">
-    <div class="fill-width">
-        <div class="flex">
-            <div>
-                <img [src]="cardsPackage.image">
+<div class="flex-center" id="edit-package">
+    <div class="margin-s">
+        <div class="flex-container">
+            <div class="center big-font flex column">
+                <img [src]="cardsPackage.image" class="margin-s">
             </div>
             <div class="center big-font flex column">
                 <mat-form-field class="margin-sides">
@@ -54,14 +55,14 @@
                     [disabled]="pinModel.invalid">Aktualizuj</button>
             </div>
             <div>
-                <span *ngFor="let card of cardsPackage.cards" class="margin-right-s">
+                <div *ngFor="let card of cardsPackage.cards" class="margin-right-s inline-block">
                     <mat-form-field>
                         <input matInput placeholder="Card Title" [value]="card" disabled>
                     </mat-form-field>
                     <button mat-icon-button aria-label="Delete card" (click)="deleteCard(card)">
                         <mat-icon>cancel</mat-icon>
                     </button>
-                </span>
+                </div>
             </div>
         </div>
     </div>

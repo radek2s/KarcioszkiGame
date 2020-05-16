@@ -141,7 +141,7 @@ export class GameNewComponent implements OnInit {
 
     private getCardCountSelected(cardCount) {
         if (this.gameSession.gameCardStatistics.cardToGuess == cardCount) {
-            return { 'background-color': 'rgb(59, 138, 59)' }
+            return { 'background-color': '#d7d7d7' }
         }
         return null;
     }

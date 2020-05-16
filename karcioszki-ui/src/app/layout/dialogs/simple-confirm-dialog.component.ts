@@ -4,13 +4,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     selector: 'simple-confirm-dialog',
     template: `
-    <h1 mat-dialog-title>{{data.title}}</h1>
-    <div mat-dialog-content>
-        <p>{{data.message}}</p>
-    </div>
-    <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">{{btnTextCancel}}</button>
-        <button mat-button [mat-dialog-close]="true">{{btnTextOk}}</button>
+    <div class="relative">
+        <button mat-icon-button id="close-dialog" (click)="onNoClick()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <h1 mat-dialog-title>{{data.title}}</h1>
+        <div mat-dialog-content>
+            <p>{{data.message}}</p>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button (click)="onNoClick()">{{btnTextCancel}}</button>
+            <button mat-button [mat-dialog-close]="true">{{btnTextOk}}</button>
+        </div>
     </div>
     `,
     styles: [`
