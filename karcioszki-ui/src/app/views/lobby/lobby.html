@@ -1,5 +1,5 @@
 <div *ngIf="gameSession; else loadingBlock">
-    <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
+    <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'" class="flex-jc-space-between">
         <div>
             <button *ngIf="!gameSession.started" mat-icon-button aria-label="Exit from game" (click)="lobbyExitGame()">
                 <mat-icon>cancel</mat-icon>
@@ -10,7 +10,7 @@
             <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
         </div>
     </mat-toolbar>
-    <section class="center">
+    <section class="flex-center flex-dir-column">
         <mat-list class="player-list">
             <mat-list-item class="player-list-item player-list-item-header">
                 <span class="player-name">Nazwa gracza</span>

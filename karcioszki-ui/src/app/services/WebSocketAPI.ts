@@ -8,8 +8,8 @@ export class WebSocket {
     private WS_END_POINT_DEVELOPMNET: String = 'http://localhost:8080/karcioszki-ws';
     private component: any;
     private destinationTopic: string;
-    private stompClient: any;    
-    
+    private stompClient: any;
+
     constructor(component: any, topic: string) {
         this.component = component;
         this.destinationTopic = topic;
@@ -25,7 +25,7 @@ export class WebSocket {
 
     /**
      * Send a message
-     * 
+     *
      * @param topic [string] Location where to send a data
      * @param payload [any] Data to be sent
      */
@@ -53,7 +53,7 @@ export class WebSocket {
     /**
      * Callback error function
      * If connection has been lost try to reconnect after 5 seconds
-     * @param error 
+     * @param error
      */
     private errorCallback(error) {
         console.log("Error with SockJS ->" + error)
@@ -65,7 +65,7 @@ export class WebSocket {
     /**
      * on Message Received
      * When WebSocket receive an message send this message body to component
-     * 
+     *
      * @param message Received WebSocket message
      */
     private onMessageReceived(message): void {

@@ -56,7 +56,7 @@
             </div>
         </section>
         <mat-list *ngIf="this.playerService.getPlayer().leader">
-            <section id="cards" class="flex-container">
+            <section id="cards" class="flex-center flex-wrap">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
                     <button mat-raised-button color="primary"
                         [ngClass]="card.selected === true ? card.color+' selected-card' : card.color">
@@ -65,7 +65,7 @@
             </section>
         </mat-list>
         <mat-list *ngIf="!this.playerService.getPlayer().leader">
-            <section id="cards" class="flex-container">
+            <section id="cards" class="flex-center flex-wrap">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
                     <button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' mat-raised-button
                         color="primary" [ngClass]="card.selected === true ? card.color : ''"

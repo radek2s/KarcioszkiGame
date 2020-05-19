@@ -1,5 +1,5 @@
-<div class="flex-center">
-    <div class="center">
+<div class="flex-container">
+    <div class="flex-center flex-dir-column max-width">
         <h1>Karcioszki - Menu</h1>
         <div *ngIf="playerService.getPlayer() !== null">
             <p>{{playerService.getPlayer().name}}</p>
@@ -9,7 +9,7 @@
             <button mat-raised-button color="accent" *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
         </div>
         <button mat-flat-button color="primary" (click)="createGameLobby()">Załóż grę</button>
-        <hr>
+        <hr class="half-width">
         <a routerLink="/package-editor">
             <button mat-raised-button>Zestawy kart</button>
         </a>

@@ -1,25 +1,35 @@
-<div class="relative">
-    <div>
+<h1 mat-dialog-title class="flex-center-vertical position-relative">
+    <div class="flex-center">
+        {{cardPackage.packageName}}
+        <span *ngIf="cardPackage.visible"> - prywatna paczka</span>
+    </div>
+    <div class="dialog-header-buttons">
         <button mat-icon-button color="primary" (click)="goToEditGamePackage(cardPackage.id)">
             <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="openConfirmationDialogDelete(cardPackage.id)">
             <mat-icon>delete</mat-icon>
         </button>
-    </div>
         <button mat-icon-button id="close-dialog" (click)="onNoClick()">
             <mat-icon>cancel</mat-icon>
         </button>
-    <h4 class="sof-bold">Autor paczki: <span class="normal-weight">{{cardPackage.author}}</span></h4>
-    <h4 class="sof-bold" *ngIf="cardPackage.visible">Paczka prywatna</h4>
-    <h4 class="sof-bold" *ngIf="!cardPackage.visible">Lista kart:</h4>
-    <div class="flex-container" *ngIf="!cardPackage.visible">
-        <div class="cardPackage margin-xs" *ngFor="let card of cardPackage.cards">
-            <mat-card>
-                <mat-card-content>
+    </div>
+</h1>
+<div mat-dialog-content>
+    <header>
+        <div class="flex-container flex-ai-center">
+            <mat-icon>person</mat-icon> Autor paczki: <span class="normal-weight">{{cardPackage.author}}</span>
+        </div>
+    </header>
+    <div *ngIf="!cardPackage.visible" class="space-vertical-top">
+        <div>Lista kart:</div>
+        <hr>
+        <div class="flex-center-vertical flex-wrap">
+            <div *ngFor="let card of cardPackage.cards" class="card-preview">
+                <span>
                     {{card}}
-                </mat-card-content>
-            </mat-card>
+                </span>
+            </div>
         </div>
     </div>
 </div>

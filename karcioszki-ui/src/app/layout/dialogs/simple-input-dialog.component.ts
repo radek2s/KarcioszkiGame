@@ -5,28 +5,31 @@ import { FormGroup, FormControl } from '@angular/forms';
 @Component({
     selector: 'simple-input-dialog',
     template: `
-    <div class="relative">
+    <h1 mat-dialog-title class="dialog-header">
+    <div>{{data.title}}</div>
+    <div *ngIf="data.optional" class="dialog-header-buttons">
         <button mat-icon-button id="close-dialog" (click)="onNoClick()">
             <mat-icon>cancel</mat-icon>
         </button>
-        <h1 mat-dialog-title>{{data.title}}</h1>
-        <div mat-dialog-content>
-        <p>{{data.message}}</p>
-        <mat-form-field [formGroup]="simpleInputForm">
-            <input *ngIf="data.optional" matInput [placeholder]="data.placeholder" [(ngModel)]="inputData">
-            <input *ngIf="!data.optional" matInput formControlName="simpleInput" [placeholder]="data.placeholder" [(ngModel)]="inputData" required>
-        </mat-form-field>
-        </div>
-        <div mat-dialog-actions>
-            <button *ngIf="data.optional" mat-button (click)="onNoClick()">Anuluj</button>
-            <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid">Zatwierdź</button>
-        </div>
+    </div>
+    </h1>
+    <div mat-dialog-content>
+    <p>{{data.message}}</p>
+    <mat-form-field [formGroup]="simpleInputForm">
+        <input *ngIf="data.optional" matInput [placeholder]="data.placeholder" [(ngModel)]="inputData">
+        <input *ngIf="!data.optional" matInput formControlName="simpleInput" [placeholder]="data.placeholder" [(ngModel)]="inputData" required>
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button *ngIf="data.optional" mat-button (click)="onNoClick()">Anuluj</button>
+        <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid">Zatwierdź</button>
     </div>
     `,
     styles: [`
-    h1 {text-align: center}
-    mat-form-field {width: 100%}
+    .dialog-header { display: flex; justify-content: center; position: relative;}
+    .dialog-header-buttons {position: absolute; right: 0; top: 0;}
     .mat-dialog-actions {justify-content: flex-end}
+    .mat-form-field {width: 100%}
     `]
 })
 export class SimpleInputDialog {

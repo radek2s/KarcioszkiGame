@@ -6,6 +6,7 @@ import { GameService } from 'src/app/services/game.service';
 @Component({
     selector: 'create-game-lobby-dialog',
     templateUrl: './game-create-lobby-dialog.html',
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class CreateGameLobbyDialog {
 
