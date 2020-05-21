@@ -7,7 +7,7 @@
     <h1 id="room" class="flex-grow-2">Dodaj paczkę</h1>
     <button mat-raised-button color="primary" (click)="createGamePackage()"
         [disabled]="packageName.invalid || pinModel.invalid">
-        <span class="mobile-hidden">Wyślij</span> <mat-icon>send</mat-icon></button>
+        <span class="mobile-hidden space-horizontal-right-small">Wyślij</span> <mat-icon>send</mat-icon></button>
 </mat-toolbar>
 <div class="space-vertical-top" id="add-package">
     <header class="container">
@@ -20,7 +20,7 @@
                     <div *ngIf="packageName.errors.uniqueName">Paczka o takiej nazwie już istnieje!</div>
                 </mat-error>
             </mat-form-field>
-            <div class="flex-container max-width space-vertical-top-small flex-wrap-xs">
+            <div class="flex-container max-width space-vertical-top-small flex-wrap-center">
                 <mat-form-field class="max-width space-horizontal-right-small">
                     <input matInput placeholder="Autor:" [value]="playerService.getPlayer().name">
                 </mat-form-field>
@@ -36,7 +36,7 @@
             </mat-form-field>
         </div>
 
-        <div class="flex-container max-width flex-ai-center flex-wrap-xs">
+        <div class="flex-container max-width flex-ai-center flex-wrap-center">
             <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)">Paczka prywatna
             </mat-slide-toggle>
             <mat-form-field class="max-width" *ngIf="cardsPackage.visible">
@@ -44,14 +44,14 @@
             </mat-form-field>
         </div>
 
-        <div class="space-vertical-top-small flex-container flex-jc-space-evenly flex-wrap-xs">
+        <div class="space-vertical-top-small flex-container flex-jc-space-evenly flex-wrap-center">
             <mat-form-field class="margin-right-s">
                 <input matInput placeholder="Treść karty" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
             </mat-form-field>
             <div>
                 <button mat-raised-button color="accent" class="space-horizontal-right-small" (click)="addCard()"
                     [disabled]="cardModel.invalid">Dodaj
-                    kartę (Enter)</button>
+                    kartę</button>
             </div>
         </div>
     </header>

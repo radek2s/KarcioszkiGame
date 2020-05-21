@@ -18,7 +18,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     `,
     styles: [`
     .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-buttons {position: absolute; right: 0; top: 0;}
+    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
     .mat-dialog-actions { justify-content: flex-end }
     .mat-form-field { width: 100% }
     `]

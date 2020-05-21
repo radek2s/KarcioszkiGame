@@ -5,14 +5,14 @@
         </button>
     </a>
     <span id="room">Edytuj paczkę</span>
-    <button mat-raised-button color="primary" (click)="updateGamePackage()" [disabled]="pinModel.invalid"><span class="mobile-hidden">Aktualizuj</span>
+    <button mat-raised-button color="primary" (click)="updateGamePackage()" [disabled]="pinModel.invalid"><span class="mobile-hidden space-horizontal-right-small">Aktualizuj</span>
         <mat-icon>send</mat-icon></button>
 </mat-toolbar>
-<div class="space-vertical-top" id="edit-package">
-    <header class="container">
-        <div class="flex-container flex-wrap-xs">
+<div class="space-vertical-top-small" id="edit-package">
+    <div class="container">
+        <div class="flex-container flex-wrap-center">
             <img [src]="cardsPackage.image" class="space-horizontal-right-small package-thumbnail">
-            <div class="flex-container flex-dir-column">
+            <div class="flex-container flex-dir-column space-vertical-top-small">
                 <mat-form-field class="max-width">
                     <input matInput placeholder="Nazwa paczki:" [(ngModel)]="cardsPackage.packageName" disabled>
                 </mat-form-field>
@@ -32,7 +32,7 @@
                     #pinModel="ngModel" required>
             </mat-form-field>
         </div>
-        <div class="flex-container max-width flex-ai-center flex-wrap-xs">
+        <div class="flex-container max-width flex-ai-center flex-wrap-center">
             <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)">Paczka prywatna
             </mat-slide-toggle>
             <mat-form-field class="max-width" *ngIf="cardsPackage.visible">
@@ -40,18 +40,18 @@
             </mat-form-field>
         </div>
 
-        <div class="space-vertical-top-small flex-container flex-jc-space-evenly flex-wrap-xs">
+        <div class="space-vertical-top-small flex-container flex-jc-space-evenly flex-wrap-center">
             <mat-form-field class="margin-right-s">
                 <input matInput placeholder="Treść karty" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
             </mat-form-field>
             <div>
                 <button mat-raised-button color="accent" class="space-horizontal-right-small" (click)="addCard()"
                     [disabled]="cardModel.invalid">Dodaj
-                    kartę (Enter)</button>
+                    kartę</button>
             </div>
         </div>
 
-    </header>
+    </div>
     <div class="container-wider">
         <hr>
         <div class="flex-center-vertical flex-wrap space-vertical-bottom">

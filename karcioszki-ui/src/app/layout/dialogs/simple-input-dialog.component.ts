@@ -7,7 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
     template: `
     <h1 mat-dialog-title class="dialog-header">
     <div>{{data.title}}</div>
-    <div *ngIf="data.optional" class="dialog-header-buttons">
+    <div *ngIf="data.optional" class="dialog-header-button">
         <button mat-icon-button id="close-dialog" (click)="onNoClick()">
             <mat-icon>cancel</mat-icon>
         </button>
@@ -27,7 +27,7 @@ import { FormGroup, FormControl } from '@angular/forms';
     `,
     styles: [`
     .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-buttons {position: absolute; right: 0; top: 0;}
+    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
     .mat-dialog-actions {justify-content: flex-end}
     .mat-form-field {width: 100%}
     `]

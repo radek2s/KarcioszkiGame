@@ -9,7 +9,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
     template: `
         <h1 mat-dialog-title class="dialog-header">
             <div>Podaj PIN paczki</div>
-            <button mat-icon-button id="close-dialog" class="dialog-header-buttons" (click)="onNoClick()">
+            <button mat-icon-button id="close-dialog" class="dialog-header-button" (click)="onNoClick()">
                 <mat-icon>cancel</mat-icon>
             </button>
         </h1>
@@ -31,10 +31,10 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
     `,
     styles: [`
     .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-buttons {position: absolute; right: 0; top: 0;}
+    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
     .mat-dialog-actions { justify-content: flex-end }
     .mat-form-field { width: 100% }`]
-})
+})//TODO - wywalić style i dać -1em, a na komorce -1.8em
 export class PinValidationDialog implements OnInit {
 
     inputPin: string;
