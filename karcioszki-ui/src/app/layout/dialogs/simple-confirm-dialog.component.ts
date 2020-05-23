@@ -11,17 +11,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     <div mat-dialog-content>
         <p>{{data.message}}</p>
     </div>
-    <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">{{btnTextCancel}}</button>
-        <button mat-button [mat-dialog-close]="true">{{btnTextOk}}</button>
+    <div class="flex-center">
+        <button mat-button  mat-flat-button color="primary" class="margin-xs" (click)="onNoClick()">{{btnTextCancel}}</button>
+        <button mat-button mat-flat-button color="warn" class="margin-xs" [mat-dialog-close]="true">{{btnTextOk}}</button>
     </div>
     `,
-    styles: [`
-    .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
-    .mat-dialog-actions { justify-content: flex-end }
-    .mat-form-field { width: 100% }
-    `]
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class SimpleConfirmDialog {
 

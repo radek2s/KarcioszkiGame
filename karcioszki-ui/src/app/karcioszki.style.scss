@@ -103,11 +103,22 @@ h1 {
 
 /// COMPONENT SPECIFIC ///
 
+mat-form-field {
+  width: 100%
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}    
+
 .dialog-header-button {
   position: absolute;
   right: -1em;
   top: -1em;
 }
+
 .dialog-header-buttons {
   position: absolute;
   left: -0.5em;
@@ -136,6 +147,10 @@ h1 {
 
 .mat-dialog-actions {
   justify-content: flex-end
+}
+
+.mat-form-field {
+  width: 100%
 }
 
 .small-mat-icon {
@@ -304,6 +319,8 @@ h1 {
  mat-toolbar.background-red, mat-toolbar.background-blue{
    color: white;
  }
+
+ //TODO - wywalić style i dać -1em, a na komorce -1.8em
 
 // .vertical-space-top{
 //   margin-top: 3em;

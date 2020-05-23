@@ -7,11 +7,11 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
     selector: 'pin-validation-dialog',
     template: `
-        <h1 mat-dialog-title class="dialog-header">
+    <h1 mat-dialog-title class="dialog-header">
+    <button class="dialog-header-button" mat-icon-button id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
             <div>Podaj PIN paczki</div>
-            <button mat-icon-button id="close-dialog" class="dialog-header-button" (click)="onNoClick()">
-                <mat-icon>cancel</mat-icon>
-            </button>
         </h1>
         <form [formGroup]="pinForm" autocomplete="off" novalidate>
             <div mat-dialog-content>
@@ -29,12 +29,8 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
             </div>
         </form>
     `,
-    styles: [`
-    .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
-    .mat-dialog-actions { justify-content: flex-end }
-    .mat-form-field { width: 100% }`]
-})//TODO - wywalić style i dać -1em, a na komorce -1.8em
+    styleUrls: ['../../karcioszki.style.scss']
+})
 export class PinValidationDialog implements OnInit {
 
     inputPin: string;

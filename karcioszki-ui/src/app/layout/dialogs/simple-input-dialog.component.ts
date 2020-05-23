@@ -7,11 +7,9 @@ import { FormGroup, FormControl } from '@angular/forms';
     template: `
     <h1 mat-dialog-title class="dialog-header">
     <div>{{data.title}}</div>
-    <div *ngIf="data.optional" class="dialog-header-button">
-        <button mat-icon-button id="close-dialog" (click)="onNoClick()">
-            <mat-icon>cancel</mat-icon>
-        </button>
-    </div>
+    <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
     </h1>
     <div mat-dialog-content>
     <p>{{data.message}}</p>
@@ -25,12 +23,7 @@ import { FormGroup, FormControl } from '@angular/forms';
         <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid">Zatwierdź</button>
     </div>
     `,
-    styles: [`
-    .dialog-header { display: flex; justify-content: center; position: relative;}
-    .dialog-header-button {position: absolute; right: -0.5em; top: -0.5em;}
-    .mat-dialog-actions {justify-content: flex-end}
-    .mat-form-field {width: 100%}
-    `]
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class SimpleInputDialog {
 
@@ -53,7 +46,7 @@ export class SimpleInputDialog {
     ) { }
 
     ngOnInit(): void {
-        this.simpleInputForm = new FormGroup({'simpleInput': new FormControl()});
+        this.simpleInputForm = new FormGroup({ 'simpleInput': new FormControl() });
     }
 
     onNoClick(): void {

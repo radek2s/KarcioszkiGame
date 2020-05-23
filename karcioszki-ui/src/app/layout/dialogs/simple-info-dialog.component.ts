@@ -4,24 +4,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
     selector: 'simple-confirm-dialog',
     template: `
-    <div class="relative">
-        <button mat-icon-button id="close-dialog" (click)="onNoClick()">
-            <mat-icon>cancel</mat-icon>
-        </button>
-        <h1 mat-dialog-title>{{data.title}}</h1>
+    
+    <h1 mat-dialog-title class="position-relative">{{data.title}}
+    <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    </h1>
         <div mat-dialog-content>
             <p>{{data.message}}</p>
         </div>
-        <div mat-dialog-actions>
-            <button mat-button [mat-dialog-close]="true">{{btnTextOk}}</button>
+        <div class="flex-center">
+            <button mat-flat-button color="primary" [mat-dialog-close]="true">{{btnTextOk}}</button>
         </div>
-    </div>
     `,
-    styles: [`
-    h1 {text-align: center}
-    mat-form-field {width: 100%}
-    .mat-dialog-actions {justify-content: flex-end}
-    `]
+    styleUrls: ['../../karcioszki.style.scss']
 })
 export class SimpleInfoDialog {
 
