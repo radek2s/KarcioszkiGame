@@ -1,3 +1,8 @@
+html,
+body {
+    overscroll-behavior-y: contain;
+}
+
 //TABLET RESOLUTION 768px
 @media all and (min-width: 425px) and (max-width: 768px) {
   .card-package {

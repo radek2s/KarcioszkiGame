@@ -15,14 +15,7 @@
                 Liczba kart do zgadniecia
             </p>
             <div class="flex-container flex-wrap" id="quantityOfCards">
-                <button mat-raised-button [ngStyle]="getCardCountSelected(1)" (click)="leaderSelect(1)">1</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(2)" (click)="leaderSelect(2)">2</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(3)" (click)="leaderSelect(3)">3</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(4)" (click)="leaderSelect(4)">4</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(5)" (click)="leaderSelect(5)">5</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(6)" (click)="leaderSelect(6)">6</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(7)" (click)="leaderSelect(7)">7</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(8)" (click)="leaderSelect(8)">8</button>
+                <button *ngFor="let num of [1,2,3,4,5,6,7,8]" mat-raised-button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' [ngStyle]="getCardCountSelected(num)" (click)="leaderSelect(num)">{{num}}</button>
             </div>
 
         </div>

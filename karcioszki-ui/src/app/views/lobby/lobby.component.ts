@@ -17,6 +17,7 @@ export class LobbyComponent implements OnInit {
 
     webSocket: WebSocket
     gameSession: GameSession
+    gameValid: boolean = false
 
     constructor(
         private router: Router,
@@ -58,6 +59,7 @@ export class LobbyComponent implements OnInit {
     handleWsMessage(message): void {
         // console.debug("Received data:", message)
         this.gameSession = JSON.parse(message);
+        this.gameValid = this.validateGameStatus()
         this.excludeDuplicatedPlayer(this.playerService.getPlayer());
         if (this.gameSession.started) {
             this.router.navigateByUrl(`/game/${this.gameSession.id}`)
@@ -90,6 +92,46 @@ export class LobbyComponent implements OnInit {
 
     private excludeDuplicatedPlayer(player: Player) {
         this.gameSession.players = this.gameSession.players.filter(e => e.id !== player.id);
+    }
+
+    /**
+    * Check if is enough players to start the game
+    * Validate all contitions
+    */
+    private validateGameStatus() {
+        const minPlayerCount = 4;
+
+        let playerCount = this.gameSession.players.length;
+        let redLeaderCount = 0;  //TeamID 0
+        let redNonLeaderCount = 0;
+        let blueLeaderCount = 0; //TeamID 1
+        let blueNonLeaderCount = 0;
+
+        this.gameSession.players.forEach(player => {
+            if (player.leader == true) {
+                if (player.team == 0) {
+                    redLeaderCount = redLeaderCount + 1;
+                } else {
+                    blueLeaderCount = blueLeaderCount + 1;
+                }
+            } else {
+                if (player.team == 0) {
+                    redNonLeaderCount = redNonLeaderCount + 1;
+                } else {
+                    blueNonLeaderCount = blueNonLeaderCount + 1;
+                }
+            }
+        });
+
+        if (playerCount >= minPlayerCount) {
+            if (
+                redLeaderCount === 1 && 
+                blueLeaderCount === 1 && 
+                redNonLeaderCount >= 1 && blueNonLeaderCount >=1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //TODO: Player lobby validation

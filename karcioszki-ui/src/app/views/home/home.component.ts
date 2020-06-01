@@ -60,6 +60,15 @@ export class HomeComponent implements OnInit {
                 gameSession.players = [];
                 gameSession.started = false;
                 gameSession.gameCardPackage = result.selectedPackage;
+                if(result.cardCount > result.selectedPackage.cards.length) {
+                    result.cardCount = result.selectedPackage.cards.length
+                }
+                if(result.cardCount < 8) {
+                    result.cardCount = 8
+                    if(result.cardCount > result.selectedPackage.cards.length) {
+                        this.snackBar.open("Błąd przy zakładaniu gry za mało kart w paczce", "Zamknij", {duration: 3000})
+                    }
+                }
                 this.gameService.createGameLobby(gameSession, result.cardCount).subscribe(response => {
                     if(response.status == "Created") {
                         this.joinGameLobby(result.gameId)

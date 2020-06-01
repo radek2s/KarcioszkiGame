@@ -47,7 +47,7 @@
                 </div>
             </mat-list-item>
         </mat-list>
-        <button mat-raised-button color="primary" (click)="lobbyStartGame()" [disabled]="validateGame">Start</button>
+        <button mat-raised-button color="primary" (click)="lobbyStartGame()" [disabled]="gameValid">Start</button>
     </section>
 </div>
 <ng-template #loadingBlock>
