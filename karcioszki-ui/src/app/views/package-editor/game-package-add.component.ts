@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 import { PlayerService } from 'src/app/services/player.service';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange, MatDialog } from '@angular/material';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder } from '@angular/forms';
+import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
 
 
 @Component({
@@ -23,7 +24,13 @@ export class GamePackageAddComponent {
 
   cardsPackagesNames = [];
 
-  constructor(private gameService: GameService, private _snackBar: MatSnackBar, private playerService: PlayerService, private router: Router, private fb: FormBuilder) {
+  constructor(
+    private gameService: GameService,
+    private _snackBar: MatSnackBar,
+    private playerService: PlayerService,
+    private router: Router,
+    private fb: FormBuilder,
+    private dialog: MatDialog) {
     this.cardsPackage = new CardsPackage();
     this.cardsPackage.pin = String(Math.round(Math.random() * 10000))
     this.cardsPackage.cards = [];
@@ -65,20 +72,34 @@ export class GamePackageAddComponent {
 
   createGamePackage() {
     this.cardsPackage.author = this.playerService.getPlayer().name.toString();
-    if(this.cardsPackage.cards.length >= 15) {
-      this.gameService.addGamePackage(this.cardsPackage).then(data => {
-        this.cardsPackage = new CardsPackage();
-        this.cardTitle = "";
-        this.openSnackBar("Sukces! - Paczka została dodana!", "Zamknij")
-        this.router.navigateByUrl(`package-editor`);
-      }).catch(err => {
-        this.openSnackBar("Coś poszło nie tak!", "Zamknij")
-        console.error(err)
-      });
+    if (this.cardsPackage.cards.length >= 15) {
+      const dialogRef = this.dialog.open(SimpleInfoDialog, {
+        width: '50%',
+        disableClose: true,
+        data: {
+          title: "Twój pin do edycji paczki",
+          message: "Zapisz kod aby móc edytować paczkę:\n " + this.cardsPackage.pin
+        }
+      })
+      dialogRef.afterClosed().subscribe(response => {
+        if (response) {
+          this.gameService.addGamePackage(this.cardsPackage).then(data => {
+            this.cardsPackage = new CardsPackage();
+            this.cardTitle = "";
+            this.openSnackBar("Sukces! - Paczka została dodana!", "Zamknij")
+            this.router.navigateByUrl(`package-editor`);
+          }).catch(err => {
+            this.openSnackBar("Coś poszło nie tak!", "Zamknij")
+            console.error(err)
+          });
+        } else {
+          this.openSnackBar("Coś poszło nie tak!", "Zamknij")
+        }
+      })
     } else {
       this.openSnackBar("Za mało kart w paczce! Musi być minimum 15.", "Zamknij")
     }
-    
+
   }
 
   deleteCard(card) {
