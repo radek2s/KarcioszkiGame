@@ -1,66 +1,224 @@
 @import 'karcioszki.variables';
 
+//////////// FLEX SECTION /////////////
+
+.flex-container {
+  display: flex;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-center-vertical {
+  display: flex;
+  justify-content: center;
+}
+.flex-dir-column {
+  flex-direction: column;
+}
+.flex-grow-1 {
+  flex-grow: 1;
+}
+.flex-grow-2 {
+  flex-grow: 2;
+}
+
+//ai (align-items)
+.flex-ai-center {
+  align-items: center;
+}
+.flex-ai-end {
+  align-items: flex-end;
+}
+
+//jc (justify-content)
+.flex-jc-space-between {
+  justify-content: space-between;
+}
+.flex-jc-space-around {
+  justify-content: space-around;
+}
+.flex-jc-space-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-wrap-center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+//// GLOBAL STYLES /////
+
+.max-width {
+  width: 100%;
+}
+.half-width {
+  width: 50%;
+}
+
+.height-100{
+  height: 100%;
+}
+
+.height-80{
+  height: 80%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+
+.space{
+  margin: 3em;
+}
+.space-vertical-top {
+  margin-top: 3em;
+}
+.space-vertical-top-small {
+  margin-top: 1em;
+}
+.space-horizontal-right-small {
+  margin-right: 1em;
+}
+.space-vertical-bottom {
+  margin-bottom: 3em;
+}
+.container {
+  padding: 0 30%;
+}
+.container-wider {
+  padding: 0 20%;
+}
+
+//////////// GENERAL TAG SECTION /////////////
+
 h1 {
     text-align: center;
 }
 
+/// COMPONENT SPECIFIC ///
 
-.background-red{
-    background-color: $red;
+mat-form-field {
+  width: 100%
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}    
+
+.dialog-header-button {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+}
+
+.dialog-header-buttons {
+  position: absolute;
+  left: -0.5em;
+  top: -0.5em;
+}
+
+.toolbar-nav-left {
+  position: absolute;
+  left: 25px;
+  top: 13px;
+}
+
+.package-thumbnail {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-preview {
+  display: inline-block;
+  margin: 5px;
+  padding: 4px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end
+}
+
+.mat-form-field {
+  width: 100%
+}
+
+.small-mat-icon {
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  line-height: 20px;
+}
+
+/// GAME LOBBY ///
+.background-red {
+  background-color: $red;
+}
+.background-blue{
+  background-color: $blue;
+}
+.color-leader {
+  color: #e4da12
+}
+.player-list {
+  width: 90vw;
+}
+.mini-button {
+  background-color: $default;
+}
+.player-list-item-header {
+  font-weight: 500;
+  background-color: $gray;
+  border-radius: 0.5em 0.5em 0 0;
+}
+.player-list-item {
+  span.player-name {
+    flex-basis: 60%;
+    text-align: left;
   }
-  .color-red{
-    color: $red;
-  }
-  .background-blue{
-    background-color: $blue;
-  }
-  .color-blue{
-    color: $blue;
-  }
-  .background-active{
-    background-color: $active;
-  }
-  .background-none{
-    background-color: $none;
-  }
-  .color-leader {
-    color: #e4da12
-  }
-  .player-list {
-    width: 90vw;
-  }
-  .mini-button {
-    background-color: $default;
-  }
-  .player-list-item-header {
-    font-weight: 500;
-    background-color: $none;
-  }
-  .player-list-item {
-    span.player-name {
-      flex-basis: 60%;
-      text-align: left;
-    }
-  }
-  .team-container {
-    flex-basis: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .leader-container {
-    flex-basis: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .team-box {
-    width: 25px;
-    height: 25px;
-    margin: 5px;
-    border-radius: 5px;
-    box-shadow: 1.9px 2px 2px 0px rgba(0, 0, 0, 0.3);
-  }
+}
+.team-container {
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.leader-container {
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-box {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 1.9px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+/// OLD CODE ///
+
+.card-package mat-card{
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.card-package{
+  width: 10%;
+  max-width: 300px;
+  text-align: center;
+}
   
   @mixin combine-inside-border-collor($color){
     //color of cards - with border
@@ -71,10 +229,12 @@ h1 {
     color: lighten($color, 25%);
   }
   
-  
+  .card {
+    margin: 7px;
+  }
   
   #cards{
-    max-width: 1600px;
+    max-width: 1300px;
     padding: 2rem;
     margin: auto;
     button{
@@ -89,10 +249,8 @@ h1 {
       justify-content: center;
       flex-basis: 16%;
       border-radius: 5px;
-      padding: 10px;//0.15%;
-      margin: 10px;//calc(0.5% + 18px);
-      min-width: 200px;
-      width: 25%;
+      padding: 0.7rem 1.5rem;
+      width: fit-content;
       font-size: 1.2rem;
     }
     .none, .orange{
@@ -108,55 +266,16 @@ h1 {
       @include combine-inside-border-collor($black);
     }
     .selected-card, button[disabled="true"]{
-      filter: brightness(0.5);
-      opacity: 0.7;
+      filter: brightness(0.3);
+      opacity: 0.8;
+      color: black;
     }  
+  }
+
+  #quantityOfCards button {
+    margin: 5px;
+  }
     
-  }
-  
-  // tablet resolution //
-  @media screen and (max-width: 768px) {
-    #card-package {
-      display: none;
-    }
-    #cards {
-      padding: 0 15px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      button {
-        font-size: 0.8rem;
-        margin: 5%;
-        width: 100%;
-        padding: 2px;
-      }
-    }
-  }
-  
-  // phone resolution //
-  @media screen and (max-width: 425px) {
-    #cards {
-      padding: 0;
-      button {
-        font-size: 0.6rem;
-        margin: 2%;
-        flex-basis: auto;
-      }
-    }
-  }
-  
-  .fill-remaining-space {
-      flex: 1 1 auto;
-    }
-  
-  
-  
-  #infoPanel{
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem;
-  }
-  
   #activePlayerColor{
     height: 36px;
     width: 36px;
@@ -165,100 +284,83 @@ h1 {
     margin-left: 0;
     border-radius: 4px;
   }
-  
-  #extraCard{
-    width: min-content;
-  }
-  
+
   #endGame{
     margin-left: 15px;
   }
   
-  mat-toolbar{
-    justify-content: space-between;
-  }
-  
-  #room{
-    margin-right: 170px;
-  }
-
-  .center{
-    text-align: center!important;
-    margin: auto;
-    width: fit-content;
-}
-
-  button{
-    margin: 5px;
-    min-width: 0;
-  }
-
-  .close{
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  .flex-center{
-    display: flex!important;
-    justify-content: center;
-    align-items: center;
-    max-width: 800px;
-    margin: auto;
-    height: 80%;
-  }
-  .flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-
   .margin-xs{
     margin: 10px;
+  }
+  .margin-s{
+    margin: 25px;
   }
 .margin-right-s{
   margin-right: 25px;
 }
+
+.margin-bottom-m{
+  margin-bottom: 40px;
+}
+.margin-bottom-s{
+  margin-bottom: 25px;
+}
 .margin-left-s{
   margin-left: 25px;
+}
+.margin-top-s{
+  margin-top: 25px;
 }
 
 .big-font{
   font-size: 1.5em;
 }
 
-.vertical-space-top{
-  margin-top: 3em;
-}
-.vertical-space-bottom{
-  margin-bottom: 3em;
-}
+ mat-toolbar.background-red, mat-toolbar.background-blue{
+   color: white;
+ }
 
-.relative{
-  position: relative;
-}
+ //TODO - wywalić style i dać -1em, a na komorce -1.8em
 
-.absolute{
-  position: absolute;
-  top: 0.5em;
-}
+// .vertical-space-top{
+//   margin-top: 3em;
+// }
+// .vertical-space-bottom{
+//   margin-bottom: 3em;
+// }
+// mat-toolbar .empty{
+//   width: 100px;
+// }
+// .inline-block{
+//   display: inline-block;
+// }
 
-.normal-weight{
-  font-weight: 400;
-}
+// ::ng-deep .relative{
+//   position: relative!important;
+// }
 
-.sof-bold{
-  font-weight: 500;
-}
+// .absolute{
+//   position: absolute;
+//   top: 0.5em;
+// }
 
-mat-toolbar .right{
-  right: 0;
-}
-mat-toolbar .left{
-  left: 0;
-}
+// .normal-weight{
+//   font-weight: 400;
+// }
+
+// .sof-bold{
+//   font-weight: 500;
+// }
+
+// mat-toolbar .right{
+//   right: 0;
+// }
+// mat-toolbar .left{
+//   left: 0;
+// }
+
+// .mat-card:not([class*=mat-elevation-z]), .mat-raised-button:not([class*=mat-elevation-z]){
+//   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+// }
 
 
-.mat-card:not([class*=mat-elevation-z]), .mat-raised-button:not([class*=mat-elevation-z]){
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-}

@@ -10,7 +10,7 @@ import { SimpleInfoDialog } from '../../dialogs/simple-info-dialog.component';
 @Component({
   selector: 'page-game-package-list',
   templateUrl: './game-package-list.html',
-  styleUrls: ['../../../karcioszki.style.scss', './package.component.scss']
+  styleUrls: ['../../../karcioszki.style.scss']
 })
 export class GamePackageListComponent implements OnInit {
 

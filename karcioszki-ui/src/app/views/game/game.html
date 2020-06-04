@@ -1,45 +1,35 @@
 <div *ngIf="gameSession">
     <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
         <div>
-            <span id="room">Pokój numer: {{gameSession.id}}</span>
-        </div>
-        <div id="card-package" class="flex-container">
-            <span>Zestaw kart: {{gameSession.gameCardPackage.packageName}}</span>
+            <span>Pozostało: {{gameSession.gameCardStatistics.cardToGuess}} ruchów | </span>
+            <span
+                *ngIf="this.playerService.getPlayer().team==0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
+            <span
+                *ngIf="this.playerService.getPlayer().team==1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
+            <span> kart</span>
         </div>
     </mat-toolbar>
-    <section>
+    <section class="space">
         <div *ngIf="this.playerService.getPlayer().leader">
             <p class="flex-container">
                 Liczba kart do zgadniecia
             </p>
-            <div class="flex-container">
-                <button mat-raised-button [ngStyle]="getCardCountSelected(1)" (click)="leaderSelect(1)">1</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(2)" (click)="leaderSelect(2)">2</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(3)" (click)="leaderSelect(3)">3</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(4)" (click)="leaderSelect(4)">4</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(5)" (click)="leaderSelect(5)">5</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(6)" (click)="leaderSelect(6)">6</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(7)" (click)="leaderSelect(7)">7</button>
-                <button mat-raised-button [ngStyle]="getCardCountSelected(8)" (click)="leaderSelect(8)">8</button>
+            <div class="flex-container flex-wrap" id="quantityOfCards">
+                <button *ngFor="let num of [1,2,3,4,5,6,7,8]" mat-raised-button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' [ngStyle]="getCardCountSelected(num)" (click)="leaderSelect(num)">{{num}}</button>
             </div>
 
         </div>
-        <section id="infoPanel">
+        <div class="flex-container flex-jc-space-between">
             <div>
-                <p>Pozostało ruchów: {{gameSession.gameCardStatistics.cardToGuess}}</p>
-                <p>Pozostało kart:
-                    <span
-                        *ngIf="this.playerService.getPlayer().team==0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
-                    <span
-                        *ngIf="this.playerService.getPlayer().team==1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
-                </p>
 
                 <p>Aktywna drużyna:</p>
-                <div id="activePlayerColor"
-                    [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
-                    <!-- {{gameSession.gameState}} -->
+                <div class="flex-container flex-ai-center">
+                    <div id="activePlayerColor"
+                        [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
+                        <!-- {{gameSession.gameState}} -->
+                    </div>
+                    <button mat-raised-button (click)="endTurn()">Zakończ turę</button>
                 </div>
-                <button mat-raised-button (click)="endTurn()">Zakończ turę</button>
             </div>
             <div id="extraCard">
                 <div *ngIf="this.playerService.getPlayer().leader">
@@ -59,9 +49,9 @@
                     </mat-checkbox>
                 </div>
             </div>
-        </section>
+        </div>
         <mat-list *ngIf="this.playerService.getPlayer().leader">
-            <section id="cards" class="flex-container">
+            <section id="cards" class="flex-center flex-wrap">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
                     <button mat-raised-button color="primary"
                         [ngClass]="card.selected === true ? card.color+' selected-card' : card.color">
@@ -70,8 +60,8 @@
             </section>
         </mat-list>
         <mat-list *ngIf="!this.playerService.getPlayer().leader">
-            <section id="cards" class="flex-container">
-                <div *ngFor="let card of gameSession.gameCards">
+            <section id="cards" class="flex-center flex-wrap">
+                <div *ngFor="let card of gameSession.gameCards" class="card">
                     <button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' mat-raised-button
                         color="primary" [ngClass]="card.selected === true ? card.color : ''"
                         (click)="selectedCard(card)">

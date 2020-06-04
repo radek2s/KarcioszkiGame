@@ -1,33 +1,55 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CardsPackage } from 'src/app/models/CardsPackage';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 
 @Component({
     selector: 'pin-validation-dialog',
     template: `
-    <h1 mat-dialog-title>Podaj PIN paczki</h1>
-    <button mat-mini-fab class="close" (click)="onNoClick()">
-    <mat-icon>cancel</mat-icon>
-</button>
-    <div mat-dialog-content>
-    <mat-form-field>
-        <input matInput placeholder="Numer PIN:" [(ngModel)]=inputPin>
-    </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-        <button mat-button (click)="validatePin()">Zatwierdź</button>
-    </div>
-    `
+    <h1 mat-dialog-title class="dialog-header">
+    <button class="dialog-header-button" mat-icon-button id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+            <div>Podaj PIN paczki</div>
+        </h1>
+        <form [formGroup]="pinForm" autocomplete="off" novalidate>
+            <div mat-dialog-content>
+                <mat-form-field>
+                    <input matInput 
+                        placeholder="Numer PIN:" 
+                        [(ngModel)]=inputPin
+                        formControlName="pin"
+                        id="pin">
+                    <mat-error *ngIf="hasError('pin', 'required')">Kod PIN jest wymagany!</mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-actions>
+                <button mat-raised-button color="primary" (click)="validatePin()" [disabled]="!pinForm.valid">Zatwierdź</button>
+            </div>
+        </form>
+    `,
+    styleUrls: ['../../karcioszki.style.scss']
 })
-export class PinValidationDialog {
+export class PinValidationDialog implements OnInit {
 
     inputPin: string;
+    public pinForm: FormGroup;
 
-    constructor(public dialogReference: MatDialogRef<PinValidationDialog>, @Inject(MAT_DIALOG_DATA) public packageData: CardsPackage) {}
+    constructor(public dialogReference: MatDialogRef<PinValidationDialog>, @Inject(MAT_DIALOG_DATA) public packageData: CardsPackage) { }
+
+    ngOnInit() {
+        this.pinForm = new FormGroup({
+            pin: new FormControl('', Validators.required),
+        });
+    }
+
+    public hasError = (controlName: string, errorName: string) => {
+        return this.pinForm.controls[controlName].hasError(errorName);
+    }
 
     private validatePin() {
-        if(this.inputPin === this.packageData.pin) {
+        if (this.inputPin === this.packageData.pin) {
             this.dialogReference.close(true)
         } else {
             this.dialogReference.close()
@@ -35,5 +57,5 @@ export class PinValidationDialog {
     }
     onNoClick(): void {
         this.dialogReference.close();
-    }  
+    }
 }

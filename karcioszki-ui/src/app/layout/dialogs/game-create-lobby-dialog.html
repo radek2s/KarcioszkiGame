@@ -1,4 +1,12 @@
-<h1 mat-dialog-title>Załóż nową grę</h1>
+<h1 mat-dialog-title class="flex-center-vertical position-relative">
+    <div>
+        Załóż nową grę
+    </div>
+    <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+
+</h1>
 <div mat-dialog-content class="flex column">
     <div>
         <mat-form-field>
@@ -15,5 +23,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Anuluj</button>
-    <button mat-button [mat-dialog-close]="data">Utwórz!</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data">Utwórz!</button>
 </div>

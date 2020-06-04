@@ -1,19 +1,17 @@
-<mat-toolbar class="relative">
-    <div class="center">
-        <a routerLink="/" class="absolute left margin-left-s">
+<mat-toolbar class="flex-jc-space-between">
+        <a routerLink="/" class="margin-left-s">
             <button mat-raised-button>
-                <mat-icon>keyboard_arrow_left</mat-icon>Powrót
+                <mat-icon>keyboard_arrow_left</mat-icon><span class="mobile-hidden">Powrót</span>
             </button>
         </a>
         <span id="room">Zestawy kart</span>
-        <a routerLink="/package-editor/add" class="absolute right margin-right-s">
+        <a routerLink="/package-editor/add" class="margin-right-s">
             <button mat-raised-button color="primary">
-                <mat-icon>add</mat-icon>Dodaj
+                <mat-icon>add</mat-icon><span class="mobile-hidden">Dodaj</span>
             </button>
         </a>
-    </div>
 </mat-toolbar>
 
-<section class="center vertical-space-top">
+<section class="space-vertical-top">
     <page-game-package-list [edit]=true></page-game-package-list>
 </section>

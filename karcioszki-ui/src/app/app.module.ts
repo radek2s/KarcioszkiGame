@@ -7,20 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { GameComponent } from './layout/game/game.component';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatCardModule} from '@angular/material/card';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatMenuModule} from '@angular/material/menu';
 
 
 import { GamePackageMenuComponent } from './views/package-editor/game-package-menu.component';
@@ -38,6 +25,8 @@ import { SimpleConfirmDialog } from './layout/dialogs/simple-confirm-dialog.comp
 import { SimpleInfoDialog } from './layout/dialogs/simple-info-dialog.component';
 import { CardPackageInfoDialog } from './layout/dialogs/package-info-dialog.component';
 import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.component';
+
+import { MaterialModule } from './modules/material.module';
 
 
 
@@ -68,19 +57,7 @@ import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.componen
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatInputModule,
-    MatListModule,
-    MatSelectModule,
-    MatToolbarModule,
-    MatCheckboxModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatDividerModule,
-    MatCardModule,
-    MatSlideToggleModule,
-    MatMenuModule
+    MaterialModule
     ],
   providers: [],
   bootstrap: [AppComponent],

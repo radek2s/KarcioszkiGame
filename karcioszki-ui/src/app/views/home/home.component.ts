@@ -9,6 +9,7 @@ import { CreateGameLobbyDialog } from 'src/app/layout/dialogs/game-create-lobby-
 
 import { GameSession } from 'src/app/models/GameSession';
 import { SimpleInputDialog } from 'src/app/layout/dialogs/simple-input-dialog.component';
+import { ColorSchemeService } from 'src/app/services/color-scheme.service';
 
 @Component({
     selector: 'game-main-menu',
@@ -19,16 +20,19 @@ export class HomeComponent implements OnInit {
 
     gameIdList: number[];
     webSocket: WebSocket;
+    theme: string;
 
     constructor(
         private gameService: GameService,
         private playerService: PlayerService,
+        private colorSchemeService: ColorSchemeService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
         private router: Router
     ) { }
 
     ngOnInit(): void {
+        this.theme = this.colorSchemeService.currentActive();
         this.webSocket = new WebSocket(this, "/topic/hub")
         this.gameService.getGameIdList().subscribe(data => this.gameIdList = data)
         this.initializePlayer()
@@ -56,6 +60,15 @@ export class HomeComponent implements OnInit {
                 gameSession.players = [];
                 gameSession.started = false;
                 gameSession.gameCardPackage = result.selectedPackage;
+                if(result.cardCount > result.selectedPackage.cards.length) {
+                    result.cardCount = result.selectedPackage.cards.length
+                }
+                if(result.cardCount < 8) {
+                    result.cardCount = 8
+                    if(result.cardCount > result.selectedPackage.cards.length) {
+                        this.snackBar.open("Błąd przy zakładaniu gry za mało kart w paczce", "Zamknij", {duration: 3000})
+                    }
+                }
                 this.gameService.createGameLobby(gameSession, result.cardCount).subscribe(response => {
                     if(response.status == "Created") {
                         this.joinGameLobby(result.gameId)
@@ -97,6 +110,15 @@ export class HomeComponent implements OnInit {
                 }
             })
         }
+    }
+
+    private setTheme() {
+        if (this.theme == "dark") {
+            this.theme = "light";
+        } else {
+            this.theme = "dark";
+        }
+        this.colorSchemeService.update(this.theme);
     }
 
     handleWsMessage(message): void {

@@ -8,6 +8,7 @@ import { WebSocket } from '../../services/WebSocketAPI';
 import { Card } from 'src/app/models/Card';
 import { MatDialog } from '@angular/material';
 import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.component';
+import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
 
 @Component({
     selector: 'game-session',
@@ -18,6 +19,7 @@ export class GameNewComponent implements OnInit {
 
     webSocket: WebSocket
     gameSession: GameSession
+    previousTurn: Number = 1
 
     constructor(
         private router: Router,
@@ -40,6 +42,9 @@ export class GameNewComponent implements OnInit {
     handleWsMessage(message): void {
         // console.debug("Received data:", message)
         this.gameSession = JSON.parse(message);
+        if (this.gameSession.gameState != this.previousTurn) {
+            this.startTurn()
+        }
         if (this.gameSession.gameState == 2 || this.gameSession.gameState == 3 || this.gameSession.gameState == 4) {
             this.dialog.open(GameSummaryDialog, {
                 data: {
@@ -130,6 +135,22 @@ export class GameNewComponent implements OnInit {
         return 0
     }
 
+    private startTurn() {
+        this.previousTurn = this.gameSession.gameState;
+        let message = `Koniec tury! Teraz kolejka przeciwnej drużyny!`
+        if (this.gameSession.gameState == this.playerService.getPlayer().team) {
+            message = `Teraz Twoja kolej! Przygotuj się!`
+        }
+        this.dialog.open(SimpleInfoDialog, {
+            width: '80%',
+            disableClose: true,
+            data: {
+                title: "Koniec tury",
+                message: message
+            }
+        })
+    }
+
     private endTurn() {
         // console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
@@ -141,7 +162,7 @@ export class GameNewComponent implements OnInit {
 
     private getCardCountSelected(cardCount) {
         if (this.gameSession.gameCardStatistics.cardToGuess == cardCount) {
-            return { 'background-color': 'rgb(59, 138, 59)' }
+            return { 'background-color': '#d7d7d7' }
         }
         return null;
     }

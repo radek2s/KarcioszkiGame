@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@include mat-core();
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$inside-primary: mat-palette($mat-indigo);
+$inside-accent: mat-palette($mat-brown);
+$inside-warn: mat-palette($mat-red);
+$inside-theme-dark: mat-dark-theme($inside-primary, $inside-accent, $inside-warn);
+$inside-theme-light: mat-light-theme($inside-primary, $inside-accent, $inside-warn);
+
+.color-scheme-dark {
+    @include angular-material-theme($inside-theme-dark);    
+}
+
+.color-scheme-light {
+    @include angular-material-theme($inside-theme-light);
+}
+
+@import "style-dark-theme.scss";
+@import "style-default-theme.scss";
+
+  
+@import 'app/karcioszki.mobile-style';
