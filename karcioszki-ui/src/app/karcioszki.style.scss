@@ -219,6 +219,10 @@ mat-form-field {
   max-width: 300px;
   text-align: center;
 }
+.card-package-selected {
+  transform: scale(1.2);
+  font-weight: bold;
+}
   
   @mixin combine-inside-border-collor($color){
     //color of cards - with border
