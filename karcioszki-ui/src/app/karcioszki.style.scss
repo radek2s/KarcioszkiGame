@@ -113,6 +113,22 @@ mat-form-field {
   position: relative;
 }    
 
+
+.cards-counter {
+  position: absolute;
+  right: 0.1em;
+  top: 0.1em;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  line-height: 2em;
+  font-size: 1.3em;
+  background-color: rgba($color: #ffffff, $alpha: 0.80);
+  border-radius: 50%;
+  color: #3f51b5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .dialog-header-button {
   position: absolute;
   right: -1em;
