@@ -62,7 +62,7 @@
         <mat-list *ngIf="!this.playerService.getPlayer().leader">
             <section id="cards" class="flex-center flex-wrap">
                 <div *ngFor="let card of gameSession.gameCards" class="card">
-                    <button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' mat-raised-button
+                    <button [disabled]='gameSession.gameState != this.playerService.getPlayer().team || leaderTurn == 1' mat-raised-button
                         color="primary" [ngClass]="card.selected === true ? card.color : ''"
                         (click)="selectedCard(card)">
                         {{card.text}}</button>

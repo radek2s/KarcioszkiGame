@@ -19,7 +19,7 @@
         </mat-form-field>
     </div>
     <p>Wybierz zestaw kart: <span *ngIf="data.selectedPackage">{{data.selectedPackage.packageName}}</span></p>
-    <page-game-package-list [edit]=false (selected)="selectCardPackage($event)"></page-game-package-list>
+    <page-game-package-list [edit]=false id="lobby" (selected)="selectCardPackage($event)"></page-game-package-list>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Anuluj</button>

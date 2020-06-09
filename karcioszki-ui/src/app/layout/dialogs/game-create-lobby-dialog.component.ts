@@ -20,6 +20,12 @@ export class CreateGameLobbyDialog {
         this.gameService.getGamePackages().subscribe(data => this.cardPackageList = data)
     }
 
+    ngOnInit(): void {
+        this.gameService.getGamePackages().subscribe((data) => {
+        this.data.selectedPackage = this.cardPackageList[0];
+        });
+      }
+
     selectCardPackage(cardPackage) {
         this.data.selectedPackage = cardPackage;
     }

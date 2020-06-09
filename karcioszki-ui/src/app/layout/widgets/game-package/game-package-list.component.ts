@@ -27,7 +27,7 @@ export class GamePackageListComponent implements OnInit {
   ngOnInit(): void {
     this.gameService.getGamePackages().subscribe((data) => {
       this.cardsPackages = data;
-      this.selectedPackage = this.cardsPackages[0]
+      this.selectedPackage = this.cardsPackages[0];
     });
   }
 

@@ -20,6 +20,7 @@ export class GameNewComponent implements OnInit {
     webSocket: WebSocket
     gameSession: GameSession
     previousTurn: Number = 1
+    leaderTurn: Number = 0
 
     constructor(
         private router: Router,
@@ -103,6 +104,8 @@ export class GameNewComponent implements OnInit {
     }
 
     leaderSelect(cardNumber) {
+       // this.leaderTurn = 0;
+            console.log("lider zrobił ruch");
         this.gameSession.gameCardStatistics.cardToGuess = cardNumber;
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/leader`, this.gameSession);
 
@@ -137,6 +140,9 @@ export class GameNewComponent implements OnInit {
 
     private startTurn() {
         this.previousTurn = this.gameSession.gameState;
+       // this.leaderTurn = 1;
+        console.log("teraz ruch lidera");
+
         let message = `Koniec tury! Teraz kolejka przeciwnej drużyny!`
         if (this.gameSession.gameState == this.playerService.getPlayer().team) {
             message = `Teraz Twoja kolej! Przygotuj się!`
