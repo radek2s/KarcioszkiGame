@@ -134,6 +134,4 @@ export class LobbyComponent implements OnInit {
         return true;
     }
 
-    //TODO: Player lobby validation
-
 }
