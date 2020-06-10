@@ -66,6 +66,7 @@ export class GameNewComponent implements OnInit {
         }
         if (this.gameSession.gameState == 2 || this.gameSession.gameState == 3 || this.gameSession.gameState == 4) {
             this.dialog.open(GameSummaryDialog, {
+                disableClose: true,
                 data: {
                     winner: this.gameSession.gameState,
                     activeTeam: this.playerService.getPlayer().team

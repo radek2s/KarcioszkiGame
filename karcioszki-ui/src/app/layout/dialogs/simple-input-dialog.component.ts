@@ -7,9 +7,6 @@ import { FormGroup, FormControl } from '@angular/forms';
     template: `
     <h1 mat-dialog-title class="dialog-header">
     <div>{{data.title}}</div>
-    <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
-        <mat-icon>cancel</mat-icon>
-    </button>
     </h1>
     <div mat-dialog-content>
     <p>{{data.message}}</p>
