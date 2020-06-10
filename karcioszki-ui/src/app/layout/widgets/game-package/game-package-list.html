@@ -1,6 +1,9 @@
 <div id="card-packages" class="flex-container flex-jc-space-evenly flex-wrap">
-    <div *ngFor="let package of cardsPackages" class="card-package margin-xs margin-bottom-s">
-        <mat-card (click)="openProperties(package)">
+    <div *ngFor="let package of cardsPackages" class="card-package margin-xs margin-bottom-s" >
+        <mat-card (click)="openProperties(package)" [ngClass]="package.id == selectedPackage.id ? 'card-package-selected' : ''">
+            <div class="cards-counter">
+                {{package.cards.length}}
+            </div>
             <div *ngIf="!package.visible">
                 <img *ngIf="!package.image" mat-card-image src="../../../../assets/graphics/default.jpg">
                 <img *ngIf="package.image" mat-card-image [src]="package.image">

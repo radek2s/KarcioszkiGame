@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GameSession } from 'src/app/models/GameSession';
 import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -8,21 +8,35 @@ import { WebSocket } from '../../services/WebSocketAPI';
 import { Card } from 'src/app/models/Card';
 import { MatDialog } from '@angular/material';
 import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.component';
-import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'game-session',
     templateUrl: './game.html',
-    styleUrls: ['../../karcioszki.style.scss']
+    styleUrls: ['../../karcioszki.style.scss'],
+    animations: [
+        trigger('displayTurnMessage', [
+            state('flyIn', style({ transform: 'translateY(0)' })),
+            transition(':enter', [
+                style({ transform: 'translateY(-100%)' }),
+                animate('1.0s 1500ms ease-in')
+            ]),
+            transition(':leave', [
+                animate('1.5s ease-out', style({ opacity: '0' }))
+            ])
+        ]),
+    ]
 })
 export class GameNewComponent implements OnInit {
 
     webSocket: WebSocket
     gameSession: GameSession
-    previousTurn: Number = 1
+    previousTurn: Number = 0
+    activeCards: boolean = false;
+    displayDialog = false;
+    messageForPlayers = '';
 
     constructor(
-        private router: Router,
         private route: ActivatedRoute,
         private dialog: MatDialog,
         private gameService: GameService,
@@ -33,6 +47,7 @@ export class GameNewComponent implements OnInit {
         const gameId = +this.route.snapshot.paramMap.get('id');
         this.webSocket = new WebSocket(this, `/topic/hub/${gameId}`)
         this.gameService.getGameSession(gameId).subscribe(result => this.gameSession = result)
+        this.animateDialog()
     }
 
     ngOnDestroy(): void {
@@ -42,11 +57,16 @@ export class GameNewComponent implements OnInit {
     handleWsMessage(message): void {
         // console.debug("Received data:", message)
         this.gameSession = JSON.parse(message);
+        this.activeCards = true;
+        if (this.gameSession.gameCardStatistics.cardToGuess > 0) {
+            this.activeCards = this.gameSession.gameState != this.playerService.getPlayer().team;
+        }
         if (this.gameSession.gameState != this.previousTurn) {
             this.startTurn()
         }
         if (this.gameSession.gameState == 2 || this.gameSession.gameState == 3 || this.gameSession.gameState == 4) {
             this.dialog.open(GameSummaryDialog, {
+                disableClose: true,
                 data: {
                     winner: this.gameSession.gameState,
                     activeTeam: this.playerService.getPlayer().team
@@ -73,6 +93,7 @@ export class GameNewComponent implements OnInit {
                     if (this.playerService.getPlayer().team == 0) {
                         if (this.gameSession.gameCardStatistics.redBonusCards > 0) {
                             this.gameSession.gameCardStatistics.redBonusCards = 0;
+                            this.gameSession.gameCardStatistics.cardToGuess++;
                             this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
                         } else {
                             this.endTurn();
@@ -81,6 +102,7 @@ export class GameNewComponent implements OnInit {
                     if (this.playerService.getPlayer().team == 1) {
                         if (this.gameSession.gameCardStatistics.blueBounsCards > 0) {
                             this.gameSession.gameCardStatistics.blueBounsCards = 0;
+                            this.gameSession.gameCardStatistics.cardToGuess++;
                             this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/update`, this.gameSession);
                         } else {
                             this.endTurn();
@@ -105,7 +127,6 @@ export class GameNewComponent implements OnInit {
     leaderSelect(cardNumber) {
         this.gameSession.gameCardStatistics.cardToGuess = cardNumber;
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/leader`, this.gameSession);
-
     }
 
     private validateColor(cardColor, playerTeam) {
@@ -137,18 +158,13 @@ export class GameNewComponent implements OnInit {
 
     private startTurn() {
         this.previousTurn = this.gameSession.gameState;
-        let message = `Koniec tury! Teraz kolejka przeciwnej drużyny!`
-        if (this.gameSession.gameState == this.playerService.getPlayer().team) {
-            message = `Teraz Twoja kolej! Przygotuj się!`
-        }
-        this.dialog.open(SimpleInfoDialog, {
-            width: '80%',
-            disableClose: true,
-            data: {
-                title: "Koniec tury",
-                message: message
+        if (this.previousTurn == 0 || this.previousTurn == 1) {
+            this.animateDialog()
+            this.messageForPlayers = `Koniec tury! Teraz kolejka przeciwnej drużyny!`
+            if (this.gameSession.gameState == this.playerService.getPlayer().team) {
+                this.messageForPlayers = `Teraz Twoja kolej! Przygotuj się!`
             }
-        })
+        }
     }
 
     private endTurn() {
@@ -165,5 +181,18 @@ export class GameNewComponent implements OnInit {
             return { 'background-color': '#d7d7d7' }
         }
         return null;
+    }
+
+    /**
+     * animate dialog
+     * When starting a new turn - invoke @displayTurnMessage animation
+     * When object is initialized it moves from top to the center then
+     * when it is destroyed it changes it's opacity to 0 after 4000ms
+     */
+    private animateDialog() {
+        this.displayDialog = true;
+        setTimeout(() => {
+            this.displayDialog = false;
+        }, 4000);
     }
 }

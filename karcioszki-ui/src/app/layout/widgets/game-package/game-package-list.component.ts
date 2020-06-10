@@ -16,6 +16,7 @@ export class GamePackageListComponent implements OnInit {
 
   @Input() edit: boolean;
   @Output() selected = new EventEmitter<CardsPackage>();
+  selectedPackage: CardsPackage;
   cardsPackages: CardsPackage[];
   cardTitle: string;
 
@@ -26,10 +27,12 @@ export class GamePackageListComponent implements OnInit {
   ngOnInit(): void {
     this.gameService.getGamePackages().subscribe((data) => {
       this.cardsPackages = data;
+      this.selectedPackage = this.cardsPackages[0];
     });
   }
 
   private openProperties(cardPackage: any) {
+    this.selectedPackage = cardPackage;
     if(this.edit) {
       const dialogRef = this.infoDialog.open(CardPackageInfoDialog, {
         width: '80%',

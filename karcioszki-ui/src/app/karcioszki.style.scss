@@ -113,6 +113,22 @@ mat-form-field {
   position: relative;
 }    
 
+
+.cards-counter {
+  position: absolute;
+  right: 0.1em;
+  top: 0.1em;
+  height: 2em;
+  width: 2em;
+  text-align: center;
+  line-height: 2em;
+  font-size: 1.3em;
+  background-color: rgba($color: #ffffff, $alpha: 0.80);
+  border-radius: 50%;
+  color: #3f51b5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .dialog-header-button {
   position: absolute;
   right: -1em;
@@ -206,6 +222,22 @@ mat-form-field {
   border-radius: 5px;
   box-shadow: 1.9px 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
+.game-turn-dialog {
+  z-index: 999;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top:0;
+}
+.text-high-contrast {
+  font-size: 1.8em;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: white;
+}
 
 /// OLD CODE ///
 
@@ -218,6 +250,11 @@ mat-form-field {
   width: 10%;
   max-width: 300px;
   text-align: center;
+}
+::ng-deep #lobby .card-package-selected {
+  border: 5px solid #3f51b5;
+    border-radius: 5px;
+    transform: scale(1.1);
 }
   
   @mixin combine-inside-border-collor($color){
