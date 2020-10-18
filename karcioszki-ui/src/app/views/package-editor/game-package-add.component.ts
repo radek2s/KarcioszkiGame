@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { CardsPackage } from '../../models/CardsPackage';
 import { PlayerService } from 'src/app/services/player.service';
-import { MatSlideToggleChange, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder } from '@angular/forms';
 import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
 
@@ -27,7 +28,7 @@ export class GamePackageAddComponent {
   constructor(
     private gameService: GameService,
     private _snackBar: MatSnackBar,
-    private playerService: PlayerService,
+    public playerService: PlayerService,
     private router: Router,
     private fb: FormBuilder,
     private dialog: MatDialog) {

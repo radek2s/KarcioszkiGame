@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { GameService } from '../../services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'page-game-package-edit',
@@ -14,14 +14,14 @@ import { MatSlideToggleChange } from '@angular/material';
 })
 export class GamePackageEditComponent {
 
-  private cardsPackage;
+  public cardsPackage;
   cardTitle: string;
   webSocket: WebSocket;
 
   constructor(
     private gameService: GameService, 
     private _snackBar: MatSnackBar, 
-    private playerService: PlayerService, 
+    public playerService: PlayerService, 
     private router: Router, 
     private route: ActivatedRoute) {
   }

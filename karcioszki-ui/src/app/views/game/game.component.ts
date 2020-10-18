@@ -6,7 +6,7 @@ import { PlayerService } from 'src/app/services/player.service';
 
 import { WebSocket } from '../../services/WebSocketAPI';
 import { Card } from 'src/app/models/Card';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { GameSummaryDialog } from 'src/app/layout/dialogs/game-summary-dialog.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -14,18 +14,18 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     selector: 'game-session',
     templateUrl: './game.html',
     styleUrls: ['../../karcioszki.style.scss'],
-    animations: [
-        trigger('displayTurnMessage', [
-            state('flyIn', style({ transform: 'translateY(0)' })),
-            transition(':enter', [
-                style({ transform: 'translateY(-100%)' }),
-                animate('1.0s 1500ms ease-in')
-            ]),
-            transition(':leave', [
-                animate('1.5s ease-out', style({ opacity: '0' }))
-            ])
-        ]),
-    ]
+    // animations: [
+    //     trigger('displayTurnMessage', [
+    //         state('flyIn', style({ transform: 'translateY(0)' })),
+    //         transition(':enter', [
+    //             style({ transform: 'translateY(-100%)' }),
+    //             animate('1.0s 1500ms ease-in')
+    //         ]),
+    //         transition(':leave', [
+    //             animate('1.5s ease-out', style({ opacity: '0' }))
+    //         ])
+    //     ]),
+    // ]
 })
 export class GameNewComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class GameNewComponent implements OnInit {
         private route: ActivatedRoute,
         private dialog: MatDialog,
         private gameService: GameService,
-        private playerService: PlayerService
+        public playerService: PlayerService
     ) { }
 
     ngOnInit(): void {
@@ -156,7 +156,7 @@ export class GameNewComponent implements OnInit {
         return 0
     }
 
-    private startTurn() {
+    public startTurn() {
         this.previousTurn = this.gameSession.gameState;
         if (this.previousTurn == 0 || this.previousTurn == 1) {
             this.animateDialog()
@@ -167,16 +167,16 @@ export class GameNewComponent implements OnInit {
         }
     }
 
-    private endTurn() {
+    public endTurn() {
         // console.debug("Next turn - sending gameSesstion: " + this.gameSession.gameState);
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/turn`, this.gameSession);
     }
 
-    private endGame(color: string) {
+    public endGame(color: string) {
         this.webSocket.sendMessage(`/app/game/hub/${this.gameSession.id}/end`, color);
     }
 
-    private getCardCountSelected(cardCount) {
+    public getCardCountSelected(cardCount) {
         if (this.gameSession.gameCardStatistics.cardToGuess == cardCount) {
             return { 'background-color': '#d7d7d7' }
         }

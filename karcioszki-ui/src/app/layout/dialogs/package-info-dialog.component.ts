@@ -14,7 +14,7 @@ import { SimpleConfirmDialog } from 'src/app/layout/dialogs/simple-confirm-dialo
 })
 export class CardPackageInfoDialog {
 
-    private cardPackage;
+    public cardPackage;
 
     constructor(
         private gameService: GameService,

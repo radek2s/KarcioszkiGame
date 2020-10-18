@@ -72,7 +72,7 @@
 
     </section>
 
-    <div *ngIf="displayDialog" [@displayTurnMessage]="flyIn" class="game-turn-dialog" [ngClass]="gameSession.gameState == 0 ? 'background-red' : 'background-blue'">
+    <div *ngIf="displayDialog" class="game-turn-dialog" [ngClass]="gameSession.gameState == 0 ? 'background-red' : 'background-blue'">
         <p class="text-high-contrast">{{messageForPlayers}}</p>
     </div>
 

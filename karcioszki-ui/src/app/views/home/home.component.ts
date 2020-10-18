@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { WebSocket } from '../../services/WebSocketAPI';
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
         private gameService: GameService,
-        private playerService: PlayerService,
+        public playerService: PlayerService,
         private colorSchemeService: ColorSchemeService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
@@ -112,7 +113,7 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    private setTheme() {
+    public setTheme() {
         if (this.theme == "dark") {
             this.theme = "light";
         } else {

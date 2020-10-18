@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { CardsPackage } from 'src/app/models/CardsPackage';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({

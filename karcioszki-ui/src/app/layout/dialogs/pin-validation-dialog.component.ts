@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CardsPackage } from 'src/app/models/CardsPackage';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 
@@ -48,7 +48,7 @@ export class PinValidationDialog implements OnInit {
         return this.pinForm.controls[controlName].hasError(errorName);
     }
 
-    private validatePin() {
+    public validatePin() {
         if (this.inputPin === this.packageData.pin) {
             this.dialogReference.close(true)
         } else {

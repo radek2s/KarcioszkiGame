@@ -23,7 +23,7 @@ export class LobbyComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private gameService: GameService,
-        private playerService: PlayerService
+        public playerService: PlayerService
     ) { }
 
     ngOnInit(): void {

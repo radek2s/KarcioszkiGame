@@ -47,7 +47,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private gameService: GameService,
-    private playerService: PlayerService,
+    public playerService: PlayerService,
     private gameSummaryDialog: MatDialog
   ) { }
 

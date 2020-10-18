@@ -31,7 +31,7 @@ export class GamePackageListComponent implements OnInit {
     });
   }
 
-  private openProperties(cardPackage: any) {
+  public openProperties(cardPackage: any) {
     this.selectedPackage = cardPackage;
     if(this.edit) {
       const dialogRef = this.infoDialog.open(CardPackageInfoDialog, {
