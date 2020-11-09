@@ -69,6 +69,21 @@ export class GamePackageEditComponent {
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
+  async getFileDetails(e) {
+    console.log(e.target.files);
+    let image = await this.toBase64(e.target.files[0])
+    this.cardsPackage.image = String(image);
+  }
+
+  toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    })
+  }
+
   public toggle(event: MatSlideToggleChange) {
     this.cardsPackage.visible = event.checked;
   }

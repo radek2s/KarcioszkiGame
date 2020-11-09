@@ -27,6 +27,11 @@
                 <mat-form-field class="max-width">
                     <input matInput placeholder="Adres obrazka:" [(ngModel)]="cardsPackage.image">
                 </mat-form-field>
+                
+                <img [src]="cardsPackage.image">
+                
+                <input type="file" id="upload-file" (change)="getFileDetails($event)">
+                <label for="upload-file">Wybierz plik</label>
             </div>
         </div>
         <div class="flex-container">

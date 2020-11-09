@@ -48,6 +48,8 @@
                 <button mat-raised-button color="accent" class="space-horizontal-right-small" (click)="addCard()"
                     [disabled]="cardModel.invalid">Dodaj
                     kartę</button>
+                <input type="file" id="upload-file" (change)="getFileDetails($event)">
+                    <label for="upload-file">Wybierz plik</label>
             </div>
         </div>
 
