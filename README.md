@@ -8,10 +8,11 @@ included on the this team cards. When team has selected other card the move is p
 
 This game is still in develop.
 
-##Running the application
-Backend is developed as Spring Boot application that requires a MySQL server and Java 11.\
-Frontend is developed in Angular v8\
-NOTE: __tajniacy_dev__ database must be created before start 
+## Running the application
+Backend is developed as Spring Boot application that requires Java 11.\
+Frontend is developed in Angular v11\
+This application use H2 database to store user data.
+
 
 ### backend:
 ``gradle bootRun`` - To run the application Server
@@ -21,8 +22,8 @@ NOTE: Backend server must be running for developing this application\
 
 ### run:
 When the application server has been started, open browser and type in address field:
-``http://localhost:8080/hub`` to open the application in production mode.\
-To open this app in Angular development mode open ``http://localhost:4200/hub``. 
+``http://localhost:8080/`` to open the application in production mode.\
+To open this app in Angular development mode open ``http://localhost:4200/``. 
 
 ### Developed by:
 
