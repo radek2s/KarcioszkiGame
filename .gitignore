@@ -32,3 +32,6 @@ out/
 
 ### VS Code ###
 .vscode/
+karcioszki-ui/package-lock.json
+karcioszki-ui/cypress/videos
+

@@ -1,12 +1,14 @@
 {
   "name": "karcioszki",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
+    "test_e2e": "node_modules/.bin/cypress run",
+    "cypress" : "node_modules/.bin/cypress open",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -38,6 +40,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "cypress": "6.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
