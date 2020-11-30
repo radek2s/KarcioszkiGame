@@ -25,8 +25,10 @@ import { SimpleConfirmDialog } from './layout/dialogs/simple-confirm-dialog.comp
 import { SimpleInfoDialog } from './layout/dialogs/simple-info-dialog.component';
 import { CardPackageInfoDialog } from './layout/dialogs/package-info-dialog.component';
 import { GameSummaryDialog } from './layout/dialogs/game-summary-dialog.component';
+import { ImageManagerDialog } from './layout/dialogs/image-manager-dialog.component';
 
 import { MaterialModule } from './modules/material.module';
+
 
 
 
@@ -48,7 +50,8 @@ import { MaterialModule } from './modules/material.module';
     SimpleInputDialog,
     SimpleConfirmDialog,
     SimpleInfoDialog,
-    CreateGameLobbyDialog
+    CreateGameLobbyDialog,
+    ImageManagerDialog
   ],
   imports: [
     AppRoutingModule,
@@ -68,7 +71,8 @@ import { MaterialModule } from './modules/material.module';
     SimpleInputDialog,
     SimpleConfirmDialog,
     SimpleInfoDialog,
-    CreateGameLobbyDialog
+    CreateGameLobbyDialog,
+    ImageManagerDialog
   ]
 })
 export class AppModule { }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder } from '@angular/forms';
 import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
+import { ImageManagerDialog } from 'src/app/layout/dialogs/image-manager-dialog.component';
 
 
 @Component({
@@ -107,19 +108,13 @@ export class GamePackageAddComponent {
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
-  async getFileDetails(e) {
-    console.log(e.target.files);
-    let image = await this.toBase64(e.target.files[0])
-    this.cardsPackage.image = String(image);
-  }
-
-  toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    })
+  chooseImage() {
+    const dialogRef = this.dialog.open(ImageManagerDialog, {width: '60%'});
+    dialogRef.afterClosed().subscribe(result => {
+      if(!!result) {
+        this.cardsPackage.image = result.url;
+      }
+    });
   }
 
   public toggle(event: MatSlideToggleChange) {

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title class="flex-center-vertical position-relative">
+    <div>
+        Wybierz okładkę
+    </div>
+    <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</h1>
+<div mat-dialog-content class="flex column">
+
+    <div class="flex-container flex-jc-space-between">
+        <input type="file" id="upload-file" (change)="selectFile($event)" />
+        <button mat-raised-button color="accent" class="space-horizontal-right-small" [disabled]="!selectedFiles"
+            (click)="upload()">
+            Wyślij okładkę
+        </button>
+    </div>
+
+    <div id="images" class="flex-container flex-jc-space-evenly flex-wrap">
+        <div *ngFor="let image of fileInfos | async" class="card-package margin-xs margin-bottom-s">
+            <mat-card [ngClass]="image.name == selectedImage.name ? 'card-package-selected' : ''">
+                <div (click)="selectImage(image)">
+                    <img mat-card-image src="{{image.url}}" />
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="selectedImage" [disabled]="!selectedImage.url">Wybierz!</button>
+</div>

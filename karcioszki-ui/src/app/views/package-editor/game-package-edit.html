@@ -5,13 +5,16 @@
         </button>
     </a>
     <span id="room">Edytuj paczkę</span>
-    <button mat-raised-button color="primary" (click)="updateGamePackage(null)" [disabled]="pinModel.invalid"><span class="mobile-hidden space-horizontal-right-small">Aktualizuj</span>
-        <mat-icon>send</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="updateGamePackage(null)" [disabled]="pinModel.invalid"><span
+            class="mobile-hidden space-horizontal-right-small">Aktualizuj</span>
+        <mat-icon>send</mat-icon>
+    </button>
 </mat-toolbar>
 <div class="space-vertical-top-small" id="edit-package">
     <div class="container">
         <div class="flex-container flex-wrap-center">
-            <img [src]="cardsPackage.image" class="space-horizontal-right-small package-thumbnail">
+            <img [src]="cardsPackage.image" class="space-horizontal-right-small package-thumbnail"
+                (click)="chooseImage()">
             <div class="flex-container flex-dir-column space-vertical-top-small">
                 <mat-form-field class="max-width">
                     <input matInput placeholder="Nazwa paczki:" [(ngModel)]="cardsPackage.packageName" disabled>
@@ -48,8 +51,6 @@
                 <button mat-raised-button color="accent" class="space-horizontal-right-small" (click)="addCard()"
                     [disabled]="cardModel.invalid">Dodaj
                     kartę</button>
-                <input type="file" id="upload-file" (change)="getFileDetails($event)">
-                    <label for="upload-file">Wybierz plik</label>
             </div>
         </div>
 

@@ -151,6 +151,11 @@ mat-form-field {
   width: 150px;
   height: 150px;
   object-fit: cover;
+  cursor: pointer;
+}
+
+.package-thumbnail:hover {
+  box-shadow: 1px 1px 4px 0px black;
 }
 
 .card-preview {
@@ -239,10 +244,6 @@ mat-form-field {
   color: white;
 }
 
-#upload-file {
-  display: none;
-}
-
 /// OLD CODE ///
 
 .card-package mat-card{
@@ -255,7 +256,19 @@ mat-form-field {
   max-width: 300px;
   text-align: center;
 }
-::ng-deep #lobby .card-package-selected {
+
+#images .card-package {
+  width: 128px;
+  height: 128px;
+  margin-bottom: 50px;
+}
+
+#images .card-package .mat-card img {
+  height: 128px;
+  object-fit: cover;
+}
+
+::ng-deep #lobby .card-package-selected, ::ng-deep #images .card-package-selected {
   border: 5px solid #3f51b5;
     border-radius: 5px;
     transform: scale(1.1);
