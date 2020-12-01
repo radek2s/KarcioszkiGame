@@ -7,8 +7,8 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
-    "test_e2e": "node_modules/.bin/cypress run",
-    "cypress" : "node_modules/.bin/cypress open",
+    "test_e2e": "node_modules\\.bin\\cypress run",
+    "cypress": "node_modules\\.bin\\cypress open",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
