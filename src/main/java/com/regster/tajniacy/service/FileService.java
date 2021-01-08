@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 public interface FileService {
 
-    public void save(MultipartFile file);
+    public String save(MultipartFile file);
 
     public Resource load(String filename);
 

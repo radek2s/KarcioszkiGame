@@ -374,6 +374,16 @@ mat-form-field {
    color: white;
  }
 
+ .imagegallery {
+   img {
+     max-width: 100%;
+   }
+ }
+
+ .ng-hide {
+   visibility: hidden;
+ }
+
  //TODO - wywalić style i dać -1em, a na komorce -1.8em
 
 // .vertical-space-top{

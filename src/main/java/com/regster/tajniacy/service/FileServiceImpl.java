@@ -20,16 +20,25 @@ public class FileServiceImpl implements FileService {
     public String uploadDirectory;
 
     @Override
-    public void save(MultipartFile file) {
+    public String save(MultipartFile file) {
 
             try {
                 Path copyLocation = Paths.get(uploadDirectory + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
+                File tempFile = new File(copyLocation.toString());
+                int counter = 1;
+                while(tempFile.exists()) {
+                    copyLocation = Paths.get(uploadDirectory + File.separator + counter + StringUtils.cleanPath(file.getOriginalFilename()));
+                    tempFile = new File(copyLocation.toString());
+                    counter++;
+                }
                 Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+                return copyLocation.toString();
             } catch (NoSuchFileException e) {
                 try {
                     Files.createDirectory(Paths.get(uploadDirectory));
                     Path copyLocation = Paths.get(uploadDirectory + File.separator + StringUtils.cleanPath(file.getOriginalFilename()));
                     Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+                    return copyLocation.toString();
                 } catch (Exception ex) {
                     throw new RuntimeException("Could not save file." + ex.getMessage());
                 }

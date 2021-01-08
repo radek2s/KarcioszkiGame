@@ -17,7 +17,7 @@ export class ImageManagerDialog implements OnInit {
     progress = 0;
     message = '';
 
-    fileInfos: Observable<any>;
+    fileInfos = [];
 
     constructor(
         private fileStorageService: FileUploadService,
@@ -26,11 +26,17 @@ export class ImageManagerDialog implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.fileInfos = this.fileStorageService.getFiles();
+        for(let x = 1; x<=12; x++) {
+            this.fileInfos.push({
+                name: `Sample-${x}`,
+                url: `./assets/graphics/sample/${x}.jpg`
+            });
+        }
     }
 
     selectFile(event) {
         this.selectedFiles = event.target.files;
+        this.upload();
     }
 
     upload() {
@@ -38,18 +44,11 @@ export class ImageManagerDialog implements OnInit {
 
         this.currentFile = this.selectedFiles.item(0);
         this.fileStorageService.upload(this.currentFile).subscribe(
-            event => {
-                if (event.type === HttpEventType.UploadProgress) {
-                    this.progress = Math.round(100 * event.loaded / event.total);
-                } else if (event.type === HttpEventType.Sent) {
-                    this.message = "File uploaded";
-                    this.fileInfos = this.fileStorageService.getFiles();
+            data => {
+                this.selectedImage = {
+                    name: data.filename,
+                    url: `./api/files/${data.filename}`
                 }
-            },
-            err => {
-                this.progress = 0;
-                // this.message = "Upload failed";
-                this.currentFile = undefined;
             });
 
         this.selectedFiles = undefined;

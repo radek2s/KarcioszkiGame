@@ -27,14 +27,15 @@ public class FileController {
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         System.out.println(file.getOriginalFilename());
         try {
-            fileService.save(file);
-            return ResponseEntity.ok().body("Uploaded successfully:" + file.getOriginalFilename());
+            String fileName = fileService.save(file);
+            String[] temp = fileName.split("/");
+            return ResponseEntity.ok().body("{\"filename\":\"" + temp[temp.length-1] + "\"}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Upload failed!");
         }
     }
 
-    @GetMapping("/files")
+    @GetMapping("/")
     public ResponseEntity<List<FileInfo>> getFiles() {
         List<FileInfo> fileInfos = fileService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
@@ -47,7 +48,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = fileService.load(filename);

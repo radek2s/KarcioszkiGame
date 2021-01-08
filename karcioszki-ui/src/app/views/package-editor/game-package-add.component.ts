@@ -35,6 +35,7 @@ export class GamePackageAddComponent {
     private dialog: MatDialog) {
     this.cardsPackage = new CardsPackage();
     this.cardsPackage.pin = String(Math.round(Math.random() * 10000))
+    this.cardsPackage.image = "./assets/graphics/default.jpg"
     this.cardsPackage.cards = [];
 
     this.gameService.getGamePackages().subscribe(cardsPackages => {
