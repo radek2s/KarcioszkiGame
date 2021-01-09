@@ -20,8 +20,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SimpleConfirmDialog {
 
-    btnTextCancel = "Anuluj";
-    btnTextOk = "Zatwierdź";
+    btnTextCancel = $localize`:@@commonCancel:Cancel`;
+    btnTextOk = $localize`:@@commonAccept:Accept`;
 
     /**
      * 

@@ -16,8 +16,8 @@ import { FormGroup, FormControl } from '@angular/forms';
     </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button *ngIf="data.optional" mat-button (click)="onNoClick()">Anuluj</button>
-        <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid">Zatwierdź</button>
+        <button *ngIf="data.optional" mat-button (click)="onNoClick()" i18n="@@commonCancel">Cancel</button>
+        <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid" i18n="@@commonAccept">Accept</button>
     </div>
     `,
     styleUrls: ['../../karcioszki.style.scss']

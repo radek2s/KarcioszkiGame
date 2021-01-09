@@ -1,6 +1,6 @@
 <h1 mat-dialog-title class="flex-center-vertical position-relative">
-    <div>
-        Załóż nową grę
+    <div i18n="@@lobbyCreateGame">
+        Create a new game
     </div>
     <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
         <mat-icon>cancel</mat-icon>
@@ -10,18 +10,18 @@
 <div mat-dialog-content class="flex column">
     <div>
         <mat-form-field>
-            <input matInput placeholder="Id gry" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
+            <input matInput i18n-placeholder="@@lobbyGameId" placeholder="Game ID" [(ngModel)]="data.gameId" [ngModelOptions]="{standalone: true}">
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Liczba kart:</mat-label>
-            <input matInput placeholder="Podaj liczbe..." [(ngModel)]="data.cardCount"
+            <mat-label i18n="@@lobbyCardCount">Card count:</mat-label>
+            <input matInput i18n-placeholder="@@lobbyCardCountInput" placeholder="Enter a card limit..." [(ngModel)]="data.cardCount"
                 [ngModelOptions]="{standalone: true}">
         </mat-form-field>
     </div>
-    <p>Wybierz zestaw kart: <span *ngIf="data.selectedPackage">{{data.selectedPackage.packageName}}</span></p>
+    <p i18n="@@lobbyCreateCardPackage">Select Game Packae: <span *ngIf="data.selectedPackage">{{data.selectedPackage.packageName}}</span></p>
     <page-game-package-list [edit]=false id="lobby" (selected)="selectCardPackage($event)"></page-game-package-list>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Anuluj</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="data">Utwórz!</button>
+    <button mat-button (click)="onNoClick()" i18n="@@commonCancel">Cancel</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" i18n="@@commonCreate">Create!</button>
 </div>

@@ -1,9 +1,10 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { environment } from 'src/environments/environment';
 
 export class WebSocket {
 
-    private development: boolean = true;
+    private production: boolean = environment.production;
     private WS_END_POINT_PRODUCTION: String = window.location.href;
     private WS_END_POINT_DEVELOPMNET: String = 'http://localhost:8080/karcioszki-ws';
     private component: any;
@@ -35,11 +36,11 @@ export class WebSocket {
 
     private _connect(): void {
         let ws;
-        if(this.development) {
-            ws = new SockJS(this.WS_END_POINT_DEVELOPMNET);
-        } else {
+        if(this.production) {
             let address = this.WS_END_POINT_PRODUCTION.split("/")
             ws = new SockJS(`${address[0]}//${address[2]}/karcioszki-ws`);
+        } else {
+            ws = new SockJS(this.WS_END_POINT_DEVELOPMNET);
         }
         this.stompClient = Stomp.over(ws);
         const _this = this;

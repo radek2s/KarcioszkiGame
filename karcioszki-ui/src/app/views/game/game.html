@@ -1,18 +1,18 @@
 <div *ngIf="gameSession">
     <mat-toolbar [ngClass]="this.playerService.getPlayer().team == 0 ? 'background-red' : 'background-blue'">
         <div>
-            <span>Pozostało: {{gameSession.gameCardStatistics.cardToGuess}} ruchów | </span>
+            <span i18n="@@gameToolbarMoves">Remain: {{gameSession.gameCardStatistics.cardToGuess}} moves | </span>
             <span
                 *ngIf="this.playerService.getPlayer().team==0">{{gameSession.gameCardStatistics.remainingRedCards}}</span>
             <span
                 *ngIf="this.playerService.getPlayer().team==1">{{gameSession.gameCardStatistics.remainingBlueCards}}</span>
-            <span> kart</span>
+            <span i18n="@@gameToolbarCards"> cards</span>
         </div>
     </mat-toolbar>
     <section class="space">
         <div *ngIf="this.playerService.getPlayer().leader">
-            <p class="flex-container">
-                Liczba kart do zgadniecia
+            <p class="flex-container" i18n="@@gameStatisticsRemain">
+                Cards that remaind to guess
             </p>
             <div class="flex-container flex-wrap" id="quantityOfCards">
                 <button *ngFor="let num of [1,2,3,4,5,6,7,8]" mat-raised-button [disabled]='gameSession.gameState != this.playerService.getPlayer().team' [ngStyle]="getCardCountSelected(num)" (click)="leaderSelect(num)">{{num}}</button>
@@ -22,30 +22,30 @@
         <div class="flex-container flex-jc-space-between">
             <div>
 
-                <p>Aktywna drużyna:</p>
+                <p i18n="@@gameStatisticsActiveTeam">Active team:</p>
                 <div class="flex-container flex-ai-center">
                     <div id="activePlayerColor"
                         [ngClass]="gameSession.gameState === 0 ? 'background-red' : 'background-blue'">
                         <!-- {{gameSession.gameState}} -->
                     </div>
-                    <button mat-raised-button (click)="endTurn()">Zakończ turę</button>
+                    <button mat-raised-button (click)="endTurn()" i18n="@@gameEndTurn">End turn</button>
                 </div>
             </div>
             <div id="extraCard">
                 <div *ngIf="this.playerService.getPlayer().leader">
-                    <button mat-raised-button (click)="endGame('black')">Zakończ grę</button>
+                    <button mat-raised-button (click)="endGame('black')" i18n="@@gameEndGame">End game</button>
                 </div>
-                <p>Bonusowa karta:</p>
+                <p i18n="@@gameBonusCard">Bonus card:</p>
                 <div *ngIf="this.playerService.getPlayer().team==0">
                     <mat-checkbox color="warn" [checked]="gameSession.gameCardStatistics.redBonusCards == 1">
-                        <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 1">Dostępna karta!</span>
-                        <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 0"> -- brak --</span>
+                        <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 1" i18n="@@gameBonusCardAvailable">Card available!</span>
+                        <span *ngIf="gameSession.gameCardStatistics.redBonusCards == 0" i18n="@@gameBonusCardNotavailable"> -- N/A -- </span>
                     </mat-checkbox>
                 </div>
                 <div *ngIf="this.playerService.getPlayer().team==1">
                     <mat-checkbox color="primary" [checked]="gameSession.gameCardStatistics.blueBounsCards == 1">
-                        <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 1">Dostępna karta!</span>
-                        <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 0"> -- brak --</span>
+                        <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 1" i18n="@@gameBonusCardAvailable">Card available!</span>
+                        <span *ngIf="gameSession.gameCardStatistics.blueBounsCards == 0" i18n="@@gameBonusCardNotavailable"> -- N/A -- </span>
                     </mat-checkbox>
                 </div>
             </div>

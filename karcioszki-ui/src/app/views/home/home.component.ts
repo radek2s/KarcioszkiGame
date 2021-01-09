@@ -99,9 +99,9 @@ export class HomeComponent implements OnInit {
                 width: '50%',
                 disableClose: true,
                 data: {
-                    title: "Tworzenie użytkownika",
-                    message: `Witaj w aplikacji Karcioszki! Aby móc zagrać podaj nazwę użytkownika:`,
-                    placeholder: "Nazwa użytkownika"
+                    title: $localize`:@@homeUserCreation:Create user`,
+                    message: $localize`:@@homeUserWelcomeMsg:Welcome to the Karciosztki the Game! To proceed choose your user name:`,
+                    placeholder: $localize`:@@homeUserName:User name`
                 }
             });
             dialogReference.afterClosed().subscribe(res => {
