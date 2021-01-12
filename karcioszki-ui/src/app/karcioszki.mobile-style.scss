@@ -16,7 +16,11 @@ body {
   }
   .cards-counter {
     font-size: 0.9em!important;
-   }
+  }
+  #images  div.card-package {
+    height: auto !important;
+    margin-bottom: 0 !important;
+  }
   
 }
 // @media all and (max-width: 1524px) and (min-width: 1025px) {
@@ -42,6 +46,9 @@ body {
   }
   .container-wider {
     padding: 0 2% !important;
+  }
+  #images  div.card-package {
+    height: auto !important;
   }
 }
 @media all and (max-width: 550px) and (min-width: 250px) {
@@ -123,6 +130,10 @@ body {
   #cards,
   #cards button {
     padding: 0.2rem 1rem !important;
+  }
+
+  #images  div.card-package {
+    height: auto !important;
   }
   
 }

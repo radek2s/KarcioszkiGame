@@ -9,6 +9,7 @@
 <div mat-dialog-content class="flex column">
 
     <div id="images" class="flex-container flex-jc-space-evenly flex-wrap">
+
         <div *ngFor="let image of fileInfos" class="card-package margin-xs margin-bottom-s">
             <div class="imagegallery" [ngClass]="image.name == selectedImage.name ? 'card-package-selected' : ''">
                 <div (click)="selectImage(image)">
@@ -16,15 +17,26 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="uploadedImage.name" class="card-package margin-xs margin-bottom-s">
+            <div class="imagegallery"
+                [ngClass]="uploadedImage.name == selectedImage.name ? 'card-package-selected' : ''">
+                <div (click)="selectImage(uploadedImage)">
+                    <img mat-card-image src="{{uploadedImage.url}}" />
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="flex-container flex-jc-space-between">
         <button mat-flat-button color="primary" (click)="fileInput.click()">Prześlij własną okładkę</button>
-        <input #fileInput hidden="true" type="file" id="upload-file" onclick="this.value=null" (change)="selectFile($event)" />
+        <input #fileInput hidden="true" type="file" id="upload-file" onclick="this.value=null"
+            (change)="selectFile($event)" />
     </div>
 
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [mat-dialog-close]="selectedImage" [disabled]="!selectedImage.url">Wybierz!</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="selectedImage"
+        [disabled]="!selectedImage.url">Wybierz!</button>
 </div>
