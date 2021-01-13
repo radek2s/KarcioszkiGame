@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { ImageManagerDialog } from 'src/app/layout/dialogs/image-manager-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'page-game-package-edit',
@@ -23,7 +25,8 @@ export class GamePackageEditComponent {
     private _snackBar: MatSnackBar, 
     public playerService: PlayerService, 
     private router: Router, 
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog) {
   }
 
 /**
@@ -69,19 +72,13 @@ export class GamePackageEditComponent {
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
-  async getFileDetails(e) {
-    console.log(e.target.files);
-    let image = await this.toBase64(e.target.files[0])
-    this.cardsPackage.image = String(image);
-  }
-
-  toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    })
+  chooseImage() {
+    const dialogRef = this.dialog.open(ImageManagerDialog, {width: '60%'});
+    dialogRef.afterClosed().subscribe(result => {
+      if(!!result) {
+        this.cardsPackage.image = result.url;
+      }
+    });
   }
 
   public toggle(event: MatSlideToggleChange) {

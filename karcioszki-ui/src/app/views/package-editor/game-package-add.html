@@ -7,33 +7,36 @@
     <h1 id="room" class="flex-grow-2">Dodaj paczkę</h1>
     <button mat-raised-button color="primary" (click)="createGamePackage()"
         [disabled]="packageName.invalid || pinModel.invalid">
-        <span class="mobile-hidden space-horizontal-right-small">Wyślij</span> <mat-icon>send</mat-icon></button>
+        <span class="mobile-hidden space-horizontal-right-small">Wyślij</span>
+        <mat-icon>send</mat-icon>
+    </button>
 </mat-toolbar>
 <div class="space-vertical-top" id="add-package">
     <header class="container">
-        <div class="flex-container flex-wrap">
-            <mat-form-field class="max-width" [formGroup]="packageForm">
-                <input matInput placeholder="Nazwa paczki:" [(ngModel)]="cardsPackage.packageName"
-                    formControlName="packageName" uniqueName required>
-                <mat-error *ngIf="packageName.invalid && (packageName.dirty || packageName.touched)">
-                    <div *ngIf="packageName.errors.required">Nazwa jest wymagana!</div>
-                    <div *ngIf="packageName.errors.uniqueName">Paczka o takiej nazwie już istnieje!</div>
-                </mat-error>
-            </mat-form-field>
-            <div class="flex-container max-width space-vertical-top-small flex-wrap-center">
-                <mat-form-field class="max-width space-horizontal-right-small">
-                    <input matInput placeholder="Autor:" [value]="playerService.getPlayer().name">
+        <div class="flex-container flex-wrap-center">
+            <img [src]="cardsPackage.image" class="space-horizontal-right-small package-thumbnail"
+                (click)="chooseImage()">
+            <div class="flex-container flex-dir-column space-vertical-top-small">
+                <mat-form-field class="max-width" [formGroup]="packageForm">
+                    <input matInput placeholder="Nazwa paczki:" [(ngModel)]="cardsPackage.packageName"
+                        formControlName="packageName" uniqueName required>
+                    <mat-error *ngIf="packageName.invalid && (packageName.dirty || packageName.touched)">
+                        <div *ngIf="packageName.errors.required">Nazwa jest wymagana!</div>
+                        <div *ngIf="packageName.errors.uniqueName">Paczka o takiej nazwie już istnieje!</div>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field class="max-width">
-                    <input matInput placeholder="Adres obrazka:" [(ngModel)]="cardsPackage.image">
+                    <input matInput placeholder="Autor:" [value]="playerService.getPlayer().name">
                 </mat-form-field>
-                
-                <img [src]="cardsPackage.image">
-                
-                <input type="file" id="upload-file" (change)="getFileDetails($event)">
-                <label for="upload-file">Wybierz plik</label>
             </div>
         </div>
+
+        <div class="flex-container max-width space-vertical-top-small flex-wrap-center">
+            <mat-form-field class="max-width">
+                <input matInput placeholder="Adres obrazka:" [(ngModel)]="cardsPackage.image">
+            </mat-form-field>
+        </div>
+
         <div class="flex-container">
             <mat-form-field class="max-width">
                 <input type="number" matInput placeholder="PIN do edycji paczki: " [(ngModel)]="cardsPackage.pin"

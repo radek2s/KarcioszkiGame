@@ -29,3 +29,17 @@ To open this app in Angular development mode open ``http://localhost:4200/``.
 
 - @radek2s
 - @mdebowska
+
+## Legal notice
+This application use some of the stock photos from [unsplash.com](https://unsplash.com/) page. We want say thaks to all authors:  
+[JESHOOTS.COM](https://unsplash.com/@jeshoots), 
+[Frank McKenna](https://unsplash.com/@frankiefoto?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Andrik Langfield](https://unsplash.com/@andriklangfield?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Juliane Liebermann](https://unsplash.com/@jule_42?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Vidar Nordli-Mathisen](https://unsplash.com/@vidarnm?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Tianyi Ma](https://unsplash.com/@tma?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Luca Bravo](https://unsplash.com/@lucabravo?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Kalen Emsley](https://unsplash.com/@kalenemsley?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Sabri Tuzcu](https://unsplash.com/@sabrituzcu?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Conor Luddy](https://unsplash.com/@opticonor?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
+[Bruno Wolff](https://unsplash.com/@d0cz?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText),
