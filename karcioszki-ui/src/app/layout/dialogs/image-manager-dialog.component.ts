@@ -12,6 +12,7 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 export class ImageManagerDialog implements OnInit {
 
     selectedImage = {name: null, url: null};
+    uploadedImage = {name: null, url: null};
     selectedFiles: FileList;
     currentFile: File;
     progress = 0;
@@ -45,6 +46,10 @@ export class ImageManagerDialog implements OnInit {
         this.currentFile = this.selectedFiles.item(0);
         this.fileStorageService.upload(this.currentFile).subscribe(
             data => {
+                this.uploadedImage = {
+                    name: data.filename,
+                    url: `./api/files/${data.filename}`
+                };
                 this.selectedImage = {
                     name: data.filename,
                     url: `./api/files/${data.filename}`

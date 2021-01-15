@@ -384,6 +384,13 @@ mat-form-field {
    visibility: hidden;
  }
 
+ #images .mat-card-image {
+  margin: 0px -16px -4px -16px !important;
+}
+#images .mat-card-image:first-child {
+  margin-top: 0;
+}
+
  //TODO - wywalić style i dać -1em, a na komorce -1.8em
 
 // .vertical-space-top{

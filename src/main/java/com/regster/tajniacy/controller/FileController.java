@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +30,12 @@ public class FileController {
         System.out.println(file.getOriginalFilename());
         try {
             String fileName = fileService.save(file);
-            String[] temp = fileName.split("/");
+            String[] temp;
+            if(System.getProperty("os.name").startsWith("Windows")) {
+                temp = fileName.replaceAll(Pattern.quote("\\"), "\\\\").split("\\\\");
+            } else {
+                temp = fileName.split("/");
+            }
             return ResponseEntity.ok().body("{\"filename\":\"" + temp[temp.length-1] + "\"}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Upload failed!");

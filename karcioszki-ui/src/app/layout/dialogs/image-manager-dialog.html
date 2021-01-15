@@ -16,6 +16,15 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="uploadedImage.name" class="card-package margin-xs margin-bottom-s">
+            <div class="imagegallery"
+                [ngClass]="uploadedImage.name == selectedImage.name ? 'card-package-selected' : ''">
+                <div (click)="selectImage(uploadedImage)">
+                    <img mat-card-image src="{{uploadedImage.url}}" />
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="flex-container flex-jc-space-between">
