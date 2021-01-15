@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -22,14 +22,14 @@ import { FormGroup, FormControl } from '@angular/forms';
     `,
     styleUrls: ['../../karcioszki.style.scss']
 })
-export class SimpleInputDialog {
+export class SimpleInputDialog implements OnInit {
 
     inputData: string;
     simpleInputForm: FormGroup;
 
     /**
-     * 
-     * @param dialogReference 
+     *
+     * @param dialogReference - dialog object reference
      * @param data - JSON object with parameters:
      *  data.title         - Title of the dialog.
      *  data.message       - Message description.
@@ -43,7 +43,7 @@ export class SimpleInputDialog {
     ) { }
 
     ngOnInit(): void {
-        this.simpleInputForm = new FormGroup({ 'simpleInput': new FormControl() });
+        this.simpleInputForm = new FormGroup({ simpleInput: new FormControl() });
     }
 
     onNoClick(): void {

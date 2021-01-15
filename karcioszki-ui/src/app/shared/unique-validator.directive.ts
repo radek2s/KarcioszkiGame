@@ -25,11 +25,11 @@ export class UniqueNameValidationDirective implements AsyncValidator {
 
     validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
         return new Promise<ValidationErrors | null>((resolve, reject) => {
-            if (this.cardsPackagesNames.find(function (e) {
-                return e === control.value
+            if (this.cardsPackagesNames.find((e) => {
+                return e === control.value;
             })) {
-                resolve({ 'uniqueName': true })
+                resolve({ uniqueName: true });
             }
         });
-    };
+    }
 }

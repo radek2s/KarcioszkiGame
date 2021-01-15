@@ -45,8 +45,7 @@
         </div>
 
         <div class="flex-container max-width flex-ai-center flex-wrap-center">
-            <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)" i18n="@@packageCreatorPackagePrivate">Private package
-            </mat-slide-toggle>
+            <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)" i18n="@@packageCreatorPackagePrivate">Private package</mat-slide-toggle>
             <mat-form-field class="max-width" *ngIf="cardsPackage.visible">
                 <input type="password" matInput i18n-placeholder="@@packageCreatorPackagePassword" placeholder="Package password:" [(ngModel)]="cardsPackage.password">
             </mat-form-field>

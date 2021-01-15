@@ -1,6 +1,6 @@
 export class Player {
-    id:number;
-    name:String;
-    team:number;
-    leader:boolean;
+    id: number;
+    name: string;
+    team: number;
+    leader: boolean;
 }

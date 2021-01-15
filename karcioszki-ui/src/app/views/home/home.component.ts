@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { ColorSchemeService } from 'src/app/services/color-scheme.service';
     templateUrl: './home.html',
     styleUrls: ['../../karcioszki.style.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
     gameIdList: number[];
     webSocket: WebSocket;
@@ -34,9 +34,9 @@ export class HomeComponent implements OnInit {
 
     ngOnInit(): void {
         this.theme = this.colorSchemeService.currentActive();
-        this.webSocket = new WebSocket(this, "/topic/hub")
-        this.gameService.getGameIdList().subscribe(data => this.gameIdList = data)
-        this.initializePlayer()
+        this.webSocket = new WebSocket(this, '/topic/hub');
+        this.gameService.getGameIdList().subscribe(data => this.gameIdList = data);
+        this.initializePlayer();
     }
 
     ngOnDestroy(): void {
@@ -49,36 +49,42 @@ export class HomeComponent implements OnInit {
      * TODO:// Expand game lobby to be secured via password
      */
     public createGameLobby(): void {
-        const maxId = Math.floor(Math.random()*100000);
+        const maxId = Math.floor(Math.random() * 100000);
         const dialogReference = this.dialog.open(CreateGameLobbyDialog, {
             width: '90%',
             data: { selectedPackage: null, gameId: maxId + 1, cardCount: 15}
         });
         dialogReference.afterClosed().subscribe(result => {
-            if(result !== undefined) {
-                let gameSession = new GameSession();
+            if (result !== undefined) {
+                const gameSession = new GameSession();
                 gameSession.id = result.gameId;
                 gameSession.players = [];
                 gameSession.started = false;
                 gameSession.gameCardPackage = result.selectedPackage;
-                if(result.cardCount > result.selectedPackage.cards.length) {
-                    result.cardCount = result.selectedPackage.cards.length
+                if (result.cardCount > result.selectedPackage.cards.length) {
+                    result.cardCount = result.selectedPackage.cards.length;
                 }
-                if(result.cardCount < 8) {
-                    result.cardCount = 8
-                    if(result.cardCount > result.selectedPackage.cards.length) {
-                        this.snackBar.open("Błąd przy zakładaniu gry za mało kart w paczce", "Zamknij", {duration: 3000})
+                if (result.cardCount < 8) {
+                    result.cardCount = 8;
+                    if (result.cardCount > result.selectedPackage.cards.length) {
+                        this.snackBar.open(
+                            $localize`:@@homeErrorNotEnoughCards:Error during the game creation. Not enough cards in package.`,
+                            $localize`:@@commonClose:Close`,
+                            {duration: 3000});
                     }
                 }
                 this.gameService.createGameLobby(gameSession, result.cardCount).subscribe(response => {
-                    if(response.status == "Created") {
-                        this.joinGameLobby(result.gameId)
+                    if (response.status === 'Created') {
+                        this.joinGameLobby(result.gameId);
                     } else {
-                        this.snackBar.open("Błąd przy zakładaniu gry.", "Zamknij", {duration: 3000})
+                        this.snackBar.open(
+                            $localize`:@@homeError:Error during the game creation.`,
+                            $localize`:@@commonClose:Close`,
+                            {duration: 3000});
                     }
-                })
+                });
             }
-        })
+        });
     }
 
     /**
@@ -86,11 +92,11 @@ export class HomeComponent implements OnInit {
      * @param gameId - exising open Game Lobby
      */
     public joinGameLobby(gameId): void {
-        this.router.navigateByUrl(`/lobby/${gameId}`)
+        this.router.navigateByUrl(`/lobby/${gameId}`);
     }
-    
+
     /**
-     * Invoke this method to load player data from broweser 
+     * Invoke this method to load player data from broweser
      * or to show player creation dialog
      */
     private initializePlayer(): void {
@@ -100,30 +106,30 @@ export class HomeComponent implements OnInit {
                 disableClose: true,
                 data: {
                     title: $localize`:@@homeUserCreation:Create user`,
-                    message: $localize`:@@homeUserWelcomeMsg:Welcome to the Karciosztki the Game! To proceed choose your user name:`,
+                    message: $localize`:@@homeUserWelcomeMsg:Welcome to the Karcioszki the Game! To proceed choose your user name:`,
                     placeholder: $localize`:@@homeUserName:User name`
                 }
             });
             dialogReference.afterClosed().subscribe(res => {
                 if (res !== undefined) {
                     this.gameService.createPlayer(res)
-                        .then(data => this.playerService.setPlayer(data))
+                        .then(data => this.playerService.setPlayer(data));
                 }
-            })
+            });
         }
     }
 
     public setTheme() {
-        if (this.theme == "dark") {
-            this.theme = "light";
+        if (this.theme === 'dark') {
+            this.theme = 'light';
         } else {
-            this.theme = "dark";
+            this.theme = 'dark';
         }
         this.colorSchemeService.update(this.theme);
     }
 
     handleWsMessage(message): void {
-        this.gameIdList = JSON.parse(message)
+        this.gameIdList = JSON.parse(message);
     }
 
 }

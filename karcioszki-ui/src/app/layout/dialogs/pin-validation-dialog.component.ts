@@ -16,9 +16,9 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
         <form [formGroup]="pinForm" autocomplete="off" novalidate>
             <div mat-dialog-content>
                 <mat-form-field>
-                    <input matInput 
+                    <input matInput
                         i18n-placeholder="@@packagePin"
-                        placeholder="PIN number:" 
+                        placeholder="PIN number:"
                         [(ngModel)]=inputPin
                         formControlName="pin"
                         id="pin">
@@ -51,9 +51,9 @@ export class PinValidationDialog implements OnInit {
 
     public validatePin() {
         if (this.inputPin === this.packageData.pin) {
-            this.dialogReference.close(true)
+            this.dialogReference.close(true);
         } else {
-            this.dialogReference.close()
+            this.dialogReference.close();
         }
     }
     onNoClick(): void {

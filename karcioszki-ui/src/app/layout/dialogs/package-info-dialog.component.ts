@@ -37,13 +37,15 @@ export class CardPackageInfoDialog {
             data: this.cardPackage
         });
         dialogReference.afterClosed().subscribe(res => {
-            if (res == true) {
+            if (res === true) {
                 this.router.navigateByUrl(`package-editor/edit/${packageId}`);
                 this.dialogRef.close();
             } else {
-                this.openSnackBar("Błędny PIN", "Close")
+                this.openSnackBar(
+                    $localize`:@@commonPasswordInvalid:Wrong Password!`,
+                    $localize`:@@commonClose:Close`);
             }
-        })
+        });
 
     }
 
@@ -54,19 +56,21 @@ export class CardPackageInfoDialog {
             data: this.cardPackage
         });
         dialogReference.afterClosed().subscribe(res => {
-            if (res == true) {
+            if (res === true) {
                 this.gameService.deleteGamePackage(packageId).then(data => {
-                    this.dialogRef.close(packageId)
-                    this.openSnackBar("Game Card Deleted", "Close")
+                    this.dialogRef.close(packageId);
+                    this.openSnackBar(
+                        $localize`:@@packageDialogCardDeleted:Game Card Deleted!`,
+                        $localize`:@@commonClose:Close`);
                 }).catch(err => {
-                    this.openSnackBar("Something went wrong!", "Close")
-                    console.error(err)
+                    this.openSnackBar('Something went wrong!', $localize`:@@commonClose:Close`);
+                    console.error(err);
                 });
                 this.dialogRef.close();
             } else {
-                this.openSnackBar("Błędny PIN", "Close")
+                this.openSnackBar($localize`:@@commonPasswordInvalid:Wrong Password!`, $localize`:@@commonClose:Close`);
             }
-        })
+        });
 
     }
 
@@ -80,10 +84,10 @@ export class CardPackageInfoDialog {
         const dialogRef = this.dialog.open(SimpleConfirmDialog, {
             width: '50%',
             data: {
-                title: "Czy na pewno chcesz usunąć tę paczkę?",
-                message: "",
-                btnTextOk: "Tak",
-                btnTextCancel: "Nie"
+                title: $localize`:@@packageDialogCardDelConfirm:Do you really want to delete that package?`,
+                message: '',
+                btnTextOk: $localize`:@@commonYes:Yes`,
+                btnTextCancel: $localize`:@@commonNo:No`
             },
         });
 
@@ -91,6 +95,6 @@ export class CardPackageInfoDialog {
             if (result) {
                 this.deleteGamePackage(cardPackageId);
             }
-        })
+        });
     }
 }

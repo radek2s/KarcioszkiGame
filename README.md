@@ -1,4 +1,7 @@
 # Karcioszki - The Game
+
+[![CodeFactor](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/badge/master)](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/overview/master)
+
 Simple project to improve a knowledge about Java and Angular framework.
 
 Game is very simple, two teams has to compete between each other. When the first team 

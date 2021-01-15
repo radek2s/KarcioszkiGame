@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class ImageManagerDialog implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        for(let x = 1; x<=12; x++) {
+        for (let x = 1; x <= 12; x++) {
             this.fileInfos.push({
                 name: `Sample-${x}`,
                 url: `./assets/graphics/sample/${x}.jpg`
@@ -53,7 +53,7 @@ export class ImageManagerDialog implements OnInit {
                 this.selectedImage = {
                     name: data.filename,
                     url: `./api/files/${data.filename}`
-                }
+                };
             });
 
         this.selectedFiles = undefined;
@@ -66,7 +66,5 @@ export class ImageManagerDialog implements OnInit {
     selectImage(image) {
         this.selectedImage = image;
     }
-
-
 
 }

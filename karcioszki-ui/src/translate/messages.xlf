@@ -28,7 +28,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/simple-confirm-dialog.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packagePinRequierd" datatype="html">
@@ -78,7 +78,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/simple-confirm-dialog.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="commonCreate" datatype="html">
@@ -93,6 +93,108 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/game-create-lobby-dialog.html</context>
           <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonPasswordInvalid" datatype="html">
+        <source>Wrong Password!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/widgets/game-package/game-package-list.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonClose" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageDialogCardDeleted" datatype="html">
+        <source>Game Card Deleted!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageDialogCardDelConfirm" datatype="html">
+        <source>Do you really want to delete that package?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonYes" datatype="html">
+        <source>Yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonNo" datatype="html">
+        <source>No</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.component.ts</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageInfoAuthor" datatype="html">
@@ -114,6 +216,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/package-info-dialog.html</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="summaryWin" datatype="html">
+        <source>Victory!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/game-summary-dialog.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="summaryLose" datatype="html">
+        <source>Defeat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/dialogs/game-summary-dialog.component.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="summaryDialogEndGame" datatype="html">
@@ -141,14 +257,14 @@
         <source>Upload custom cover</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/image-manager-dialog.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="commonSelect" datatype="html">
         <source>Select!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/dialogs/image-manager-dialog.html</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="commonReturn" datatype="html">
@@ -182,6 +298,61 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-menu.html</context>
           <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageCardExist" datatype="html">
+        <source>Card with that name already exists!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagePinMessage" datatype="html">
+        <source>Your PIN code for package edit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packagePinSaveMessage" datatype="html">
+        <source>Save this number to access to that package:
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageAddSuccess" datatype="html">
+        <source>Success! - Package added!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonUnknowError" datatype="html">
+        <source>Something went wrong!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageValidatorCardCount" datatype="html">
+        <source>Not enough cards in package! Create at least 15 cards.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-add.component.ts</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorPackageAdd" datatype="html">
@@ -243,36 +414,40 @@
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorPackagePrivate" datatype="html">
-        <source>Private package </source>
+        <source>Private package</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-add.html</context>
-          <context context-type="linenumber">48,49</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.html</context>
-          <context context-type="linenumber">39,40</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/widgets/game-package/game-package-list.component.ts</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorPackageCardText" datatype="html">
         <source>Card text</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-add.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorCardAdd" datatype="html">
         <source>Add card</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-add.html</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorValidateNameRequired" datatype="html">
@@ -293,11 +468,18 @@
         <source>Package password:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-add.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageCardGameUpdated" datatype="html">
+        <source>Game Card Updated!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/package-editor/game-package-edit.component.ts</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="packageCreatorPackageEdit" datatype="html">
@@ -314,25 +496,39 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="homeErrorNotEnoughCards" datatype="html">
+        <source>Error during the game creation. Not enough cards in package.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="homeError" datatype="html">
+        <source>Error during the game creation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="homeUserCreation" datatype="html">
         <source>Create user</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homeUserWelcomeMsg" datatype="html">
-        <source>Welcome to the Karciosztki the Game! To proceed choose your user name:</source>
+        <source>Welcome to the Karcioszki the Game! To proceed choose your user name:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homeUserName" datatype="html">
         <source>User name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/home/home.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="appTitle" datatype="html">
@@ -405,6 +601,20 @@
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="gameTurnEnd" datatype="html">
+        <source>End of Turn! Now the opposite team make moves.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/game/game.component.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="gameTurnStart" datatype="html">
+        <source>Now your Turn! Get Ready!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/views/game/game.component.ts</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="gameToolbarMoves" datatype="html">
         <source>Remain: <x id="INTERPOLATION" equiv-text="{{gameSession.gameCardStatistics.cardToGuess}}"/> moves | </source>
         <context-group purpose="location">
@@ -474,6 +684,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/views/game/game.html</context>
           <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="packageProvidePassword" datatype="html">
+        <source>Provide a valid password to use that package</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/widgets/game-package/game-package-list.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="commonPassword" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/widgets/game-package/game-package-list.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
     </body>

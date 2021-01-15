@@ -65,7 +65,7 @@ import { MaterialModule } from './modules/material.module';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    CardPackageInfoDialog, 
+    CardPackageInfoDialog,
     PinValidationDialog,
     GameSummaryDialog,
     SimpleInputDialog,

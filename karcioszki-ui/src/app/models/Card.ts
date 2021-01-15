@@ -1,6 +1,6 @@
 export class Card {
-    id:number
-    text:String;
-    color:String;
-    selected:boolean;
+    id: number;
+    text: string;
+    color: string;
+    selected: boolean;
 }
