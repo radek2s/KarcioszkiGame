@@ -11,15 +11,35 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class GameService {
 
-  private gameHubUrl = './api/game/hub';
-  private gameCardPackageUrl = './api/card';
+  private gameHubUrl = '/api/game/hub';
+  private gameCardPackageUrl = '/api/card';
+  private gamePlayerUrl = '/api/game/player/create';
+  siteLocale = '';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    let locale = window.location.pathname.split('/')[1];
+    let protocol = window.location.protocol;
+    let host = window.location.host.split(":");
+  
+    if(host[1] === "4200") {
+      host[1] = "8080";
+    };  
+    if(locale !== '') {
+      locale = '';
+    }
+
+    this.siteLocale = `${protocol}//${host[0]}:${host[1]}${locale}`;
+    
+    this.gameHubUrl = this.siteLocale + this.gameHubUrl;
+    this.gameCardPackageUrl = this.siteLocale + this.gameCardPackageUrl;
+    this.gamePlayerUrl = this.siteLocale + this.gamePlayerUrl;
+  
+  }
 
   /**
    * Get GameID list
@@ -74,7 +94,7 @@ export class GameService {
    * @param playerName - Name of the player
    */
   createPlayer(playerName: string) {
-    return this.http.post<any>('./api/game/player/create', playerName, this.httpOptions).toPromise();
+    return this.http.post<any>(this.gamePlayerUrl, playerName, this.httpOptions).toPromise();
   }
 
   createGameLobby(gameSession, cardCount) {

@@ -48,11 +48,11 @@ export class ImageManagerDialog implements OnInit {
             data => {
                 this.uploadedImage = {
                     name: data.filename,
-                    url: `./api/files/${data.filename}`
+                    url: `${this.fileStorageService.siteLocale}/api/files/${data.filename}`
                 };
                 this.selectedImage = {
                     name: data.filename,
-                    url: `./api/files/${data.filename}`
+                    url: `${this.fileStorageService.siteLocale}/api/files/${data.filename}`
                 };
             });
 
