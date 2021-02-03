@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'simple-confirm-dialog',
     template: `
-    
     <h1 mat-dialog-title class="position-relative">{{data.title}}
     <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
         <mat-icon>cancel</mat-icon>
@@ -21,11 +20,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SimpleInfoDialog {
 
-    btnTextOk = "OK";
+    btnTextOk = 'OK';
 
     /**
-     * 
-     * @param dialogReference 
+     *
+     * @param dialogReference - Object reference
      * @param data - JSON object with parameters:
      *  data.title    - Title of the dialog.
      *  data.message  - Message description.
@@ -33,9 +32,9 @@ export class SimpleInfoDialog {
     constructor(
         private dialogReference: MatDialogRef<SimpleInfoDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) { 
-        if(data.btnTextOk) {
-            this.btnTextOk = data.btnTextOk
+    ) {
+        if (data.btnTextOk) {
+            this.btnTextOk = data.btnTextOk;
         }
     }
 

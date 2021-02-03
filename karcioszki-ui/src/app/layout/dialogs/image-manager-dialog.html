@@ -1,6 +1,6 @@
 <h1 mat-dialog-title class="flex-center-vertical position-relative">
-    <div>
-        Wybierz okładkę
+    <div i18n="@@imageManagerSelectCover">
+        Choose cover image
     </div>
     <button mat-icon-button class="dialog-header-button" id="close-dialog" (click)="onNoClick()">
         <mat-icon>cancel</mat-icon>
@@ -9,7 +9,6 @@
 <div mat-dialog-content class="flex column">
 
     <div id="images" class="flex-container flex-jc-space-evenly flex-wrap">
-
         <div *ngFor="let image of fileInfos" class="card-package margin-xs margin-bottom-s">
             <div class="imagegallery" [ngClass]="image.name == selectedImage.name ? 'card-package-selected' : ''">
                 <div (click)="selectImage(image)">
@@ -29,14 +28,12 @@
     </div>
 
     <div class="flex-container flex-jc-space-between">
-        <button mat-flat-button color="primary" (click)="fileInput.click()">Prześlij własną okładkę</button>
-        <input #fileInput hidden="true" type="file" id="upload-file" onclick="this.value=null"
-            (change)="selectFile($event)" />
+        <button mat-flat-button color="primary" (click)="fileInput.click()" i18n="@@imageManagerUploadCover">Upload custom cover</button>
+        <input #fileInput hidden="true" type="file" id="upload-file" onclick="this.value=null" (change)="selectFile($event)" />
     </div>
 
 </div>
 
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" [mat-dialog-close]="selectedImage"
-        [disabled]="!selectedImage.url">Wybierz!</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="selectedImage" [disabled]="!selectedImage.url" i18n="@@commonSelect">Select!</button>
 </div>

@@ -4,10 +4,10 @@ import { Card } from './Card';
 import { GameCardStatistics } from './GameCardStatistics';
 
 export class GameSession{
-    id:number;
-    started:boolean;
+    id: number;
+    started: boolean;
     players: Player[];
-    gameState:Number;
+    gameState: number;
     gameCardPackage: CardsPackage;
     gameCardStatistics: GameCardStatistics;
     gameCards: Card[];

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,56 +14,61 @@ import { MatDialog } from '@angular/material/dialog';
   host: { '(document:keypress)': 'addCardKeyboard($event)'},
   styleUrls: ['../../karcioszki.style.scss']
 })
-export class GamePackageEditComponent {
+export class GamePackageEditComponent implements OnInit {
 
   public cardsPackage;
   cardTitle: string;
   webSocket: WebSocket;
 
   constructor(
-    private gameService: GameService, 
-    private _snackBar: MatSnackBar, 
-    public playerService: PlayerService, 
-    private router: Router, 
+    private gameService: GameService,
+    private _snackBar: MatSnackBar,
+    public playerService: PlayerService,
+    private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog) {
   }
 
-/**
+  /*
    * Method invoked when component is created
-   * 
    * Initialize component variables
    */
   ngOnInit(): void {
-    let packageId = +this.route.snapshot.paramMap.get('id');
+    const packageId = +this.route.snapshot.paramMap.get('id');
     this.gameService.getGamePackage(packageId).subscribe((data) => {
-      this.cardsPackage = data
+      this.cardsPackage = data;
     });
   }
 
   addCard() {
     if (this.cardsPackage.cards.find(cardTitle => {
-      return cardTitle === this.cardTitle
+      return cardTitle === this.cardTitle;
     })) {
-      this.openSnackBar("Karta o tej nazwie już została dodana", "Zamknij")
+      this.openSnackBar(
+        $localize`:@@packageCardExist:Card with that name already exists!`,
+        $localize`:@@commonClose:Close`);
     } else {
     this.cardsPackage.cards.push(this.cardTitle);
-    this.cardTitle =  "";
+    this.cardTitle =  '';
     }
   }
 
   addCardKeyboard(event: KeyboardEvent) {
-    if(event.code === "Enter") {
+    if (event.code === 'Enter') {
       this.addCard();
     }
   }
 
   updateGamePackage(packageId: number) {
     this.gameService.updateGamePackage(this.cardsPackage, packageId).then(data => {
-      this.openSnackBar("Game Card Updated", "Close")
+      this.openSnackBar(
+        $localize`:@@packageCardGameUpdated:Game Card Updated!`,
+        $localize`:@@commonClose:Close`);
     }).catch(err => {
-      this.openSnackBar("Something went wrong!", "Close")
-      console.error(err)
+      this.openSnackBar(
+        $localize`:@@commonUnknowError:Something went wrong!`,
+        $localize`:@@commonClose:Close`);
+      console.error(err);
     });
     this.router.navigateByUrl(`package-editor`);
   }
@@ -75,7 +80,7 @@ export class GamePackageEditComponent {
   chooseImage() {
     const dialogRef = this.dialog.open(ImageManagerDialog, {width: '60%'});
     dialogRef.afterClosed().subscribe(result => {
-      if(!!result) {
+      if (!!result) {
         this.cardsPackage.image = result.url;
       }
     });

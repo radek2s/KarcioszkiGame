@@ -1,29 +1,36 @@
 # Karcioszki - The Game
+
+[![CodeFactor](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/badge/master)](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/overview/master)
+
 Simple project to improve a knowledge about Java and Angular framework.
 
 Game is very simple, two teams has to compete between each other. When the first team 
 find all the cards that belongs to them they won. There are two team leaders that can see
 the map. They have a very difficult mission - say just one word that is related to words 
-included on the this team cards. When team has selected other card the move is passing to opposite team.
+included on this team cards. When a team has selected another card the move is passing to opposite team.
 
 This game is still in develop.
 
 ## Running the application
 Backend is developed as Spring Boot application that requires Java 11.\
 Frontend is developed in Angular v11\
-This application use H2 database to store user data.
+This application use H2 database to store user data.\
+User images are stored under ``C:/karcioszki/uploads/`` directory
 
 
 ### backend:
 ``gradle bootRun`` - To run the application Server
 ### frontend:
 NOTE: Backend server must be running for developing this application\
-``npm start`` - To start the develop server for Angular
+``npm run-script start`` - To start the develop server for Angular in default mode\
+``npm run-script start:pl`` - To start the develop server for Angular with Polish localization
 
 ### run:
 When the application server has been started, open browser and type in address field:
-``http://localhost:8080/`` to open the application in production mode.\
-To open this app in Angular development mode open ``http://localhost:4200/``. 
+``http://localhost:8080/en-US`` or ``http://localhost:8080/pl`` \
+to open the application in production mode with a specific locale.
+
+To open this app in Angular development mode just open ``http://localhost:4200/``. 
 
 ### Developed by:
 

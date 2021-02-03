@@ -1,12 +1,12 @@
 <mat-toolbar class="flex-jc-space-between">
     <a routerLink="/package-editor">
         <button mat-raised-button>
-            <mat-icon>keyboard_arrow_left</mat-icon><span class="mobile-hidden">Powrót</span>
+            <mat-icon>keyboard_arrow_left</mat-icon><span class="mobile-hidden" i18n="@@commonReturn">Return</span>
         </button>
     </a>
-    <span id="room">Edytuj paczkę</span>
+    <span id="room" i18n="@@packageCreatorPackageEdit">Edit package</span>
     <button mat-raised-button color="primary" (click)="updateGamePackage(null)" [disabled]="pinModel.invalid"><span
-            class="mobile-hidden space-horizontal-right-small">Aktualizuj</span>
+            class="mobile-hidden space-horizontal-right-small" i18n="@@commonUpdate">Update</span>
         <mat-icon>send</mat-icon>
     </button>
 </mat-toolbar>
@@ -17,40 +17,38 @@
                 (click)="chooseImage()">
             <div class="flex-container flex-dir-column space-vertical-top-small">
                 <mat-form-field class="max-width">
-                    <input matInput placeholder="Nazwa paczki:" [(ngModel)]="cardsPackage.packageName" disabled>
+                    <input matInput i18n-placeholder="@@packageCreatorPackageName" placeholder="Package name:" [(ngModel)]="cardsPackage.packageName" disabled>
                 </mat-form-field>
                 <mat-form-field class="max-width">
-                    <input matInput placeholder="Autor:" [value]="playerService.getPlayer().name" disabled>
+                    <input matInput i18n-placeholder="@@packageCreatorPackageAuthor" placeholder="Author:" [value]="playerService.getPlayer().name" disabled>
                 </mat-form-field>
             </div>
         </div>
         <div class="space-vertical-top-small flex-container flex-wrap">
             <mat-form-field class="max-width">
-                <input matInput placeholder="Adres obrazka:" [(ngModel)]="cardsPackage.image">
+                <input matInput i18n-placeholder="@@packageCreatorPackageImageAddress" placeholder="Image address:" [(ngModel)]="cardsPackage.image">
             </mat-form-field>
         </div>
         <div class="flex-container">
             <mat-form-field class="max-width">
-                <input type="number" matInput placeholder="PIN do edycji paczki: " [(ngModel)]="cardsPackage.pin"
+                <input type="number" matInput i18n-placeholder="@@packageCreatorPackagePIN" placeholder="PIN to edit package: " [(ngModel)]="cardsPackage.pin"
                     #pinModel="ngModel" required>
             </mat-form-field>
         </div>
         <div class="flex-container max-width flex-ai-center flex-wrap-center">
-            <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)">Paczka prywatna
-            </mat-slide-toggle>
+            <mat-slide-toggle class="space-horizontal-right-small" (change)="toggle($event)" i18n="@@packageCreatorPackagePrivate">Private package</mat-slide-toggle>
             <mat-form-field class="max-width" *ngIf="cardsPackage.visible">
-                <input type="password" matInput placeholder="Hasło do paczki:" [(ngModel)]="cardsPackage.password">
+                <input type="password" matInput i18n-placeholder="@@packageCreatorPackagePassword" placeholder="Package password:" [(ngModel)]="cardsPackage.password">
             </mat-form-field>
         </div>
 
         <div class="space-vertical-top-small flex-container flex-jc-space-evenly flex-wrap-center">
             <mat-form-field class="margin-right-s">
-                <input matInput placeholder="Treść karty" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
+                <input matInput i18n-placeholder="@@packageCreatorPackageCardText" placeholder="Card text" [(ngModel)]="cardTitle" #cardModel="ngModel" required>
             </mat-form-field>
             <div>
                 <button mat-raised-button color="accent" class="space-horizontal-right-small" (click)="addCard()"
-                    [disabled]="cardModel.invalid">Dodaj
-                    kartę</button>
+                    [disabled]="cardModel.invalid" i18n="@@packageCreatorCardAdd">Add card</button>
             </div>
         </div>
 

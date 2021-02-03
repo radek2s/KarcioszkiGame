@@ -5,7 +5,8 @@
     "ng": "ng",
     "serve": "ng serve",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "start:pl": "ng serve --configuration=pl --proxy-config proxy.conf.json",
+    "build": "ng build --prod --localize",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -18,6 +19,7 @@
     "@angular/compiler": "~11.0.2",
     "@angular/core": "~11.0.2",
     "@angular/forms": "~11.0.2",
+    "@angular/localize": "~11.0.2",
     "@angular/material": "^11.0.1",
     "@angular/platform-browser": "~11.0.2",
     "@angular/platform-browser-dynamic": "~11.0.2",

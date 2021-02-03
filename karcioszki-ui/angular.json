@@ -13,6 +13,11 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "locales": {
+          "pl": "src/translate/messages.pl.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -59,6 +64,9 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "pl": {
+              "localize": ["pl"]
             }
           }
         },
@@ -70,6 +78,9 @@
           "configurations": {
             "production": {
               "browserTarget": "Karcioszki:build:production"
+            },
+            "pl": {
+              "browserTarget": "Karcioszki:build:pl"
             }
           }
         },

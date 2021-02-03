@@ -1,11 +1,12 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { environment } from 'src/environments/environment';
 
 export class WebSocket {
 
-    private development: boolean = true;
-    private WS_END_POINT_PRODUCTION: String = window.location.href;
-    private WS_END_POINT_DEVELOPMNET: String = 'http://localhost:8080/karcioszki-ws';
+    private production: boolean = environment.production;
+    private WS_END_POINT_PRODUCTION: string = window.location.href;
+    private WS_END_POINT_DEVELOPMNET: string = 'http://localhost:8080/karcioszki-ws';
     private component: any;
     private destinationTopic: string;
     private stompClient: any;
@@ -17,10 +18,10 @@ export class WebSocket {
     }
 
     _disconnect() {
-        if(this.stompClient !== null) {
+        if (this.stompClient !== null) {
             this.stompClient.disconnect();
         }
-        console.log("WS Disconnected");
+        console.log('WS Disconnected');
     }
 
     /**
@@ -35,16 +36,16 @@ export class WebSocket {
 
     private _connect(): void {
         let ws;
-        if(this.development) {
-            ws = new SockJS(this.WS_END_POINT_DEVELOPMNET);
-        } else {
-            let address = this.WS_END_POINT_PRODUCTION.split("/")
+        if (this.production) {
+            const address = this.WS_END_POINT_PRODUCTION.split('/');
             ws = new SockJS(`${address[0]}//${address[2]}/karcioszki-ws`);
+        } else {
+            ws = new SockJS(this.WS_END_POINT_DEVELOPMNET);
         }
         this.stompClient = Stomp.over(ws);
         const _this = this;
-        _this.stompClient.connect({}, function(frame) {
-            _this.stompClient.subscribe(_this.destinationTopic, function(sdkEvent) {
+        _this.stompClient.connect({}, () => {
+            _this.stompClient.subscribe(_this.destinationTopic, (sdkEvent) => {
                 _this.onMessageReceived(sdkEvent);
             });
         }, this.errorCallback);
@@ -53,10 +54,10 @@ export class WebSocket {
     /**
      * Callback error function
      * If connection has been lost try to reconnect after 5 seconds
-     * @param error
+     * @param error - error message
      */
     private errorCallback(error) {
-        console.log("Error with SockJS ->" + error)
+        console.log('Error with SockJS ->' + error);
         setTimeout(() => {
             this._connect();
         }, 5000);
@@ -69,7 +70,7 @@ export class WebSocket {
      * @param message Received WebSocket message
      */
     private onMessageReceived(message): void {
-        this.component.handleWsMessage(message.body)
+        this.component.handleWsMessage(message.body);
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CardsPackage } from 'src/app/models/CardsPackage';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GameService } from 'src/app/services/game.service';
@@ -8,7 +8,7 @@ import { GameService } from 'src/app/services/game.service';
     templateUrl: './game-create-lobby-dialog.html',
     styleUrls: ['../../karcioszki.style.scss']
 })
-export class CreateGameLobbyDialog {
+export class CreateGameLobbyDialog implements OnInit {
 
     cardPackageList: CardsPackage[];
 
@@ -17,7 +17,7 @@ export class CreateGameLobbyDialog {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private gameService: GameService,
     ) {
-        this.gameService.getGamePackages().subscribe(data => this.cardPackageList = data)
+        this.gameService.getGamePackages().subscribe(e => this.cardPackageList = e);
     }
 
     ngOnInit(): void {
@@ -33,5 +33,4 @@ export class CreateGameLobbyDialog {
     onNoClick() {
         this.dialogRef.close();
     }
-
 }

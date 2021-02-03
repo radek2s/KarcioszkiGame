@@ -1,10 +1,10 @@
 export class CardsPackage{
-    id:number;
-    author:string;
+    id: number;
+    author: string;
     packageName: string;
-    visible: Boolean;
+    visible: boolean;
     pin: string;
     password: string;
-    image:string;
+    image: string;
     cards: string[];
 }
