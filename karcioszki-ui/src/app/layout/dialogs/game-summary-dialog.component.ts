@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,26 +8,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GameSummaryDialog {
 
-    victoryLabel = ''
-    victoryBackground = ''
+    victoryLabel = '';
+    victoryBackground = '';
 
     constructor(
         public dialogReference: MatDialogRef<GameSummaryDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        if ((data.winner === 2 && data.activeTeam == 0)
-            || (data.winner === 3 && data.activeTeam == 1)) {
-            this.victoryLabel = "Zwycięstwo!"
+        if ((data.winner === 2 && data.activeTeam === 0)
+            || (data.winner === 3 && data.activeTeam === 1)) {
+            this.victoryLabel = $localize`:@@summaryWin:Victory!`;
         } else {
-            this.victoryLabel = "Porażka"
+            this.victoryLabel = $localize`:@@summaryLose:Defeat`;
         }
-        if (data.winner == 2) {
-            this.victoryBackground = 'red'
-        } else if (data.winner == 3) {
-            this.victoryBackground = 'blue'
+        if (data.winner === 2) {
+            this.victoryBackground = 'red';
+        } else if (data.winner === 3) {
+            this.victoryBackground = 'blue';
         } else {
-            this.victoryBackground = 'black'
+            this.victoryBackground = 'black';
         }
-
     }
 
     onNoClick(): void {

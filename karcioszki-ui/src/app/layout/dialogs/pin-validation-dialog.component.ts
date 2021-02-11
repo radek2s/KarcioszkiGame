@@ -11,21 +11,22 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
     <button class="dialog-header-button" mat-icon-button id="close-dialog" (click)="onNoClick()">
         <mat-icon>cancel</mat-icon>
     </button>
-            <div>Podaj PIN paczki</div>
+            <div i18n="@@packagePinTitle">Enter package PIN number</div>
         </h1>
         <form [formGroup]="pinForm" autocomplete="off" novalidate>
             <div mat-dialog-content>
                 <mat-form-field>
-                    <input matInput 
-                        placeholder="Numer PIN:" 
+                    <input matInput
+                        i18n-placeholder="@@packagePin"
+                        placeholder="PIN number:"
                         [(ngModel)]=inputPin
                         formControlName="pin"
                         id="pin">
-                    <mat-error *ngIf="hasError('pin', 'required')">Kod PIN jest wymagany!</mat-error>
+                    <mat-error *ngIf="hasError('pin', 'required')" i18n="@@packagePinRequierd">PIN number is required!</mat-error>
                 </mat-form-field>
             </div>
             <div mat-dialog-actions>
-                <button mat-raised-button color="primary" (click)="validatePin()" [disabled]="!pinForm.valid">Zatwierdź</button>
+                <button mat-raised-button color="primary" (click)="validatePin()" [disabled]="!pinForm.valid" i18n="@@commonAccept">Accept</button>
             </div>
         </form>
     `,
@@ -50,9 +51,9 @@ export class PinValidationDialog implements OnInit {
 
     public validatePin() {
         if (this.inputPin === this.packageData.pin) {
-            this.dialogReference.close(true)
+            this.dialogReference.close(true);
         } else {
-            this.dialogReference.close()
+            this.dialogReference.close();
         }
     }
     onNoClick(): void {

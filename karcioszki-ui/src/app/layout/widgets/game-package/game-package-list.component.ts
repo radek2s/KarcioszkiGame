@@ -33,41 +33,41 @@ export class GamePackageListComponent implements OnInit {
 
   public openProperties(cardPackage: any) {
     this.selectedPackage = cardPackage;
-    if(this.edit) {
+    if (this.edit) {
       const dialogRef = this.infoDialog.open(CardPackageInfoDialog, {
         width: '80%',
         data: cardPackage
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
-          this.cardsPackages = this.cardsPackages.filter(item => item.id !== result)
+          this.cardsPackages = this.cardsPackages.filter(item => item.id !== result);
         }
       });
     } else {
-      if(cardPackage.visible) {
+      if (cardPackage.visible) {
         const dialogRef = this.infoDialog.open(SimpleInputDialog, {
           width: '50%',
           data: {
-            title: "Prywatna paczka",
-            meassage: "Aby skorzystać z tej paczki podaj hasło:",
-            placeholder: "Hasło"
+            title: $localize`:@@packageCreatorPackagePrivate:Private package`,
+            meassage: $localize`:@@packageProvidePassword:Provide a valid password to use that package`,
+            placeholder: $localize`:@@commonPassword:Password`
           }
         });
         dialogRef.afterClosed().subscribe(result => {
-          if(result !== undefined) {
-            if(result === cardPackage.password) {
+          if (result !== undefined) {
+            if (result === cardPackage.password) {
               this.selected.emit(cardPackage);
             } else {
               this.infoDialog.open(SimpleInfoDialog, {
                 width: '50%',
                 data: {
-                  title:'Błędne hasło!'
+                  title: $localize`:@@commonPasswordInvalid:Wrong Password!`
                 }
-              })
+              });
             }
           }
-        })
+        });
       } else {
         this.selected.emit(cardPackage);
       }

@@ -1,9 +1,9 @@
 <div class="relative">
-    <h1 mat-dialog-title>Koniec Gry!</h1>
+    <h1 mat-dialog-title i18n="@@summaryDialogEndGame">Game Ended!</h1>
     <div mat-dialog-content class="winner" [ngClass]="victoryBackground">
         {{victoryLabel}}
     </div>
     <div mat-dialog-actions>
-        <button mat-button routerLink="/" (click)="onNoClick()">Powrót do menu</button>
+        <button mat-button routerLink="/" (click)="onNoClick()" i18n="@@summaryDialogBackToMenu">Return to Main Menu</button>
     </div>
 </div>

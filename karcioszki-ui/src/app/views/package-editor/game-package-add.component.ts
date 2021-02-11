@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { GameService } from '../../services/game.service';
@@ -6,8 +6,9 @@ import { CardsPackage } from '../../models/CardsPackage';
 import { PlayerService } from 'src/app/services/player.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.component';
+import { ImageManagerDialog } from 'src/app/layout/dialogs/image-manager-dialog.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { SimpleInfoDialog } from 'src/app/layout/dialogs/simple-info-dialog.comp
   host: { '(document:keypress)': 'addCardKeyboard($event)' },
   styleUrls: ['../../karcioszki.style.scss']
 })
-export class GamePackageAddComponent {
+export class GamePackageAddComponent implements OnInit {
 
   cardsPackage: CardsPackage;
   cardTitle: string;
@@ -33,7 +34,8 @@ export class GamePackageAddComponent {
     private fb: FormBuilder,
     private dialog: MatDialog) {
     this.cardsPackage = new CardsPackage();
-    this.cardsPackage.pin = String(Math.round(Math.random() * 10000))
+    this.cardsPackage.pin = String(Math.round(Math.random() * 10000));
+    this.cardsPackage.image = './assets/graphics/default.jpg';
     this.cardsPackage.cards = [];
 
     this.gameService.getGamePackages().subscribe(cardsPackages => {
@@ -45,7 +47,7 @@ export class GamePackageAddComponent {
 
   ngOnInit(): void {
     this.packageForm = new FormGroup({
-      'packageName': new FormControl(this.cardsPackage.packageName, []),
+      packageName: new FormControl(this.cardsPackage.packageName, []),
     });
 
   }
@@ -56,17 +58,19 @@ export class GamePackageAddComponent {
 
   addCard() {
     if (this.cardsPackage.cards.find(cardTitle => {
-      return cardTitle === this.cardTitle
+      return cardTitle === this.cardTitle;
     })) {
-      this.openSnackBar("Karta o tej nazwie już została dodana", "Zamknij")
+      this.openSnackBar(
+        $localize`:@@packageCardExist:Card with that name already exists!`,
+        $localize`:@@commonClose:Close`);
     } else {
       this.cardsPackage.cards.push(this.cardTitle);
-      this.cardTitle = "";
+      this.cardTitle = '';
     }
   }
 
   addCardKeyboard(event: KeyboardEvent) {
-    if (event.code === "Enter") {
+    if (event.code === 'Enter') {
       this.addCard();
     }
   }
@@ -78,27 +82,31 @@ export class GamePackageAddComponent {
         width: '50%',
         disableClose: true,
         data: {
-          title: "Twój pin do edycji paczki",
-          message: "Zapisz kod aby móc edytować paczkę:\n " + this.cardsPackage.pin
+          title: $localize`:@@packagePinMessage:Your PIN code for package edit`,
+          message: $localize`:@@packagePinSaveMessage:Save this number to access to that package:\n` + this.cardsPackage.pin
         }
-      })
+      });
       dialogRef.afterClosed().subscribe(response => {
         if (response) {
           this.gameService.addGamePackage(this.cardsPackage).then(data => {
             this.cardsPackage = new CardsPackage();
-            this.cardTitle = "";
-            this.openSnackBar("Sukces! - Paczka została dodana!", "Zamknij")
+            this.cardTitle = '';
+            this.openSnackBar(
+              $localize`:@@packageAddSuccess:Success! - Package added!`,
+              $localize`:@@commonClose:Close`);
             this.router.navigateByUrl(`package-editor`);
           }).catch(err => {
-            this.openSnackBar("Coś poszło nie tak!", "Zamknij")
-            console.error(err)
+            this.openSnackBar($localize`:@@commonUnknowError:Something went wrong!`, $localize`:@@commonClose:Close`);
+            console.error(err);
           });
         } else {
-          this.openSnackBar("Coś poszło nie tak!", "Zamknij")
+          this.openSnackBar($localize`:@@commonUnknowError:Something went wrong!`, $localize`:@@commonClose:Close`);
         }
-      })
+      });
     } else {
-      this.openSnackBar("Za mało kart w paczce! Musi być minimum 15.", "Zamknij")
+      this.openSnackBar(
+        $localize`:@@packageValidatorCardCount:Not enough cards in package! Create at least 15 cards.`,
+        $localize`:@@commonClose:Close`);
     }
 
   }
@@ -107,19 +115,13 @@ export class GamePackageAddComponent {
     this.cardsPackage.cards = this.cardsPackage.cards.filter(existingCard => card !== existingCard);
   }
 
-  async getFileDetails(e) {
-    console.log(e.target.files);
-    let image = await this.toBase64(e.target.files[0])
-    this.cardsPackage.image = String(image);
-  }
-
-  toBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    })
+  chooseImage() {
+    const dialogRef = this.dialog.open(ImageManagerDialog, {width: '60%'});
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result) {
+        this.cardsPackage.image = result.url;
+      }
+    });
   }
 
   public toggle(event: MatSlideToggleChange) {

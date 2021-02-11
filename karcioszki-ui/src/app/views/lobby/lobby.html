@@ -4,15 +4,15 @@
             <button *ngIf="!gameSession.started" mat-icon-button aria-label="Exit from game" (click)="lobbyExitGame()">
                 <mat-icon>cancel</mat-icon>
             </button>
-            <span id="room">Pokój numer: {{gameSession.id}}</span>
+            <span id="room" i18n="@@lobbyRoom">Room number: {{gameSession.id}}</span>
         </div>
     </mat-toolbar>
     <section class="flex-center flex-dir-column">
         <mat-list class="player-list">
             <mat-list-item class="player-list-item player-list-item-header">
-                <span class="player-name">Nazwa gracza</span>
-                <span class="team-container">Drużyna</span>
-                <span class="leader-container">Lider</span>
+                <span class="player-name" i18n="@@lobbyPlayername">Player name</span>
+                <span class="team-container" i18n="@@lobbyTeam">Team</span>
+                <span class="leader-container" i18n="@@lobbyLeader">Leader</span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item class="player-list-item player-list-item-active">
@@ -47,10 +47,10 @@
                 </div>
             </mat-list-item>
         </mat-list>
-        <button mat-raised-button color="primary" (click)="lobbyStartGame()" [disabled]="gameValid">Start</button>
+        <button mat-raised-button color="primary" (click)="lobbyStartGame()" [disabled]="gameValid" i18n="@@commonStart">Start</button>
     </section>
 </div>
 <ng-template #loadingBlock>
-    <p>Loading</p>
+    <p i18n="@@commonLoading">Loading</p>
 
 </ng-template>

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -16,20 +16,20 @@ import { FormGroup, FormControl } from '@angular/forms';
     </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button *ngIf="data.optional" mat-button (click)="onNoClick()">Anuluj</button>
-        <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid">Zatwierdź</button>
+        <button *ngIf="data.optional" mat-button (click)="onNoClick()" i18n="@@commonCancel">Cancel</button>
+        <button mat-button [mat-dialog-close]="inputData" [disabled]="simpleInput.invalid" i18n="@@commonAccept">Accept</button>
     </div>
     `,
     styleUrls: ['../../karcioszki.style.scss']
 })
-export class SimpleInputDialog {
+export class SimpleInputDialog implements OnInit {
 
     inputData: string;
     simpleInputForm: FormGroup;
 
     /**
-     * 
-     * @param dialogReference 
+     *
+     * @param dialogReference - dialog object reference
      * @param data - JSON object with parameters:
      *  data.title         - Title of the dialog.
      *  data.message       - Message description.
@@ -43,7 +43,7 @@ export class SimpleInputDialog {
     ) { }
 
     ngOnInit(): void {
-        this.simpleInputForm = new FormGroup({ 'simpleInput': new FormControl() });
+        this.simpleInputForm = new FormGroup({ simpleInput: new FormControl() });
     }
 
     onNoClick(): void {

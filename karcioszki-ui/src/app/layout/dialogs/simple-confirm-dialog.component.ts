@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'simple-confirm-dialog',
     template: `
-    
     <h1 mat-dialog-title class="dialog-header">
     <div>{{data.title}}</div>
     </h1>
@@ -20,12 +19,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SimpleConfirmDialog {
 
-    btnTextCancel = "Anuluj";
-    btnTextOk = "Zatwierdź";
+    btnTextCancel = $localize`:@@commonCancel:Cancel`;
+    btnTextOk = $localize`:@@commonAccept:Accept`;
 
     /**
-     * 
-     * @param dialogReference 
+     *
+     * @param dialogReference - Object reference
      * @param data - JSON object with parameters:
      *  data.title    - Title of the dialog.
      *  data.message  - Message description.
@@ -33,12 +32,12 @@ export class SimpleConfirmDialog {
     constructor(
         private dialogReference: MatDialogRef<SimpleConfirmDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) { 
-        if(data.btnTextCancel) {
-            this.btnTextCancel = data.btnTextCancel
+    ) {
+        if (data.btnTextCancel) {
+            this.btnTextCancel = data.btnTextCancel;
         }
-        if(data.btnTextOk) {
-            this.btnTextOk = data.btnTextOk
+        if (data.btnTextOk) {
+            this.btnTextOk = data.btnTextOk;
         }
     }
 

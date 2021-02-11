@@ -6,6 +6,7 @@ build/
 !**/src/test/**
 run.bat
 run-ui.bat
+C:
 
 ### STS ###
 .apt_generated
