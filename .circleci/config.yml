@@ -6,14 +6,8 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:14.0.2-jdk-buster-node
 
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
 
     working_directory: ~/repo
 
@@ -49,4 +43,4 @@ workflows:
       - build:
           filters:
             branches:
-              only: java_tests
+              only: master

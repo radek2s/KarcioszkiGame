@@ -1,6 +1,7 @@
 # Karcioszki - The Game
 
 [![CodeFactor](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/badge/master)](https://www.codefactor.io/repository/github/radek2s/karcioszkigame/overview/master)
+[![KarcioszkiGame](https://circleci.com/gh/radek2s/KarcioszkiGame.svg?style=svg)]()
 
 Simple project to improve a knowledge about Java and Angular framework.
 
