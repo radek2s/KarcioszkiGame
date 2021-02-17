@@ -9,10 +9,21 @@ group = 'com.regster'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+ext {
+	frontendBuild = true
+}
+
+if(project.hasProperty("db")) {
+	println(":::: NOTE ::::")
+	println("  Disabled Angular Build!")
+	project.ext.setProperty('frontendBuild', false)
+}
+
 processResources {
 	from './karcioszki-ui/dist'
 }
-//processResources.dependsOn(':karcioszki-ui:buildAngular')
+processResources.dependsOn(':karcioszki-ui:buildAngular')
+
 
 repositories {
 	mavenCentral()

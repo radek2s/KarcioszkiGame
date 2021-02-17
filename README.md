@@ -20,11 +20,19 @@ User images are stored under ``C:/karcioszki/uploads/`` directory
 
 
 ### backend:
-``gradle bootRun`` - To run the application Server
+``gradle bootRun`` - To run the application Server  
+``gradle bootRun -Pdb=true`` - To run Server without building Angular Project  
+
+**Note**  
+Using flag `-Pdb=true` you always can skip the Angular building process
+
 ### frontend:
 NOTE: Backend server must be running for developing this application\
 ``npm run-script start`` - To start the develop server for Angular in default mode\
 ``npm run-script start:pl`` - To start the develop server for Angular with Polish localization
+
+### tests:
+``gradle test -Pdb=true`` - To run Java Tests (skip Angular)
 
 ### run:
 When the application server has been started, open browser and type in address field:
