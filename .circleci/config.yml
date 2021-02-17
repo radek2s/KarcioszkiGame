@@ -41,3 +41,12 @@ jobs:
 
       # run tests!
       - run: gradle test
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: java_tests
