@@ -28,6 +28,15 @@ jobs:
 
       - run: gradle dependencies
 
+      - run:
+          name: Validate Enviroment
+          command: |
+            java -version
+            gradle -v
+            node -v
+
+
+
       - save_cache:
           paths:
             - ~/.gradle
@@ -35,6 +44,17 @@ jobs:
 
       # run tests!
       - run: gradle test
+
+      - store_test_results:
+          path: ~/repo/build/test-results
+
+      - run:
+          name: Create JAR
+          command: gradle bootJar
+
+      - store_artifacts:
+          path: ~/repo/build/libs
+
 
 workflows:
   version: 2
