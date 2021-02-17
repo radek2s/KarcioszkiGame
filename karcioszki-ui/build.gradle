@@ -36,7 +36,7 @@ task buildAngular(type:Exec) {
   if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
     commandLine "npm.cmd", "run-script", "build"
   } else {
-    commandLine "ng", "build"
+    commandLine "npm", "run-script", "build"
   }
 
   onlyIf {
