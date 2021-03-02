@@ -4,9 +4,11 @@
         <div *ngIf="playerService.getPlayer() !== null">
             <p>{{playerService.getPlayer().name}}</p>
         </div>
-        <div *ngIf="gameIdList" class="margin-bottom-m">
-            <h4 *ngIf="gameIdList.length !== 0" i18n="@@homeGameList">Acative game list:</h4>
-            <button mat-raised-button color="accent" *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
+        <div *ngIf="gameIdList" class="margin-bottom-s">
+            <h4 *ngIf="gameIdList.length !== 0" i18n="@@homeGameList" class="dialog-header">Acative game list:</h4>
+            <div class="flex-wrap-center">
+                <button mat-raised-button color="accent" class="margin-xs" *ngFor="let id of gameIdList" (click)="joinGameLobby(id)">{{id}}</button>
+            </div>
         </div>
         <button mat-flat-button color="primary" (click)="createGameLobby()" i18n="@@homeGameCreate">Create game</button>
         <hr class="half-width">
