@@ -1,0 +1,66 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:14.0.2-jdk-buster-node
+
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: gradle dependencies
+
+      - run:
+          name: Validate Enviroment
+          command: |
+            java -version
+            gradle -v
+            node -v
+
+
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      # run tests!
+      - run: gradle test -Pdb=true
+
+      - store_test_results:
+          path: ~/repo/build/test-results
+
+      - run:
+          name: Create JAR
+          command: gradle bootJar
+
+      - store_artifacts:
+          path: ~/repo/build/libs
+
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: master

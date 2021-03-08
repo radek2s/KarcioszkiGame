@@ -12,15 +12,6 @@ apply plugin: 'com.moowork.node'
 
 version '0.0.1'
 
-//task build(type: NpmTask) {
-//  dependsOn "npmInstall"
-//  args = ['run', 'build']
-//}
-//
-//task runServe(type: NpmTask) {
-//  args = ['run', 'serve']
-//}
-
 task serveAngular(type:Exec) {
   // installAngular should be run prior to this task
   dependsOn "installAngular"
@@ -37,7 +28,7 @@ task serveAngular(type:Exec) {
 
 task buildAngular(type:Exec) {
   // installAngular should be run prior to this task
-//  dependsOn "installAngular"
+  dependsOn "installAngular"
 
   // Add task to the standard build group
   group = BasePlugin.BUILD_GROUP
@@ -45,7 +36,11 @@ task buildAngular(type:Exec) {
   if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
     commandLine "npm.cmd", "run-script", "build"
   } else {
-    commandLine "ng", "build"
+    commandLine "npm", "run-script", "build"
+  }
+
+  onlyIf {
+    project.property('frontendBuild')
   }
 }
 
@@ -57,4 +52,9 @@ task installAngular(type:Exec) {
   } else {
     commandLine "npm", "install"
   }
+
+  onlyIf {
+    project.property('frontendBuild')
+  }
+
 }
