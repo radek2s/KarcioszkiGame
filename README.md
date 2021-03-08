@@ -41,6 +41,12 @@ to open the application in production mode with a specific locale.
 
 To open this app in Angular development mode just open ``http://localhost:4200/``. 
 
+## Testing the application
+Frontend application has E2E tests build on Cypress Framework. Test files are located under the ```cypress/integration``` directory.
+
+```npm run-script test_e2e``` - Type to run Karcioszki tests.  
+```npm run-script cypress``` - Type to open the Cypress framework to manage the tests.
+
 ### Developed by:
 
 - @radek2s
